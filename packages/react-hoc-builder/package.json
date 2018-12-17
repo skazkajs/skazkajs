@@ -1,0 +1,9 @@
+{
+  "name": "@skazka/react-hoc-builder",
+  "version": "0.0.0",
+  "description": "React HOC Builder",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": ">=16.0.0"
+  }
+}
