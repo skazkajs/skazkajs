@@ -1,0 +1,10 @@
+{
+  "name": "@skazka/react-strict-mode",
+  "version": "0.0.0",
+  "description": "React Strict Mode HOC",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "@skazka/react-hoc-builder": "*"
+  }
+}

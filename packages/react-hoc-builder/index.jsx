@@ -1,7 +1,7 @@
 import React from 'react';
 
-const wrapper = (WrapperComponent, wrapperProps = {}, Component) => () => (
-  <WrapperComponent {...wrapperProps}>
+const wrapper = (WrapperComponent, wrapperProps = {}, Component) => props => (
+  <WrapperComponent {...wrapperProps} {...props}>
     <Component />
   </WrapperComponent>
 );
