@@ -1,0 +1,6 @@
+{
+  "name": "@skazka/react-compose",
+  "version": "0.0.0",
+  "description": "Composing React HOCs",
+  "main": "index.js"
+}
