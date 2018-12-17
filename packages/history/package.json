@@ -1,0 +1,9 @@
+{
+  "name": "@skazka/history",
+  "version": "0.0.0",
+  "description": "Browser History",
+  "main": "index.js",
+  "peerDependencies": {
+    "history": "*"
+  }
+}

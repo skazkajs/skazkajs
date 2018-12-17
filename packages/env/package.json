@@ -1,0 +1,6 @@
+{
+  "name": "@skazka/env",
+  "version": "0.0.0",
+  "description": "Node.js Environment",
+  "main": "index.js"
+}
