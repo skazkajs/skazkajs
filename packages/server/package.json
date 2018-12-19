@@ -1,0 +1,10 @@
+{
+  "name": "@skazka/server",
+  "version": "0.0.0",
+  "description": "React Suspense HOC",
+  "main": "index.js",
+  "peerDependencies": {
+    "@skazka/server-core": "*",
+    "debug": "*"
+  }
+}

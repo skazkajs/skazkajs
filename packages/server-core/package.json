@@ -1,0 +1,9 @@
+{
+  "name": "@skazka/server-core",
+  "version": "0.0.0",
+  "description": "Server Core",
+  "main": "index.js",
+  "peerDependencies": {
+    "debug": "*"
+  }
+}
