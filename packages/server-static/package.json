@@ -1,0 +1,20 @@
+{
+  "name": "@skazka/server-static",
+  "version": "0.0.0",
+  "description": "Server static",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "debug": ">=4.0.0",
+    "mime-types": ">=2.0.0",
+    "mz": ">=2.0.0",
+    "resolve-path": ">=1.0.0"
+  }
+}

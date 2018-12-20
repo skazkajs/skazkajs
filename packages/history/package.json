@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Browser History",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "history": "*"
   }

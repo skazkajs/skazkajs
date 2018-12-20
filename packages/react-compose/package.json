@@ -2,5 +2,9 @@
   "name": "@skazka/react-compose",
   "version": "0.0.0",
   "description": "Composing React HOCs",
-  "main": "index.js"
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT"
 }

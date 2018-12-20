@@ -1,14 +1,13 @@
 {
-  "name": "@skazka/server-http",
+  "name": "@skazka/server-response",
   "version": "0.0.0",
-  "description": "HTTP(S) Server",
+  "description": "Server response",
   "main": "index.js",
   "engines": {
     "node": ">=8.9.0"
   },
   "license": "MIT",
   "peerDependencies": {
-    "@skazka/server": "*",
     "debug": ">=4.0.0"
   }
 }

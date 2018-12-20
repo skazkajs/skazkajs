@@ -25,7 +25,7 @@ module.exports = class {
     return this;
   }
 
-  reject(message) {
+  reject(message) { // eslint-disable-line
     debug('Server reject');
 
     return Promise.reject(message);

@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "description": "Server",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "@skazka/server-core": "*",
-    "debug": "*"
+    "debug": ">=4.0.0"
   }
 }
