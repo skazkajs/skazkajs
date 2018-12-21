@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server",
+  "name": "@skazka/server-error",
   "version": "0.0.0",
-  "description": "Server",
+  "description": "Server Error Handler",
   "main": "index.js",
   "files": [
     "index.js"
@@ -11,7 +11,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@skazka/server-core": "*",
     "debug": ">=4.0.0"
   }
 }

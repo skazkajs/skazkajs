@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Server response",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "response.js"
+  ],
   "engines": {
     "node": ">=8.9.0"
   },
