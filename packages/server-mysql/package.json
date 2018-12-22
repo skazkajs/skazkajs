@@ -1,0 +1,20 @@
+{
+  "name": "@skazka/server-mysql",
+  "version": "0.0.0",
+  "description": "Server MySQL",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "pool.js"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@skazka/server-module": "*",
+    "config": ">=3.0.1",
+    "debug": ">=4.0.0",
+    "promise-mysql": ">=3.3.1"
+  }
+}
