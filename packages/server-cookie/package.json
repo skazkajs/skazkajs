@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server-express",
+  "name": "@skazka/server-cookie",
   "version": "0.0.0",
-  "description": "Server Express Wrapper",
+  "description": "Server cookie parser",
   "main": "index.js",
   "files": [
     "index.js"
@@ -11,7 +11,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@skazka/server-module": "*",
-    "debug": ">=4.0.0"
+    "cookie": ">=0.3.1",
+    "debug": ">=4.0.0",
+    "@skazka/server-module": "*"
   }
 }

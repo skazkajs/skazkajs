@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server-express",
+  "name": "@skazka/server-helmet",
   "version": "0.0.0",
-  "description": "Server Express Wrapper",
+  "description": "Server helmet",
   "main": "index.js",
   "files": [
     "index.js"
@@ -11,7 +11,9 @@
   },
   "license": "MIT",
   "peerDependencies": {
+    "@skazka/server-express": "*",
     "@skazka/server-module": "*",
-    "debug": ">=4.0.0"
+    "debug": ">=4.0.0",
+    "helmet": ">=3.15.0"
   }
 }
