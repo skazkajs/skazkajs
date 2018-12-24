@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/history",
+  "name": "@skazka/react-error-boundary",
   "version": "0.0.0",
-  "description": "Browser History",
+  "description": "React Error Boundary HOC",
   "main": "index.js",
   "engines": {
     "node": ">=8.9.0"
@@ -21,6 +21,9 @@
     "node.js"
   ],
   "peerDependencies": {
-    "history": ">=4.7.2"
+    "react-error-boundary": ">=1.2.3"
+  },
+  "dependencies": {
+    "@skazka/react-hoc-builder": "*"
   }
 }

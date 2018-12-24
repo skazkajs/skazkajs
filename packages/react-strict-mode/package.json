@@ -21,7 +21,9 @@
     "node.js"
   ],
   "peerDependencies": {
-    "react": ">=16.0.0",
+    "react": ">=16.0.0"
+  },
+  "dependencies": {
     "@skazka/react-hoc-builder": "*"
   }
 }
