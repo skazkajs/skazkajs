@@ -1,12 +1,13 @@
-const debug = require('debug')('skazka:server:helmet');
+const debug = require('debug')('skazka:server:graphql');
 
 const express = require('@skazka/server-express');
 const moduleBuilder = require('@skazka/server-module');
 
-const helmet = require('helmet');
+const graphqlHTTP = require('express-graphql');
 
 module.exports = moduleBuilder((context, options = {}) => {
+  debug('GraphQL module created');
   debug('Options: %O', options);
 
-  return express(context, helmet(options));
+  return express(context, graphqlHTTP(options));
 });

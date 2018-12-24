@@ -10,6 +10,19 @@
     "node": ">=8.9.0"
   },
   "license": "MIT",
+  "author": "SkazkaJS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazkajs/skazka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js"
+  ],
   "peerDependencies": {
     "@skazka/server-response": "*",
     "debug": ">=4.0.0"

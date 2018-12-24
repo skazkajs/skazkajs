@@ -2,8 +2,6 @@ const debug = require('debug')('skazka:server:http');
 
 const http = require('http');
 const https = require('https');
-const Server = require('@skazka/server');
-const assert = require('assert');
 
 const port = parseInt(process.env.PORT || '3000', 10);
 
@@ -78,14 +76,10 @@ const addListeners = (server) => {
 };
 
 module.exports = {
-  createHttpServer: (app) => {
-    assert(app instanceof Server, 'The Server should be an instance of @skazka/server!');
-
+  createHttpServer(app) {
     return addListeners(http.createServer(app.resolve()));
   },
-  createHttpsServer: (options, app) => {
-    assert(app instanceof Server, 'The Server should be an instance of @skazka/server!');
-
+  createHttpsServer(options, app) {
     return addListeners(https.createServer(options, app.resolve()));
   },
 };

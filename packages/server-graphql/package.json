@@ -1,11 +1,10 @@
 {
-  "name": "@skazka/server-redis",
+  "name": "@skazka/server-graphql",
   "version": "0.0.0",
-  "description": "Server Redis",
+  "description": "Server GraphQL",
   "main": "index.js",
   "files": [
-    "index.js",
-    "redis.js"
+    "index.js"
   ],
   "engines": {
     "node": ">=8.9.0"
@@ -25,11 +24,12 @@
     "node.js"
   ],
   "peerDependencies": {
+    "@skazka/server-express": "*",
     "@skazka/server-module": "*",
-    "debug": ">=4.0.0"
+    "debug": ">=4.0.0",
+    "graphql": ">=14.0.2"
   },
   "dependencies": {
-    "config": ">=3.0.1",
-    "ioredis": ">=4.3.0"
+    "express-graphql": ">=0.7.1"
   }
 }

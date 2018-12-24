@@ -1,11 +1,10 @@
 {
-  "name": "@skazka/server-redis",
+  "name": "@skazka/server-body-parser",
   "version": "0.0.0",
-  "description": "Server Redis",
+  "description": "Server Body Parser",
   "main": "index.js",
   "files": [
-    "index.js",
-    "redis.js"
+    "index.js"
   ],
   "engines": {
     "node": ">=8.9.0"
@@ -25,11 +24,11 @@
     "node.js"
   ],
   "peerDependencies": {
+    "@skazka/server-express": "*",
     "@skazka/server-module": "*",
     "debug": ">=4.0.0"
   },
   "dependencies": {
-    "config": ">=3.0.1",
-    "ioredis": ">=4.3.0"
+    "body-parser": ">=1.18.3"
   }
 }
