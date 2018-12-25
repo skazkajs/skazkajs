@@ -13,8 +13,10 @@ const {
 const setBody = (context) => {
   context.request = context.request || {}; // eslint-disable-line
 
-  context.request.bosy = context.req.body; // eslint-disable-line
+  context.request.body = context.req.body; // eslint-disable-line
   delete context.req.body; // eslint-disable-line
+
+  return context.request.body;
 };
 
 exports.json = moduleBuilder(async (context, options = {}) => {

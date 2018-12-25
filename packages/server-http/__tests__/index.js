@@ -1,35 +1,32 @@
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
 
-const request = require('supertest');
 const pem = require('pem');
 
 const App = require('@skazka/server');
-const error = require('@skazka/server-error');
 
 const server = require('..');
 
-describe('Server HTTP(s) testing', () => {
-  const stopServer = srv => new Promise(r => srv.close(r));
+const { host, hostSSL, axios } = global;
 
+describe('Server HTTP(s) testing', () => {
   const { exit } = process;
   let app;
   let srv;
 
   beforeEach(() => {
     app = new App();
-    app.then(error());
     Object.defineProperty(process, 'exit', {
       value: () => {
       },
     });
   });
 
-  afterEach(async () => {
+  afterEach((done) => {
     Object.defineProperty(process, 'exit', {
       value: exit,
     });
-    await stopServer(srv);
+    srv.close(done);
   });
 
   test('It should test http server', async () => {
@@ -40,9 +37,10 @@ describe('Server HTTP(s) testing', () => {
 
     srv = server.createHttpServer(app);
 
-    const response = await request(srv).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
   });
 
   test('It should test https server', async () => {
@@ -58,33 +56,10 @@ describe('Server HTTP(s) testing', () => {
 
     srv = server.createHttpsServer(options, app);
 
-    const response = await request(srv).get('/');
+    const data = await axios.get(hostSSL);
 
-    expect(response.statusCode).toBe(200);
-  });
-
-  test('It should test http server with error', (done) => {
-    let isTestFinished = false;
-
-    Object.defineProperty(process, 'exit', {
-      value: () => {
-        isTestFinished = true;
-      },
-    });
-
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
-
-    srv = server.createHttpServer(app);
-
-    process.emit('SIGTERM');
-
-    setTimeout(() => {
-      expect(isTestFinished).toEqual(true);
-      done();
-    }, 0);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
   });
 
   test('It should test https server with pem', (done) => {
@@ -102,8 +77,10 @@ describe('Server HTTP(s) testing', () => {
       }
       srv = server.createHttpsServer({ key, cert }, app);
 
-      request(srv).get('/').then((response) => {
-        expect(response.statusCode).toBe(200);
+      axios.get(hostSSL).then((data) => {
+        expect(data.status).toEqual(200);
+        expect(data.statusText).toEqual('OK');
+
         done();
       });
     });

@@ -2,8 +2,18 @@ const debug = require('debug')('skazka:server:error');
 
 const { STATUS_CODES } = require('http');
 
-module.exports = ({ isJSON = false, hasUserError = true, hasServerError = true } = {}) => async (context) => { // eslint-disable-line
+const moduleBuilder = require('@skazka/server-module');
+
+module.exports = moduleBuilder(async (context, options = {}) => {
   debug('Running error handler...');
+
+  debug('Options:', options);
+
+  const {
+    isJSON = false,
+    hasUserError = true,
+    hasServerError = true,
+  } = options;
 
   if (isJSON) {
     debug('Setting json header...');
@@ -67,4 +77,4 @@ module.exports = ({ isJSON = false, hasUserError = true, hasServerError = true }
       }
     });
   }
-};
+});

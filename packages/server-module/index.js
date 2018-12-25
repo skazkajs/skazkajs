@@ -1,7 +1,9 @@
 const isCorrectContext = context => (!!context.req && !!context.res && !!context.app);
 
+const hasContext = options => options.find(isCorrectContext);
+
 const moduleBuilder = serverModule => (...options) => {
-  if (options.length === serverModule.length) {
+  if (hasContext(options)) {
     if (options[0] && !isCorrectContext(options[0])) {
       throw new Error('Context should be the first parameter!');
     }

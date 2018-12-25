@@ -24,6 +24,12 @@
     "node.js"
   ],
   "peerDependencies": {
+    "@skazka/server-module": "*",
     "debug": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@skazka/server": "*",
+    "@skazka/server-http": "*",
+    "axios": ">=0.18.0"
   }
 }

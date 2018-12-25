@@ -31,7 +31,7 @@
     "debug": ">=4.0.0"
   },
   "devDependencies": {
-    "promise-pause-timeout": ">=1.0.0",
-    "supertest": ">=3.3.0"
+    "axios": ">=0.18.0",
+    "promise-pause-timeout": ">=1.0.0"
   }
 }

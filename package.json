@@ -14,8 +14,8 @@
     "bootstrap": "lerna bootstrap",
     "test": "npm-run-all test:*",
     "test:lint": "eslint . --ext .js,.jsx",
-    "test:code": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 jest",
-    "test:coverage": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 jest --coverage",
+    "test:code": "cross-env NODE_ENV=test NODE_TLS_REJECT_UNAUTHORIZED=0 PORT=5000 jest --runInBand",
+    "test:coverage": "cross-env NODE_ENV=test NODE_TLS_REJECT_UNAUTHORIZED=0 PORT=6000 jest --coverage --runInBand",
     "precommit": "npm t",
     "prepush": "npm t"
   },
@@ -35,6 +35,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-react-hot-loader": "^3.1.3",
@@ -74,7 +75,6 @@
     "react-router": "^4.3.1",
     "redux": "^4.0.1",
     "resolve-path": "^1.4.0",
-    "supertest": "^3.3.0",
     "vary": "^1.1.2"
   }
 }

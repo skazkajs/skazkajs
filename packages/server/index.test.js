@@ -1,8 +1,11 @@
 const http = require('http');
-const request = require('supertest');
 const pause = require('promise-pause-timeout');
 
 const App = require('.');
+
+const { host, axios } = global;
+
+const port = parseInt(process.env.PORT || '3000', 10);
 
 describe('Server testing', () => {
   let app;
@@ -11,10 +14,11 @@ describe('Server testing', () => {
   beforeEach(() => {
     app = new App();
     server = http.createServer(app.resolve());
+    server.listen(port);
   });
 
-  afterEach(() => {
-    server.close();
+  afterEach((done) => {
+    server.close(done);
   });
 
   test('It should test promise', async () => {
@@ -29,11 +33,13 @@ describe('Server testing', () => {
       ctx.res.end(text);
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
-    expect(response.headers['content-type']).toEqual(contentType);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-type']).toEqual(contentType);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test 3 calls', async () => {
@@ -46,23 +52,29 @@ describe('Server testing', () => {
       ctx.res.end(text);
     });
 
-    const response1 = await request(server).get('/');
+    const data1 = await axios.get(host);
 
-    expect(response1.statusCode).toBe(200);
-    expect(response1.text).toEqual(text);
-    expect(response1.headers['content-type']).toEqual(contentType);
+    expect(data1.status).toEqual(200);
+    expect(data1.statusText).toEqual('OK');
+    expect(data1.data).toEqual(text);
+    expect(data1.headers['content-type']).toEqual(contentType);
+    expect(data1.headers['content-length']).toEqual(text.length.toString());
 
-    const response2 = await request(server).get('/');
+    const data2 = await axios.get(host);
 
-    expect(response2.statusCode).toBe(200);
-    expect(response2.text).toEqual(text);
-    expect(response2.headers['content-type']).toEqual(contentType);
+    expect(data2.status).toEqual(200);
+    expect(data2.statusText).toEqual('OK');
+    expect(data2.data).toEqual(text);
+    expect(data2.headers['content-type']).toEqual(contentType);
+    expect(data2.headers['content-length']).toEqual(text.length.toString());
 
-    const response3 = await request(server).get('/');
+    const data3 = await axios.get(host);
 
-    expect(response3.statusCode).toBe(200);
-    expect(response3.text).toEqual(text);
-    expect(response3.headers['content-type']).toEqual(contentType);
+    expect(data3.status).toEqual(200);
+    expect(data3.statusText).toEqual('OK');
+    expect(data3.data).toEqual(text);
+    expect(data3.headers['content-type']).toEqual(contentType);
+    expect(data3.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test chain of promises', async () => {
@@ -81,12 +93,13 @@ describe('Server testing', () => {
       ctx.res.end(text);
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
-    expect(response.headers['content-type']).toEqual(contentType);
-    expect(response.headers['content-length']).toEqual('4');
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-type']).toEqual(contentType);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test error handler', async () => {
@@ -99,10 +112,12 @@ describe('Server testing', () => {
       ctx.res.end(err.message);
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test error handler without Promise.reject()', async () => {
@@ -117,10 +132,12 @@ describe('Server testing', () => {
       ctx.res.end(err.message);
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test 2 error handlers', async () => {
@@ -140,10 +157,12 @@ describe('Server testing', () => {
       isTestFinished2 = true;
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
 
     expect(isTestFinished1).toBe(true);
     expect(isTestFinished2).toBe(true);
@@ -167,9 +186,12 @@ describe('Server testing', () => {
       isTestOk = false;
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual('test');
+    expect(data.headers['content-length']).toEqual('test'.length.toString());
 
     expect(isTestOk).toBe(true);
   });
@@ -192,9 +214,12 @@ describe('Server testing', () => {
       isTestOk = false;
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual('test');
+    expect(data.headers['content-length']).toEqual('test'.length.toString());
 
     expect(isTestOk).toBe(true);
   });
@@ -218,9 +243,12 @@ describe('Server testing', () => {
       isTestOk = true;
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual('test');
+    expect(data.headers['content-length']).toEqual('test'.length.toString());
 
     expect(isTestOk).toBe(true);
   });
@@ -244,9 +272,12 @@ describe('Server testing', () => {
       isTestOk = true;
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.data).toEqual('test');
+    expect(data.headers['content-length']).toEqual('test'.length.toString());
 
     expect(isTestOk).toBe(true);
   });
@@ -270,12 +301,13 @@ describe('Server testing', () => {
       ctx.res.end(text);
     });
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toEqual(text);
-    expect(response.headers['content-type']).toEqual(contentType);
-    expect(response.headers['content-length']).toEqual('4');
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
+    expect(data.headers['content-type']).toEqual(contentType);
+    expect(data.data).toEqual(text);
+    expect(data.headers['content-length']).toEqual(text.length.toString());
   });
 
   test('It should test race', async () => {
@@ -290,9 +322,10 @@ describe('Server testing', () => {
       },
     ]);
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
   });
 
   test('It should test race without reject', async () => {
@@ -307,8 +340,9 @@ describe('Server testing', () => {
       },
     ]);
 
-    const response = await request(server).get('/');
+    const data = await axios.get(host);
 
-    expect(response.statusCode).toBe(200);
+    expect(data.status).toEqual(200);
+    expect(data.statusText).toEqual('OK');
   });
 });

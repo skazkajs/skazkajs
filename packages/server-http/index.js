@@ -63,8 +63,8 @@ const addListeners = (server) => {
 
   server.on('close', () => {
     debug('Server stop');
-    server.removeAllListeners();
     process.removeAllListeners();
+    server.removeAllListeners();
   });
 
 

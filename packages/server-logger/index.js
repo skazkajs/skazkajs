@@ -2,7 +2,9 @@ const debug = require('debug')('skazka:server:logger');
 
 const { STATUS_CODES } = require('http');
 
-module.exports = (logger = console) => async (context) => {
+const moduleBuilder = require('@skazka/server-module');
+
+module.exports = moduleBuilder(async (context, logger = console) => {
   debug('Logger creating...');
 
   if (!(logger.warn && logger.error)) {
@@ -51,4 +53,4 @@ module.exports = (logger = console) => async (context) => {
       ctx.logger.error({ message, url, stack });
     });
   }
-};
+});
