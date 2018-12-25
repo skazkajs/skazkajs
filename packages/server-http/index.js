@@ -8,6 +8,7 @@ const port = parseInt(process.env.PORT || '3000', 10);
 /**
  * Event listener for HTTP server "error" event.
  */
+/* istanbul ignore next */
 const onError = (error) => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -33,6 +34,7 @@ const onError = (error) => {
 /**
  * Event listener for HTTP server "listening" event
  */
+/* istanbul ignore next */
 const onListening = (server) => {
   const address = server.address();
   const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;

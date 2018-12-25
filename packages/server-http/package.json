@@ -25,5 +25,11 @@
   ],
   "peerDependencies": {
     "debug": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@skazka/server": "*",
+    "@skazka/server-error": "*",
+    "pem": ">=1.13.2",
+    "supertest": ">=3.3.0"
   }
 }
