@@ -62,7 +62,7 @@ module.exports = class {
           const requestProtocol = ctx.req.connection.encrypted ? 'https' : 'http';
           debug('Request protocol: %s', requestProtocol);
 
-          const hostname = ctx.req.headers.host || '';
+          const hostname = ctx.req.headers.host;
           debug('Hostname: %s', hostname);
 
           const regexp = getRegexp(domain);
