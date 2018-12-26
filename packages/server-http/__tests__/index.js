@@ -1,5 +1,6 @@
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
+const https = require('https');
 
 const pem = require('pem');
 
@@ -56,7 +57,9 @@ describe('Server HTTP(s) testing', () => {
 
     srv = server.createHttpsServer(options, app);
 
-    const data = await axios.get(hostSSL);
+    const data = await axios.get(hostSSL, {
+      httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    });
 
     expect(data.status).toEqual(200);
     expect(data.statusText).toEqual('OK');
@@ -77,7 +80,9 @@ describe('Server HTTP(s) testing', () => {
       }
       srv = server.createHttpsServer({ key, cert }, app);
 
-      axios.get(hostSSL).then((data) => {
+      axios.get(hostSSL, {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+      }).then((data) => {
         expect(data.status).toEqual(200);
         expect(data.statusText).toEqual('OK');
 

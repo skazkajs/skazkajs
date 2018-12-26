@@ -30,5 +30,10 @@
   },
   "dependencies": {
     "helmet": ">=3.15.0"
+  },
+  "devDependencies": {
+    "@skazka/server": "*",
+    "@skazka/server-http": "*",
+    "axios": ">=0.18.0"
   }
 }

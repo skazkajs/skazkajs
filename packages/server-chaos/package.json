@@ -29,5 +29,9 @@
     "debug": ">=4.0.0",
     "promise-pause-timeout": ">=1.0.0",
     "@skazka/server-response": "*"
+  },
+  "devDependencies": {
+    "@skazka/server": "*",
+    "@skazka/server-http": "*"
   }
 }

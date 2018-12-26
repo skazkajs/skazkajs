@@ -14,8 +14,8 @@
     "bootstrap": "lerna bootstrap",
     "test": "npm-run-all test:*",
     "test:lint": "eslint . --ext .js,.jsx",
-    "test:code": "cross-env NODE_ENV=test NODE_TLS_REJECT_UNAUTHORIZED=0 PORT=5000 jest --runInBand",
-    "test:coverage": "cross-env NODE_ENV=test NODE_TLS_REJECT_UNAUTHORIZED=0 PORT=6000 jest --coverage --runInBand",
+    "test:code": "cross-env PORT=5000 jest --runInBand",
+    "test:coverage": "cross-env PORT=6000 jest --coverage --runInBand",
     "precommit": "npm t",
     "prepush": "npm t"
   },

@@ -26,5 +26,11 @@
   ],
   "peerDependencies": {
     "debug": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@skazka/server": "*",
+    "@skazka/server-error": "*",
+    "@skazka/server-http": "*",
+    "axios": ">=0.18.0"
   }
 }
