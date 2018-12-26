@@ -24,9 +24,13 @@
     "node.js"
   ],
   "peerDependencies": {
+    "@skazka/server-express": "*",
+    "@skazka/server-module": "*",
     "debug": ">=4.0.0"
   },
   "dependencies": {
-    "vary": ">=1.1.2"
+    "@skazka/server": "*",
+    "@skazka/server-http": "*",
+    "cors": ">=2.8.5"
   }
 }
