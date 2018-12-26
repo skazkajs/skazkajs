@@ -5,15 +5,7 @@
 yarn-error.log
 *.log
 node_modules
-dist
-lib
-es
 coverage
-
-website/translated_docs
-website/build/
-website/node_modules
-website/i18n/*
 
 # Keep .gitkeep files
 !/**/.gitkeep
