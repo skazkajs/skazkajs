@@ -42,6 +42,45 @@ describe('Server response test', () => {
     });
   });
 
+  test('It should test all', async () => {
+    router.all('/test').then(async (ctx) => {
+      ctx.res.statusCode = 200;
+      ctx.res.end('homepage');
+    });
+
+    app.then(router.resolve());
+
+    await axios.get(`${host}/test`).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('homepage');
+    });
+
+    await axios.post(`${host}/test`).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('homepage');
+    });
+
+    await axios.head(`${host}/test`).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('');
+    });
+
+    await axios.put(`${host}/test`).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('homepage');
+    });
+
+    await axios.delete(`${host}/test`).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('homepage');
+    });
+  });
+
   test('It should test catch with url', async () => {
     router.catch({ url: '/test' }).then(async (ctx) => {
       ctx.res.statusCode = 200;
