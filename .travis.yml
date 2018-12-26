@@ -6,7 +6,7 @@ node_js:
 cache: yarn
 
 install:
-  - yarn global add lerna jest
+  - npm i -g yarn lerna jest
   - lerna bootstrap
 
 script:
