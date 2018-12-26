@@ -3,6 +3,7 @@ const debug = require('debug')('skazka:server:http');
 const http = require('http');
 const https = require('https');
 
+/* istanbul ignore next */
 const port = parseInt(process.env.PORT || '3000', 10);
 
 /**
@@ -44,6 +45,7 @@ const onListening = (server) => {
 /**
  * Adding listeners to server
  */
+/* istanbul ignore next */
 const addListeners = (server) => {
   /**
    * Stop server

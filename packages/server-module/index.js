@@ -11,7 +11,13 @@ const moduleBuilder = serverModule => (...options) => {
     return serverModule(...options);
   }
 
-  return context => serverModule(context, ...options);
+  return (context) => {
+    if (!isCorrectContext(context)) {
+      throw new Error('Context should be the first parameter!');
+    }
+
+    return serverModule(context, ...options);
+  };
 };
 
 module.exports = moduleBuilder;
