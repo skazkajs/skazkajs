@@ -32,23 +32,4 @@ module.exports = root => context => new Promise((resolve, reject) => {
       debug('finish');
       reject();
     });
-
-  // for testing
-  if (global.serverTestReadStream) {
-    debug('serverTestReadStream');
-
-    readStream.emit('error', new Error('Read stream test error'));
-  }
-
-  if (global.serverTestResponseError) {
-    debug('serverTestResponseError');
-
-    response.emit('error', new Error('Response test error'));
-  }
-
-  if (global.serverTestResponseClose) {
-    debug('serverTestResponseClose');
-
-    response.emit('close');
-  }
 });

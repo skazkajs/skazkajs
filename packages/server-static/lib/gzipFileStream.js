@@ -33,30 +33,4 @@ module.exports = (path, response, encoding) => new Promise((resolve, reject) => 
       debug('Encoding finish');
       resolve();
     });
-
-
-  // for testing
-  if (global.serverZipTestReadStream) {
-    debug('serverZipTestReadStream');
-
-    readStream.emit('error', new Error('Read stream test error'));
-  }
-
-  if (global.serverZipTestZipStream) {
-    debug('serverZipTestZipStream');
-
-    zipStream.emit('error', new Error('Zip stream test error'));
-  }
-
-  if (global.serverZipTestResponseError) {
-    debug('serverZipTestResponseError');
-
-    response.emit('error', new Error('Zip stream test error'));
-  }
-
-  if (global.serverZipTestResponseClose) {
-    debug('serverZipTestResponseClose');
-
-    response.emit('close');
-  }
 });

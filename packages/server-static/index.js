@@ -73,6 +73,8 @@ module.exports = ({
 
     if (error) {
       if (!['ENOENT', 'ENAMETOOLONG', 'ENOTDIR'].includes(error.code)) {
+        error.code = 403;
+
         return Promise.reject(error);
       }
 
