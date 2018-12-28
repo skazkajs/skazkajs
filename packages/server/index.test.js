@@ -1,5 +1,5 @@
 const http = require('http');
-const pause = require('promise-pause-timeout');
+const pause = require('promise-pause-timeout'); //  eslint-disable-line
 
 const App = require('.');
 

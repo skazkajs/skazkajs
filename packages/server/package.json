@@ -29,9 +29,5 @@
     "@skazka/server-module": "*",
     "@skazka/server-response": "*",
     "debug": ">=4.0.0"
-  },
-  "devDependencies": {
-    "axios": ">=0.18.0",
-    "promise-pause-timeout": ">=1.0.0"
   }
 }

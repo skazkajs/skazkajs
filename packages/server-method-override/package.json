@@ -24,9 +24,11 @@
     "node.js"
   ],
   "peerDependencies": {
+    "@skazka/server-express": "*",
+    "@skazka/server-module": "*",
     "debug": ">=4.0.0"
   },
   "dependencies": {
-    "methods": ">=1.1.2"
+    "method-override": ">=3.0.0"
   }
 }

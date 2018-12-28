@@ -2,9 +2,9 @@ const { readFileSync } = require('fs');
 const { resolve } = require('path');
 const https = require('https');
 
-const pem = require('pem');
+const pem = require('pem'); //  eslint-disable-line
 
-const App = require('@skazka/server');
+const App = require('@skazka/server'); //  eslint-disable-line
 
 const server = require('..');
 

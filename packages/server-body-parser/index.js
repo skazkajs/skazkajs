@@ -14,7 +14,6 @@ const setBody = (context) => {
   context.request = context.request || {}; // eslint-disable-line
 
   context.request.body = context.req.body; // eslint-disable-line
-  delete context.req.body; // eslint-disable-line
 
   return context.request.body;
 };
@@ -46,7 +45,7 @@ exports.text = moduleBuilder(async (context, options = {}) => {
   return setBody(context);
 });
 
-exports.urlencoded = moduleBuilder(async (context, options = {}) => {
+exports.urlencoded = moduleBuilder(async (context, options) => {
   debug('BodyParser urlencoded module created');
   debug('Options: %O', options);
 

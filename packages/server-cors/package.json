@@ -29,8 +29,6 @@
     "debug": ">=4.0.0"
   },
   "dependencies": {
-    "@skazka/server": "*",
-    "@skazka/server-http": "*",
     "cors": ">=2.8.5"
   }
 }

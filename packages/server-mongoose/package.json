@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "config": ">=3.0.1",
-    "mongoose": ">=5.4.0"
+    "mongoose": ">=5.4.1"
   }
 }

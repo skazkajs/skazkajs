@@ -25,10 +25,5 @@
   ],
   "peerDependencies": {
     "debug": ">=4.0.0"
-  },
-  "devDependencies": {
-    "@skazka/server": "*",
-    "axios": ">=0.18.0",
-    "pem": ">=1.13.2"
   }
 }

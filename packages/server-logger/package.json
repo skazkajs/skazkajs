@@ -26,12 +26,5 @@
   "peerDependencies": {
     "@skazka/server-module": "*",
     "debug": ">=4.0.0"
-  },
-  "devDependencies": {
-    "@skazka/server": "*",
-    "@skazka/server-error": "*",
-    "@skazka/server-http": "*",
-    "@skazka/server-router": "*",
-    "axios": ">=0.18.0"
   }
 }

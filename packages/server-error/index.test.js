@@ -1,5 +1,5 @@
-const App = require('@skazka/server');
-const srv = require('@skazka/server-http');
+const App = require('@skazka/server'); //  eslint-disable-line
+const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const error = require('.');
 

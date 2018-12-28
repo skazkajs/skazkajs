@@ -1,7 +1,7 @@
-const App = require('@skazka/server');
-const Router = require('@skazka/server-router');
-const errorHandler = require('@skazka/server-error');
-const srv = require('@skazka/server-http');
+const App = require('@skazka/server'); //  eslint-disable-line
+const Router = require('@skazka/server-router'); //  eslint-disable-line
+const errorHandler = require('@skazka/server-error'); //  eslint-disable-line
+const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const logger = require('.');
 

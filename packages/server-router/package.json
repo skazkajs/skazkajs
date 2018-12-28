@@ -28,11 +28,5 @@
   },
   "dependencies": {
     "path-to-regexp": ">=2.4.0"
-  },
-  "devDependencies": {
-    "@skazka/server": "*",
-    "@skazka/server-error": "*",
-    "@skazka/server-http": "*",
-    "axios": ">=0.18.0"
   }
 }
