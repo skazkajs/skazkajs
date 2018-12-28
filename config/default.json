@@ -31,7 +31,7 @@
   "mongoose": {
     "uri": "mongodb://localhost/test",
     "parameters": {
-      "useMongoClient": true
+      "useNewUrlParser": true
     }
   }
 }

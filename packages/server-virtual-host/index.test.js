@@ -10,7 +10,7 @@ const VirtualHost = require('.');
 
 const { host, hostSSL, axios } = global;
 
-describe('YEPS cookies parser', async () => {
+describe('Server virtual host parser', async () => {
   let app;
   let server;
 

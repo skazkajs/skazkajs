@@ -1,0 +1,8 @@
+{
+  "mongoose": {
+    "uri": "mongodb://localhost/test",
+    "parameters": {
+      "useNewUrlParser": true
+    }
+  }
+}
