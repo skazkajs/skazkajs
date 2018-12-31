@@ -21,7 +21,21 @@
   "homepage": "https://skazkajs.org/",
   "keywords": [
     "skazka",
-    "node.js"
+    "node.js",
+    "promise",
+    "body",
+    "http",
+    "https",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "tls",
+    "ssl",
+    "easy",
+    "server"
   ],
   "peerDependencies": {
     "debug": ">=4.0.0"

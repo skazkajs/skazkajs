@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server-cookie",
+  "name": "@skazka/server-cookies",
   "version": "0.0.0",
-  "description": "Server cookie parser",
+  "description": "Server cookies parser",
   "main": "index.js",
   "files": [
     "index.js"
@@ -21,7 +21,20 @@
   "homepage": "https://skazkajs.org/",
   "keywords": [
     "skazka",
-    "node.js"
+    "node.js",
+    "promise",
+    "body",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "parser",
+    "cookie"
   ],
   "peerDependencies": {
     "debug": ">=4.0.0",
