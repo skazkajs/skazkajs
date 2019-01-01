@@ -11,7 +11,7 @@ class Response {
     this.ctx = ctx;
   }
 
-  async resolve(data = '') {
+  async resolve(data = '', code = 200) {
     debug('Response resolve');
     debug('Response data:');
     debug(data);
@@ -34,6 +34,7 @@ class Response {
       }
 
       debug('Finishing...');
+      this.ctx.res.statusCode = code;
       this.ctx.res.end(res);
     }
 

@@ -43,7 +43,7 @@ config/default.json
 ```javascript
 const App = require('@skazka/server');
 const Router = require('@skazka/server-router');
-        
+
 const pg = require('@skazka/server-pg');
         
 const error = require('@skazka/server-error');

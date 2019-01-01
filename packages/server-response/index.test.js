@@ -53,6 +53,62 @@ describe('Server response test', () => {
     expect(mockThen2).not.toHaveBeenCalled();
   });
 
+  test('It should test response with status code', async () => {
+    const mockThen1 = jest.fn();
+    const mockThen2 = jest.fn();
+
+    app.then(async (ctx) => {
+      mockThen1();
+
+      return ctx.response.resolve('test', 202);
+    });
+
+    app.then(async (ctx) => {
+      mockThen2();
+
+      ctx.res.end('test2');
+
+      return Promise.reject();
+    });
+
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(202);
+      expect(response.statusText).toEqual('Accepted');
+      expect(response.data).toEqual('test');
+    });
+
+    expect(mockThen1).toHaveBeenCalled();
+    expect(mockThen2).not.toHaveBeenCalled();
+  });
+
+  test('It should test response with error status code', async () => {
+    const mockThen1 = jest.fn();
+    const mockThen2 = jest.fn();
+
+    app.then(async (ctx) => {
+      mockThen1();
+
+      return ctx.response.resolve('test', 404);
+    });
+
+    app.then(async (ctx) => {
+      mockThen2();
+
+      ctx.res.end('test2');
+
+      return Promise.reject();
+    });
+
+    await axios.get(host).catch(({ response }) => {
+      expect(response.status).toEqual(404);
+      expect(response.statusText).toEqual('Not Found');
+      expect(response.data).toEqual('test');
+    });
+
+    expect(mockThen1).toHaveBeenCalled();
+    expect(mockThen2).not.toHaveBeenCalled();
+  });
+
   test('It should test sent response', async () => {
     const mockThen1 = jest.fn();
     const mockThen2 = jest.fn();
