@@ -78,7 +78,7 @@ class Response {
     this.ctx.res.statusCode = code;
     this.ctx.res.setHeader('Location', url);
 
-    return this.resolve();
+    return this.resolve(undefined, code);
   }
 }
 
