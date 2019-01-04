@@ -5,7 +5,18 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "chaos.js"
+    "chaos.js",
+    "promise",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "chaos monkey"
   ],
   "engines": {
     "node": ">=8.9.0"

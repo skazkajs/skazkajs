@@ -46,7 +46,7 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   try {
     ctx.logger.info('some text');
     // some code with errors
@@ -55,7 +55,7 @@ app.then(async ctx => {
   }
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   try {
       ctx.logger.log('/url');
       // some code with errors

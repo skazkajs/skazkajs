@@ -47,7 +47,7 @@ app.all([
   response(),
 ]);
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   return ctx.response.resolve('data'); 
 });
         
@@ -92,7 +92,7 @@ app.all([
   response(),
 ]);
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   await cors();
   return ctx.response.resolve('data'); 
 });

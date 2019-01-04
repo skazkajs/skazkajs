@@ -43,11 +43,11 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   // code for each request
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   return ctx.response.resolve('data'); 
 });
         

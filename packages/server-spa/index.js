@@ -1,35 +1,46 @@
 const debug = require('debug')('skazka:server:spa');
 
-const { createReadStream } = require('fs');
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
 
-module.exports = root => context => new Promise((resolve, reject) => {
+const stat = util.promisify(fs.stat);
+
+module.exports = ({ root, index = 'index.html' }) => async (context) => {
+  debug('Server spa');
+
   debug('root:', root);
+  debug('index:', index);
 
-  const readStream = createReadStream(root);
+  const file = path.resolve(root, index);
 
-  const response = context.res;
+  try {
+    debug('Checking file existing');
+    await stat(file);
+  } catch (err) {
+    debug('File does not exist:');
+    debug(err);
 
-  response.setHeader('Content-Type', 'text/html;charset=UTF-8');
+    err.code = 404;
 
-  const wrongFlowHandle = (error) => {
-    debug('File error:');
-    debug(error);
+    return Promise.reject(err);
+  }
 
-    readStream.destroy();
-    response.statusCode = 500;
-    response.end();
-    reject(error);
-  };
+  return new Promise((resolve, reject) => {
+    debug('Setting no cache headers');
 
-  readStream.pipe(response);
+    context.res.setHeader('Surrogate-Control', 'no-store');
+    context.res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    context.res.setHeader('Pragma', 'no-cache');
+    context.res.setHeader('Expires', '0');
+    context.res.setHeader('Content-Type', 'text/html;charset=UTF-8');
 
-  readStream.on('error', wrongFlowHandle);
+    debug('Sending file');
 
-  response
-    .on('error', wrongFlowHandle)
-    .on('close', wrongFlowHandle)
-    .on('finish', () => {
-      debug('finish');
-      reject();
-    });
-});
+    fs.createReadStream(file)
+      .pipe(context.res)
+      .on('error', reject)
+      .on('close', reject)
+      .on('finish', reject);
+  });
+};

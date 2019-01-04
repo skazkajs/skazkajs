@@ -16,6 +16,6 @@ Parse **Cookie** header and populate ctx.request.cookies with an object keyed by
     
     app.then(cookies());
     
-    app.then(async ctx => {
+    app.then(async (ctx) => {
         console.log(ctx.request.cookies);
     });

@@ -24,17 +24,17 @@ With yarn:
 
 ### Config
 
-config/default.json
+#### config/default.json
 
 ```json
 {
-    "pg": {
-        "host": "127.0.0.1",
-        "port": 5432,
-        "user": "user",
-        "password": "password",
-        "database": "database"
-    }
+  "pg": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "user": "user",
+    "password": "password",
+    "database": "database"
+  }
 }
 ```
 
@@ -63,11 +63,12 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
+  // it works for each request
   const result = await ctx.pg.query('SELECT * FROM users;');
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   const result = await ctx.pg.query('SELECT * FROM users;');
             
   return ctx.response.resolve(result); 
@@ -81,7 +82,7 @@ server.createHttpServer(app);
 With connection:
 
 ```javascript
-app.then(async ctx => {
+app.then(async (ctx) => {
   const client = await ctx.pg.connect();
   const result = await client.query('SELECT * FROM users;');
   client.release();
@@ -137,7 +138,7 @@ app.all([
   pg(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   const client = await ctx.pg.connect();
         
   try {

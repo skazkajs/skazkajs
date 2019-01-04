@@ -45,11 +45,11 @@ app.all([
   helmet(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   // it works for each request
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   return ctx.response.resolve('data'); 
 });
         

@@ -1,4 +1,5 @@
 const App = require('@skazka/server'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const error = require('.');
@@ -30,11 +31,9 @@ describe('Server error handler test', () => {
 
   test('It should test disabled 404 error handler', async () => {
     app.then(error({ hasUserError: false }));
+    app.then(response());
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response.resolve(''));
 
     const data = await axios.get(host);
 
@@ -45,11 +44,11 @@ describe('Server error handler test', () => {
   test('It should test 404 error handler json', async () => {
     app.then(error({ isJSON: true }));
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Not Found');
     });
   });
 
@@ -87,44 +86,44 @@ describe('Server error handler test', () => {
   test('It should test 404 error handler with 3 requests', async () => {
     app.then(error());
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
     });
   });
 
   test('It should test 404 error handler with 3 requests json', async () => {
     app.then(error({ isJSON: true }));
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Not Found');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Not Found');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Not Found');
     });
   });
 
@@ -136,10 +135,10 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -155,10 +154,10 @@ describe('Server error handler test', () => {
       ctx.res.end(err.message);
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -169,11 +168,11 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
   });
 
@@ -184,11 +183,11 @@ describe('Server error handler test', () => {
       throw new Error();
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
   });
 
@@ -199,10 +198,10 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -215,11 +214,11 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
   });
 
@@ -232,11 +231,11 @@ describe('Server error handler test', () => {
       throw new Error();
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
   });
 
@@ -251,28 +250,26 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
     });
   });
 
   test('It should test 500 error handler without error json', async () => {
     app.then(error({ isJSON: true }));
+    app.then(response());
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response.resolve(''));
 
     app.then(async () => {
       throw new Error('test');
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.headers['content-type']).toEqual('application/json');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.headers['content-type']).toEqual('application/json');
     });
   });
 
@@ -283,22 +280,22 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -309,25 +306,25 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
   });
 
@@ -338,25 +335,25 @@ describe('Server error handler test', () => {
       throw new Error();
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
   });
 
@@ -369,22 +366,22 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -397,25 +394,25 @@ describe('Server error handler test', () => {
       throw new Error('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('test');
     });
   });
 
@@ -428,25 +425,25 @@ describe('Server error handler test', () => {
       throw new Error();
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['content-type']).toEqual('application/json');
-      expect(response.data.message).toEqual('Internal Server Error');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.message).toEqual('Internal Server Error');
     });
   });
 
@@ -460,10 +457,10 @@ describe('Server error handler test', () => {
       return Promise.reject(err);
     });
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(403);
-      expect(response.statusText).toEqual('Forbidden');
-      expect(response.data).toEqual('Forbidden');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(403);
+      expect(res.statusText).toEqual('Forbidden');
+      expect(res.data).toEqual('Forbidden');
     });
   });
 
@@ -474,10 +471,24 @@ describe('Server error handler test', () => {
       ctx.res.end('finished');
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('finished');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('finished');
+    });
+  });
+
+  test('It should test object to json with request', async () => {
+    app.then(error({ isJSON: true }));
+    app.then(response());
+
+    app.then(ctx => ctx.response.resolve({ data: 'test' }));
+
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.headers['content-type']).toEqual('application/json');
+      expect(res.data.data).toEqual('test');
     });
   });
 });

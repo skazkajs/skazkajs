@@ -24,7 +24,7 @@ With yarn:
 
 ### Config
 
-config/default.json
+#### config/default.json
 
 ```json
 {
@@ -60,12 +60,12 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   await ctx.redis.set('data', 'test');
   const data = await ctx.redis.get('data');
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   await ctx.redis.set('data', 'test');
   const data = await ctx.redis.get('data');
         

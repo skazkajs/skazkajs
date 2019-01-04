@@ -42,11 +42,11 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   // it works for each request
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   // it works only for "/url"
   return ctx.response.resolve('data'); 
 });

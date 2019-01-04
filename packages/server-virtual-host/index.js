@@ -46,10 +46,7 @@ module.exports = class {
 
     return ctx => Promise.all(this.domains.map(domain => domain(ctx)))
       .then(() => debug('Host not found!'))
-      .catch(async (fn) => {
-        await fn(ctx);
-        return Promise.reject();
-      });
+      .catch(fn => fn(ctx));
   }
 
   catch({ domain = /.*/, protocol = '*' } = {}) {

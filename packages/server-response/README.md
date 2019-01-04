@@ -42,13 +42,13 @@ app.all([
   response(),
 ]);
     
-app.then(async ctx => {
+app.then(async (ctx) => {
   // it works for each request
   // it stops all other modules
   return ctx.response.resolve('data'); 
 });
     
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   // it works only for this route
   return ctx.response.resolve('data'); 
 });
@@ -68,7 +68,7 @@ app.then(async (ctx) => {
   return Promise.reject();
 });
 
-router.get('/url').then(async ctx => {
+router.get('/data').then(async (ctx) => {
   ctx.res.statusCode = 200;
   ctx.res.end('data');
         
