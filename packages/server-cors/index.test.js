@@ -5,7 +5,7 @@ const cors = require('.');
 
 const { host, axios } = global;
 
-describe('Server helmet', async () => {
+describe('Server cors test', async () => {
   let app;
   let server;
 

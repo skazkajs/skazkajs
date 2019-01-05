@@ -7,7 +7,7 @@ const helmet = require('.');
 
 const { host, axios } = global;
 
-describe('Server helmet', async () => {
+describe('Server helmet test', async () => {
   let app;
   let server;
 

@@ -6,9 +6,9 @@ const normalContext = {
   app: {},
 };
 
-describe('Server module testing', () => {
-  describe('Function testing', () => {
-    describe('Without context', () => {
+describe('Server module test', () => {
+  describe('Function test', () => {
+    describe('Without context test', () => {
       test('It should test 0 parameters', () => {
         const mock = jest.fn();
 
@@ -99,7 +99,7 @@ describe('Server module testing', () => {
         expect(mock).not.toHaveBeenCalled();
       });
     });
-    describe('With context', () => {
+    describe('With context test', () => {
       test('It should test 0 parameters', () => {
         const mock = jest.fn();
 
@@ -191,8 +191,8 @@ describe('Server module testing', () => {
       });
     });
   });
-  describe('Promise testing', () => {
-    describe('Without context', () => {
+  describe('Promise test', () => {
+    describe('Without context test', () => {
       test('It should test 0 parameters', async () => {
         const mock = jest.fn();
 
@@ -283,7 +283,7 @@ describe('Server module testing', () => {
         expect(mock).not.toHaveBeenCalled();
       });
     });
-    describe('With context', () => {
+    describe('With context test', () => {
       test('It should test 0 parameters', async () => {
         const mock = jest.fn();
 

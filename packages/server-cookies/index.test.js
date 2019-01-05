@@ -5,7 +5,7 @@ const cookies = require('.');
 
 const { host, axios } = global;
 
-describe('Server cookies parser', async () => {
+describe('Server cookies parser test', async () => {
   let app;
   let server;
 

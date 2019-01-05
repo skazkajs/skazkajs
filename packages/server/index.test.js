@@ -7,7 +7,7 @@ const { host, axios } = global;
 
 const port = parseInt(process.env.PORT || '3000', 10);
 
-describe('Server testing', () => {
+describe('Server test', () => {
   let app;
   let server;
 

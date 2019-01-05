@@ -14,7 +14,7 @@ const { host, hostSSL, axios } = global;
 
 const createCertificate = util.promisify(pem.createCertificate);
 
-describe('Server virtual host parser', async () => {
+describe('Server virtual host test', async () => {
   let app;
   let server;
 

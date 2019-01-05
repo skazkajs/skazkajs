@@ -5,7 +5,7 @@ const bodyParser = require('.');
 
 const { host, axios } = global;
 
-describe('Server bodyParser', () => {
+describe('Server bodyParser test', () => {
   let app;
   let server;
 

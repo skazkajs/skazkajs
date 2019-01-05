@@ -1,35 +1,112 @@
 # Server Module Builder
 
-Import:
+Skazka Server Module Builder helps to create a new modules.
 
-    const moduleBuilder = require('@skazka/server-module');
+[![NPM](https://nodei.co/npm/@skazka/server-module.png)](https://npmjs.org/package/@skazka/server-module)
 
-Create simple module:
-   
-    module.exports = moduleBuilder((context) => {
-      // use context
-    });
+## How to install
 
-Create module with options:
+    npm i @skazka/server @skazka/server-module
     
-    module.exports = moduleBuilder((context, options) => {
-      // use context and options
-    });
+With yarn:
 
-Or
-
-    module.exports = moduleBuilder((context, option1, option2) => {
-      // use context and options
-    });
-
-Use
-
-    app.then(module())
-    app.then(module(options))
-    app.then(module(option1, option2))
+    yarn add @skazka/server @skazka/server-module
     
-Or
+Optionally you can add http server, logger, router and response:
 
-    await module(context)
-    await module(context, options)
-    await module(context, option1, option2)
+    npm i @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-response
+      
+With yarn:
+
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-response
+
+## How to use
+
+```javascript
+const App = require('@skazka/server');
+const Router = require('@skazka/server-router');
+        
+const error = require('@skazka/server-error');
+const logger = require('@skazka/server-logger');
+        
+const response = require('@skazka/server-response');
+        
+const server = require('@skazka/server-http');
+
+const moduleBuilder = require('@skazka/server-module');
+
+const app = new App();
+const router = new Router();
+
+const newModule = moduleBuilder((context) => {
+  // use context
+});
+
+app.all([
+  error(),
+  logger(),
+  response(),
+  newModule(),
+]);
+    
+app.then(async (ctx) => {
+  // code for each request
+  await newModule(ctx); // works for each next module
+});
+    
+router.get('/data').then(async (ctx) => {
+  await newModule(ctx); // works only for this route
+  
+  return ctx.response.resolve(ctx.req.body); 
+});
+        
+app.then(router.resolve());
+        
+server.createHttpServer(app);
+```
+
+### Examples
+
+Create module:
+
+```javascript
+module.exports = moduleBuilder((context) => {
+  // use context
+});
+```
+
+```javascript
+module.exports = moduleBuilder((context, options) => {
+  // use context and options
+});
+```
+
+```javascript
+module.exports = moduleBuilder((context, option1, option2) => {
+  // use context and options
+});
+```
+
+Using a new module:
+
+```javascript
+app.then(module());
+app.then(module(options));
+app.then(module(option1, option2));
+```
+
+```javascript
+app.then(async (ctx) => {
+  await module(ctx);
+  await module(ctx, options);
+  await module(ctx, option1, option2);
+});
+```  
+
+```javascript
+app.then(async (ctx) => {
+  await module()(ctx);
+  await module(options)(ctx);
+  await module(option1, option2)(ctx);
+});
+``` 

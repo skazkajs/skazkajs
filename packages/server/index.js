@@ -1,4 +1,5 @@
 const debug = require('debug')('skazka:server:server');
+
 const core = require('@skazka/server-core');
 
 module.exports = class {

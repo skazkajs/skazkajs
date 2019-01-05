@@ -13,7 +13,7 @@ const { host, hostSSL, axios } = global;
 
 const createCertificate = util.promisify(pem.createCertificate);
 
-describe('Server HTTP(s) testing', () => {
+describe('Server HTTP(s) test', () => {
   const { exit } = process;
   let app;
   let srv;

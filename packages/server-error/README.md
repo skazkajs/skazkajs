@@ -2,7 +2,6 @@
 
 Simple 404/500 error handler.
 
-
 [![NPM](https://nodei.co/npm/@skazka/server-error.png)](https://npmjs.org/package/@skazka/server-error)
 
 ## How to install
