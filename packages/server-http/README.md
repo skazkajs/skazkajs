@@ -92,3 +92,16 @@ pem.createCertificate({ days, selfSigned }, (err, { serviceKey: key, certificate
   server.createHttpsServer({ key, cert }, app);
 });
 ```
+
+### Port
+
+By default server uses port from **process.env.PORT**:
+
+    PORT=3000 node index.js
+
+But you can set port in the code:
+
+```javascript
+server.createHttpServer(app, 80);
+server.createHttpsServer({ key, cert }, app, 443);
+```

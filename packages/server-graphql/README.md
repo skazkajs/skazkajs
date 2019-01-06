@@ -1,1 +1,77 @@
 # Server GraphQL
+
+Express GraphQL for Skazka Server.
+
+[![NPM](https://nodei.co/npm/@skazka/server-graphql.png)](https://npmjs.org/package/@skazka/server-graphql)
+
+## How to install
+
+    npm i @skazka/server @skazka/server-graphql graphql
+    
+With yarn:
+
+    yarn add @skazka/server @skazka/server-graphql graphql
+    
+Optionally you can add http server, error handler, logger, router and response:
+
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+      
+With yarn:
+
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+
+## How to use
+
+```javascript
+const App = require('@skazka/server');
+const Router = require('@skazka/server-router');
+
+const graphql = require('@skazka/server-graphql');
+
+const error = require('@skazka/server-error');
+const logger = require('@skazka/server-logger');
+        
+const response = require('@skazka/server-response');
+        
+const server = require('@skazka/server-http');
+
+const { 
+  GraphQLSchema, 
+  GraphQLObjectType, 
+  GraphQLString,
+} = require('graphql');
+
+const app = new App();
+const router = new Router();
+        
+app.all([
+  error(),
+  logger(),
+  response(),
+]);
+
+const schema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+      hello: {
+        type: GraphQLString,
+        resolve() {
+          return 'world';
+        },
+      },
+    },
+  }),
+});
+
+// for each request
+app.then(graphql({ schema }));
+  
+// for url
+router.get('/graphql').then(graphql({ schema }));
+app.then(router.resolve());
+        
+server.createHttpServer(app);
+```
+
+How to configure Skazka Server GraphQL you can read docs from **[express-graphql](https://github.com/graphql/express-graphql)**.

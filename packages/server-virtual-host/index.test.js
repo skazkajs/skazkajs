@@ -292,4 +292,34 @@ describe('Server virtual host test', async () => {
       return new Promise(r => serverSSL.close(r));
     });
   });
+
+  test('It should test subdomains', async () => {
+    const vhost = new VirtualHost();
+
+    vhost.http('skazkajs.org').then(ctx => ctx.response.resolve('spa'));
+    vhost.http('static.skazkajs.org').then(ctx => ctx.response.resolve('static'));
+    vhost.http('api.skazkajs.org').then(ctx => ctx.response.resolve([{ id: 1 }]));
+
+    app.then(vhost.resolve());
+
+    server = srv.createHttpServer(app);
+
+    await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('spa');
+    });
+
+    await axios.get(host, { headers: { Host: 'static.skazkajs.org' } }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('static');
+    });
+
+    await axios.get(host, { headers: { Host: 'api.skazkajs.org' } }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data[0].id).toEqual(1);
+    });
+  });
 });
