@@ -16,6 +16,8 @@ TODO:
   - put url to request
   - use in body parser, cookies, method override, router, ??graphql??
   - add setters/getters: ctx.request.set('method', 'POST'); ctx.request.get('method') === ctx.request.method
+  - add getters/setters to server context (delete all setters like ctx.res = res => ctx.set('res', res)?
+  - set(name, data, rewrite = false) { if(this[name] && !rewrite) {throw error exists!;} this[name] = data; return this; } => ctx.set('res', res).set('req', req);
 
 - skazka module + preinstall hook + deprecate the module in npm
 
