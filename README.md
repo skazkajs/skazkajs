@@ -5,6 +5,9 @@ TODO:
   
 - response.resolve(data = '', code = 200, contentType = 'text/plain');
 - response.reject ??? delete?
+- ctx.response = (new Response(ctx)).resolve;
+- return ctx.response('response text', code, 'content type');
+- update all docs
 
 - skazka module + preinstall hook + deprecate the module in npm
 
