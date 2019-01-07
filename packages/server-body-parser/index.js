@@ -11,11 +11,15 @@ const {
 } = require('body-parser');
 
 const setBody = (context) => {
-  context.request = context.request || {}; // eslint-disable-line
+  const { body } = context.req;
 
-  context.request.body = context.req.body; // eslint-disable-line
+  const request = context.get('request');
 
-  return context.request.body;
+  if (request) {
+    request.set('body', body);
+  }
+
+  return body;
 };
 
 exports.json = moduleBuilder(async (context, options = {}) => {

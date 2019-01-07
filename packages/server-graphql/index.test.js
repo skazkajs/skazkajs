@@ -85,7 +85,7 @@ describe('Server graphql test', async () => {
 
   test('It should test custom route', async () => {
     app.then(async (ctx) => {
-      if (ctx.req.url === '/graphql') {
+      if (ctx.get('req').url === '/graphql') {
         return graphql({ schema })(ctx);
       }
 

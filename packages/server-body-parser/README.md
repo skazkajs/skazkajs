@@ -53,7 +53,7 @@ app.then(async (ctx) => {
 router.get('/data').then(async (ctx) => {
   await bodyParser.json(ctx); // it works only for this route
   
-  return ctx.response(ctx.req.body); 
+  return ctx.response(ctx.get('req').body); 
 });
         
 app.then(router.resolve());

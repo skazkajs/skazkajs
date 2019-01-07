@@ -196,7 +196,7 @@ describe('Server static test', async () => {
 
   test('It should test gzip', async () => {
     app.then(async (ctx) => {
-      delete ctx.req.headers['accept-encoding'];
+      delete ctx.get('req').headers['accept-encoding'];
     });
 
     app.then(serve({

@@ -1,5 +1,6 @@
 const App = require('@skazka/server'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
+const request = require('@skazka/server-request'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
@@ -16,6 +17,7 @@ describe('Server response test', () => {
     app = new App();
     app.all([
       error(),
+      request(),
       response(),
     ]);
 

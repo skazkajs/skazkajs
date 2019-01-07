@@ -42,7 +42,7 @@ module.exports = class {
     debug('Router started');
 
     return (ctx) => {
-      debug('Url:', ctx.req.url);
+      debug('Url:', ctx.get('req').url);
 
       return Promise.all(this.routes.map(route => route(ctx)))
         .then(() => debug('Router not found'))
@@ -68,33 +68,40 @@ module.exports = class {
     return {
       then(fn) {
         routes.push(async (ctx) => {
-          if (method === '*' || ctx.req.method.toUpperCase() === method.toUpperCase()) {
-            if (ctx.req.url === url) {
+          if (method === '*' || ctx.get('req').method.toUpperCase() === method.toUpperCase()) {
+            if (ctx.get('req').url === url) {
               debug('Router found');
-              debug('%s: %s', ctx.req.method.toUpperCase(), url);
+              debug('%s: %s', ctx.get('req').method.toUpperCase(), url);
 
-              ctx.request = ctx.request || {};
-              ctx.request.query = {};
-              ctx.request.params = {};
+              const request = ctx.get('request');
+
+              if (request) {
+                request.set('query', {}).set('params', {});
+              }
 
               return Promise.reject(fn);
             }
 
             const paramNames = [];
-            const parsedUrl = parser.parse(ctx.req.url, true);
+            const parsedUrl = parser.parse(ctx.get('req').url, true);
             const regexp = pathToRegexp(url, paramNames);
 
             if (regexp.test(parsedUrl.pathname)) {
               debug('Router found');
-              debug('%s: %s', ctx.req.method.toUpperCase(), url);
+              debug('%s: %s', ctx.get('req').method.toUpperCase(), url);
 
-              ctx.request = ctx.request || {};
-              ctx.request.query = parsedUrl.query;
-              ctx.request.params = {};
+              const { query } = parsedUrl;
+              const params = {};
 
               const captures = parsedUrl.pathname.match(regexp).slice(1);
               for (let len = captures.length, i = 0; i < len; i += 1) {
-                ctx.request.params[paramNames[i].name] = decodeURIComponent(captures[i]);
+                params[paramNames[i].name] = decodeURIComponent(captures[i]);
+              }
+
+              const request = ctx.get('request');
+
+              if (request) {
+                request.set('query', query).set('params', params);
               }
 
               return Promise.reject(fn);

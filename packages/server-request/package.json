@@ -1,0 +1,40 @@
+{
+  "name": "@skazka/server-request",
+  "version": "0.0.0",
+  "description": "Server request",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "author": "SkazkaJS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazkajs/skazka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js",
+    "promise",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "request"
+  ],
+  "peerDependencies": {
+    "debug": ">=4.0.0"
+  }
+}

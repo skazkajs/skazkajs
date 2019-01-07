@@ -56,10 +56,10 @@ module.exports = class {
     return {
       then(fn) {
         domains.push(async (ctx) => {
-          const requestProtocol = ctx.req.connection.encrypted ? 'https' : 'http';
+          const requestProtocol = ctx.get('req').connection.encrypted ? 'https' : 'http';
           debug('Request protocol: %s', requestProtocol);
 
-          const hostname = ctx.req.headers.host;
+          const hostname = ctx.get('req').headers.host;
           debug('Hostname: %s', hostname);
 
           const regexp = getRegexp(domain);

@@ -7,20 +7,26 @@ const moduleBuilder = require('@skazka/server-module');
 module.exports = moduleBuilder((context) => {
   debug('Cookie parser');
 
-  context.request = context.request || {}; // eslint-disable-line
+  const req = context.get('req');
 
-  debug('Headers: %O', context.req.headers);
-  debug('Cookies: %O', context.req.headers.cookie);
+  debug('Headers: %O', req.headers);
+  debug('Cookies: %O', req.headers.cookie);
+
+  let cookies = {};
 
   try {
-    context.request.cookies = cookie.parse(context.req.headers.cookie); // eslint-disable-line
+    cookies = cookie.parse(req.headers.cookie);
 
-    debug('Request cookies:', context.request.cookies);
+    debug('Request cookies:', cookies);
   } catch (error) {
-    context.request.cookies = {}; // eslint-disable-line
-
     debug('Error:', error);
   }
 
-  return Promise.resolve();
+  const request = context.get('request');
+
+  if (request) {
+    request.set('cookies', cookies);
+  }
+
+  return cookies;
 });

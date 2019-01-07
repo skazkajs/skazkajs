@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-router
     
-Optionally you can add http server, error handler, logger and response:
+Optionally you can add http server, error handler, logger, request and  response:
 
-    npm i @skazka/server-http @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -28,7 +28,8 @@ const Router = require('@skazka/server-router');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -39,6 +40,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -142,7 +144,8 @@ const VirtualHost = require('@skazka/server-virtual-host');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
 const bodyParser = require('@skazka/server-body-parser');
         
@@ -154,6 +157,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
 
