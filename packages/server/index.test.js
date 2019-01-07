@@ -26,7 +26,7 @@ describe('Server test', () => {
     const contentType = 'text/plain';
 
     app.then(async (ctx) => {
-      expect(ctx.app).toEqual(app);
+      expect(ctx.get('server')).toEqual(app);
 
       ctx.res.statusCode = 200;
       ctx.res.setHeader('Content-Type', contentType);

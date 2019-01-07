@@ -33,7 +33,7 @@ describe('Server virtual host test', async () => {
   test('It should test http method', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.http('skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -49,7 +49,7 @@ describe('Server virtual host test', async () => {
   test('It should test all method for http', async () => {
     const vhost = new VirtualHost();
 
-    vhost.all('skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.all('skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -65,7 +65,7 @@ describe('Server virtual host test', async () => {
   test('It should test https method', async () => {
     const vhost = new VirtualHost();
 
-    vhost.https('skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.https('skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -89,7 +89,7 @@ describe('Server virtual host test', async () => {
   test('It should test all method for https', async () => {
     const vhost = new VirtualHost();
 
-    vhost.all('skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.all('skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -113,7 +113,7 @@ describe('Server virtual host test', async () => {
   test('It should test 404 error', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('api.skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.http('api.skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -147,7 +147,7 @@ describe('Server virtual host test', async () => {
   test('It should test router', async () => {
     const router = new Router();
 
-    router.get('/').then(ctx => ctx.response.resolve('data'));
+    router.get('/').then(ctx => ctx.response('data'));
 
     const vhost = new VirtualHost();
 
@@ -167,7 +167,7 @@ describe('Server virtual host test', async () => {
   test('It should test regexp string domain', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('*.skazkajs.org').then(ctx => ctx.response.resolve(''));
+    vhost.http('*.skazkajs.org').then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -183,7 +183,7 @@ describe('Server virtual host test', async () => {
   test('It should test regexp domain', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http(/skazkajs.org/).then(ctx => ctx.response.resolve(''));
+    vhost.http(/skazkajs.org/).then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -199,7 +199,7 @@ describe('Server virtual host test', async () => {
   test('It should test empty catch', async () => {
     const vhost = new VirtualHost();
 
-    vhost.catch().then(ctx => ctx.response.resolve(''));
+    vhost.catch().then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -215,7 +215,7 @@ describe('Server virtual host test', async () => {
   test('It should test empty catch without header', async () => {
     const vhost = new VirtualHost();
 
-    vhost.catch().then(ctx => ctx.response.resolve(''));
+    vhost.catch().then(ctx => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -241,7 +241,7 @@ describe('Server virtual host test', async () => {
       response(),
     ]);
 
-    vhost.http('skazkajs.org').then(ctx => ctx.response.redirect('https://skazkajs.org/'));
+    vhost.http('skazkajs.org').then(ctx => ctx.redirect('https://skazkajs.org/'));
 
     app.then(vhost.resolve());
 
@@ -257,7 +257,7 @@ describe('Server virtual host test', async () => {
       response(),
     ]);
 
-    vhostSSL.https('skazkajs.org').then(ctx => ctx.response.resolve('data'));
+    vhostSSL.https('skazkajs.org').then(ctx => ctx.response('data'));
 
     appSSL.then(vhostSSL.resolve());
 
@@ -274,7 +274,7 @@ describe('Server virtual host test', async () => {
     }).catch(({ response: res }) => {
       expect(res.status).toEqual(301);
       expect(res.statusText).toEqual('Moved Permanently');
-      expect(res.data).toEqual('');
+      expect(res.data).toEqual('https://skazkajs.org/');
       expect(res.headers.location).toEqual('https://skazkajs.org/');
       mock();
     });
@@ -296,9 +296,9 @@ describe('Server virtual host test', async () => {
   test('It should test subdomains', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('skazkajs.org').then(ctx => ctx.response.resolve('spa'));
-    vhost.http('static.skazkajs.org').then(ctx => ctx.response.resolve('static'));
-    vhost.http('api.skazkajs.org').then(ctx => ctx.response.resolve([{ id: 1 }]));
+    vhost.http('skazkajs.org').then(ctx => ctx.response('spa'));
+    vhost.http('static.skazkajs.org').then(ctx => ctx.response('static'));
+    vhost.http('api.skazkajs.org').then(ctx => ctx.response([{ id: 1 }]));
 
     app.then(vhost.resolve());
 

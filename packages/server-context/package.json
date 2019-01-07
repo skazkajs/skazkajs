@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server",
+  "name": "@skazka/server-context",
   "version": "0.0.0",
-  "description": "Server",
+  "description": "Server context",
   "main": "index.js",
   "files": [
     "index.js"
@@ -33,12 +33,7 @@
     "ssl",
     "easy"
   ],
-  "dependencies": {
-    "@skazka/server-context": "*",
-    "@skazka/server-core": "*",
-    "@skazka/server-express": "*",
-    "@skazka/server-module": "*",
-    "@skazka/server-response": "*",
+  "peerDependencies": {
     "debug": ">=4.0.0"
   }
 }

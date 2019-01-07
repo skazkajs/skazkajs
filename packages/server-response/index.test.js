@@ -1,8 +1,10 @@
 const App = require('@skazka/server'); //  eslint-disable-line
+const Context = require('@skazka/server-context'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const responseModule = require('.');
+const Response = require('./response');
 
 const { host, axios } = global;
 
@@ -32,7 +34,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen1();
 
-      return ctx.response.resolve('test');
+      return ctx.response('test');
     });
 
     app.then(async (ctx) => {
@@ -60,7 +62,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen1();
 
-      return ctx.response.resolve('test', 202);
+      return ctx.response('test', 202);
     });
 
     app.then(async (ctx) => {
@@ -88,7 +90,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen1();
 
-      return ctx.response.resolve('test', 404);
+      return ctx.response('test', 404);
     });
 
     app.then(async (ctx) => {
@@ -122,7 +124,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen2();
 
-      return ctx.response.resolve('test');
+      return ctx.response('test');
     });
 
     await axios.get(host).then((response) => {
@@ -143,7 +145,7 @@ describe('Server response test', () => {
 
       const data = Promise.resolve('test');
 
-      return ctx.response.resolve(data);
+      return ctx.response(data);
     });
 
     await axios.get(host).then((response) => {
@@ -161,7 +163,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen();
 
-      return ctx.response.resolve({ message: 'Ok' });
+      return ctx.response({ message: 'Ok' });
     });
 
     await axios.get(host).then((response) => {
@@ -179,13 +181,13 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen();
 
-      return ctx.response.redirect();
+      return ctx.redirect();
     });
 
     await axios.get(host, { maxRedirects: 0 }).catch(({ response }) => {
       expect(response.status).toEqual(301);
       expect(response.statusText).toEqual('Moved Permanently');
-      expect(response.data).toEqual('');
+      expect(response.data).toEqual('/');
       expect(response.headers.location).toEqual('/');
     });
 
@@ -198,13 +200,13 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen();
 
-      return ctx.response.redirect('/test', 302);
+      return ctx.redirect('/test', 302);
     });
 
     await axios.get(host, { maxRedirects: 0 }).catch(({ response }) => {
       expect(response.status).toEqual(302);
       expect(response.statusText).toEqual('Found');
-      expect(response.data).toEqual('');
+      expect(response.data).toEqual('/test');
       expect(response.headers.location).toEqual('/test');
     });
 
@@ -221,7 +223,7 @@ describe('Server response test', () => {
 
       const err = Promise.reject(new Error());
 
-      return ctx.response.resolve(err);
+      return ctx.response(err);
     }).then(async () => {
       mockThen2();
     }).catch(async () => {
@@ -247,7 +249,7 @@ describe('Server response test', () => {
     app.then(async (ctx) => {
       mockThen1();
 
-      return ctx.response.resolve(new Error());
+      return ctx.response(new Error());
     }).then(async () => {
       mockThen2();
     }).catch(async () => {
@@ -262,64 +264,105 @@ describe('Server response test', () => {
 
     expect(mockThen1).toHaveBeenCalled();
     expect(mockThen2).not.toHaveBeenCalled();
-    expect(mockThen3).toHaveBeenCalled();
+    expect(mockThen3).not.toHaveBeenCalled();
   });
 
-  test('It should test error reject', async () => {
-    const mockThen1 = jest.fn();
-    const mockThen2 = jest.fn();
-    const mockThen3 = jest.fn();
+  test('It should test send', async () => {
+    app.then(ctx => (new Response(ctx)).send('data'));
 
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('data');
+      expect(response.headers['content-type']).toEqual('text/plain');
+    });
+  });
+
+  test('It should test sendJSON', async () => {
+    app.then(ctx => (new Response(ctx)).sendJSON('data'));
+
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('data');
+      expect(response.headers['content-type']).toEqual('application/json');
+    });
+  });
+
+  test('It should test redirect', async () => {
+    app.then(ctx => (new Response(ctx)).redirect('/test'));
+
+    await axios.get(host, { maxRedirects: 0 }).catch(({ response }) => {
+      expect(response.status).toEqual(301);
+      expect(response.statusText).toEqual('Moved Permanently');
+      expect(response.data).toEqual('/test');
+      expect(response.headers.location).toEqual('/test');
+    });
+  });
+
+  test('It should test setHeader', async () => {
     app.then(async (ctx) => {
-      mockThen1();
+      const response = new Response(ctx);
 
-      const err = Promise.reject(new Error());
+      response.setHeader('Test', 'Test');
 
-      return ctx.response.reject(err);
+      return response.send('data');
     });
+
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('data');
+      expect(response.headers.test).toEqual('Test');
+    });
+  });
+
+  test('It should test json', async () => {
+    app.then(ctx => ctx.json('data'));
+
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('data');
+      expect(response.headers['content-type']).toEqual('application/json');
+    });
+  });
+
+  test('It should test response without context', async () => {
     app.then(async () => {
-      mockThen2();
-    });
-    app.catch(async () => {
-      mockThen3();
+      const response = new Response(new Context());
+
+      response.setHeader('Test', 'Test');
+
+      return response.send('data');
     });
 
     await axios.get(host, { maxRedirects: 0 }).catch(({ response }) => {
       expect(response.status).toEqual(500);
       expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('Internal Server Error');
+      expect(response.data).toEqual('Response should be set!');
     });
-
-    expect(mockThen1).toHaveBeenCalled();
-    expect(mockThen2).not.toHaveBeenCalled();
-    expect(mockThen3).not.toHaveBeenCalled();
   });
 
-  test('It should test error reject with error', async () => {
-    const mockThen1 = jest.fn();
-    const mockThen2 = jest.fn();
-    const mockThen3 = jest.fn();
+  test('It should test send without data', async () => {
+    app.then(ctx => (new Response(ctx)).send());
 
-    app.then(async (ctx) => {
-      mockThen1();
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('');
+      expect(response.headers['content-type']).toEqual('text/plain');
+    });
+  });
 
-      return ctx.response.reject(new Error());
-    });
-    app.then(async () => {
-      mockThen2();
-    });
-    app.catch(async () => {
-      mockThen3();
-    });
+  test('It should test sendJSON without data', async () => {
+    app.then(ctx => (new Response(ctx)).sendJSON());
 
-    await axios.get(host, { maxRedirects: 0 }).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('Internal Server Error');
+    await axios.get(host).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.statusText).toEqual('OK');
+      expect(response.data).toEqual('');
+      expect(response.headers['content-type']).toEqual('application/json');
     });
-
-    expect(mockThen1).toHaveBeenCalled();
-    expect(mockThen2).not.toHaveBeenCalled();
-    expect(mockThen3).not.toHaveBeenCalled();
   });
 });

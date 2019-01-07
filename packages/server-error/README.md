@@ -47,7 +47,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
         
 app.then(router.resolve());
@@ -101,7 +101,7 @@ app.then(async (ctx) => {
   return ctx.response.reject(error);
   
   // Or
-  // return ctx.response.resolve('Not Found', 404);
+  // return ctx.response('Not Found', 404);
   
   // Or
   // ctx.res.statusCode = 404;
@@ -120,7 +120,7 @@ app.catch(async (err, ctx) => {
   return ctx.response.reject(error);
   
   // Or
-  // return ctx.response.resolve('Internal Server Error', 500);
+  // return ctx.response('Internal Server Error', 500);
    
   // Or
   // ctx.res.statusCode = 500;

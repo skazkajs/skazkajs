@@ -1,8 +1,9 @@
 const debug = require('debug')('skazka:server:server');
 
 const core = require('@skazka/server-core');
+const Context = require('@skazka/server-context');
 
-module.exports = class {
+class Server {
   constructor() {
     debug('Server created');
 
@@ -38,8 +39,10 @@ module.exports = class {
     return async (req, res) => {
       debug('Request event started');
 
-      const app = this;
-      const context = { req, res, app };
+      const context = (new Context())
+        .set('server', this)
+        .set('req', req)
+        .set('res', res);
 
       try {
         await core(context, this.modules);
@@ -76,4 +79,6 @@ module.exports = class {
 
     return this;
   }
-};
+}
+
+module.exports = Server;

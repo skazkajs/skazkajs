@@ -71,7 +71,7 @@ app.then(async (ctx) => {
 router.get('/data').then(async (ctx) => {
   const result = await ctx.pg.query('SELECT * FROM users;');
             
-  return ctx.response.resolve(result); 
+  return ctx.response(result); 
 });
         
 app.then(router.resolve());
@@ -87,7 +87,7 @@ app.then(async (ctx) => {
   const result = await client.query('SELECT * FROM users;');
   client.release();
   
-  return ctx.response.resolve(result); 
+  return ctx.response(result); 
 });
 ```
 

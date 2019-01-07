@@ -72,7 +72,7 @@ app.then(async (ctx) => {
 router.get('/data').then(async (ctx) => {
   const rows = await ctx.mysql.query('select * from users;');
             
-  return ctx.response.resolve(rows); 
+  return ctx.response(rows); 
 });
         
 app.then(router.resolve());
@@ -88,7 +88,7 @@ app.then(async (ctx) => {
   const rows = await connection.query('select * from users;');
   ctx.mysql.releaseConnection(connection);
   
-  return ctx.response.resolve(rows); 
+  return ctx.response(rows); 
 });
 ```
 
@@ -156,7 +156,7 @@ app.then(async (ctx) => {
     ctx.mysql.releaseConnection(connection);
   }
   
-  return ctx.response.resolve(rows);
+  return ctx.response(rows);
 });
 ```
     

@@ -1,4 +1,5 @@
 const App = require('@skazka/server'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const bodyParser = require('.');
@@ -15,49 +16,45 @@ describe('Server bodyParser test', () => {
 
   test('It should test json', async () => {
     app = new App();
+    app.then(response());
     app.then(bodyParser.json());
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.data);
-    });
+    app.then(ctx => ctx.response(ctx.request.body.data));
 
     server = srv.createHttpServer(app);
 
-    await axios.post(host, { data: 'test' }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.post(host, { data: 'test' }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
   test('It should test json in code', async () => {
     app = new App();
+    app.then(response());
 
     app.then(async (ctx) => {
       await bodyParser.json(ctx);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.data);
+      return ctx.response(ctx.request.body.data);
     });
 
     server = srv.createHttpServer(app);
 
-    await axios.post(host, { data: 'test' }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.post(host, { data: 'test' }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
   test('It should test raw', async () => {
     app = new App();
+    app.then(response());
     app.then(bodyParser.raw());
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.toString());
-    });
+    app.then(ctx => ctx.response(ctx.request.body.toString()));
 
     server = srv.createHttpServer(app);
 
@@ -65,21 +62,21 @@ describe('Server bodyParser test', () => {
       data: 'test',
     }, {
       headers: { 'Content-Type': 'application/octet-stream' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual({ data: 'test' });
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual({ data: 'test' });
     });
   });
 
   test('It should test raw in code', async () => {
     app = new App();
+    app.then(response());
 
     app.then(async (ctx) => {
       await bodyParser.raw(ctx);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.toString());
+      return ctx.response(ctx.request.body.toString());
     });
 
     server = srv.createHttpServer(app);
@@ -88,21 +85,19 @@ describe('Server bodyParser test', () => {
       data: 'test',
     }, {
       headers: { 'Content-Type': 'application/octet-stream' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual({ data: 'test' });
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual({ data: 'test' });
     });
   });
 
   test('It should test text', async () => {
     app = new App();
+    app.then(response());
     app.then(bodyParser.text());
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body);
-    });
+    app.then(ctx => ctx.response(ctx.request.body));
 
     server = srv.createHttpServer(app);
 
@@ -110,21 +105,21 @@ describe('Server bodyParser test', () => {
       data: 'test',
     }, {
       headers: { 'Content-Type': 'text/plain' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual({ data: 'test' });
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual({ data: 'test' });
     });
   });
 
   test('It should test text in code', async () => {
     app = new App();
+    app.then(response());
 
     app.then(async (ctx) => {
       await bodyParser.text(ctx);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body);
+      return ctx.response(ctx.request.body);
     });
 
     server = srv.createHttpServer(app);
@@ -133,51 +128,49 @@ describe('Server bodyParser test', () => {
       data: 'test',
     }, {
       headers: { 'Content-Type': 'text/plain' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual({ data: 'test' });
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual({ data: 'test' });
     });
   });
 
   test('It should test urlencoded', async () => {
     app = new App();
+    app.then(response());
     app.then(bodyParser.urlencoded({ extended: true }));
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.data);
-    });
+    app.then(ctx => ctx.response(ctx.request.body.data));
 
     server = srv.createHttpServer(app);
 
     await axios.post(host, 'data=test', {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
   test('It should test urlencoded in code', async () => {
     app = new App();
+    app.then(response());
 
     app.then(async (ctx) => {
       await bodyParser.urlencoded(ctx, { extended: true });
 
-      ctx.res.statusCode = 200;
-      ctx.res.end(ctx.request.body.data);
+      return ctx.response(ctx.request.body.data);
     });
 
     server = srv.createHttpServer(app);
 
     await axios.post(host, 'data=test', {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 });

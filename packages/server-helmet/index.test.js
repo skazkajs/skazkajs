@@ -27,7 +27,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet', async () => {
     app.then(helmet());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -49,7 +49,7 @@ describe('Server helmet test', async () => {
       },
     }));
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -71,7 +71,7 @@ describe('Server helmet test', async () => {
       },
     }));
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -86,7 +86,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.dnsPrefetchControl', async () => {
     app.then(helmet.dnsPrefetchControl());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -99,7 +99,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.expectCt', async () => {
     app.then(helmet.expectCt());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -116,7 +116,7 @@ describe('Server helmet test', async () => {
       },
     }));
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -129,7 +129,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.frameguard', async () => {
     app.then(helmet.frameguard());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -145,7 +145,7 @@ describe('Server helmet test', async () => {
     });
     app.then(helmet.hidePoweredBy());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -161,7 +161,7 @@ describe('Server helmet test', async () => {
       sha256s: ['AbCdEf123=', 'ZyXwVu456='],
     }));
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -176,7 +176,7 @@ describe('Server helmet test', async () => {
       maxAge: 7776000,
     }));
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -189,7 +189,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.ieNoOpen', async () => {
     app.then(helmet.ieNoOpen());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -202,7 +202,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.noCache', async () => {
     app.then(helmet.noCache());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -216,7 +216,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.noSniff', async () => {
     app.then(helmet.noSniff());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -229,7 +229,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.permittedCrossDomainPolicies', async () => {
     app.then(helmet.permittedCrossDomainPolicies());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -242,7 +242,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.referrerPolicy', async () => {
     app.then(helmet.referrerPolicy());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);
@@ -255,7 +255,7 @@ describe('Server helmet test', async () => {
   test('It should test helmet.xssFilter', async () => {
     app.then(helmet.xssFilter());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);

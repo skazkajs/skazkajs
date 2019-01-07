@@ -3,30 +3,30 @@ const debug = require('debug')('skazka:server:static:cache');
 module.exports = async (eTag, ctx) => {
   debug('eTag:', eTag);
 
-  if (ctx.req.headers['if-none-match']) {
-    ctx.req.headers.etag = ctx.req.headers['if-none-match'];
-    debug('If-None-Match: %s', ctx.req.headers['if-none-match']);
+  if (ctx.get('req').headers['if-none-match']) {
+    ctx.get('req').headers.etag = ctx.get('req').headers['if-none-match'];
+    debug('If-None-Match: %s', ctx.get('req').headers['if-none-match']);
   }
 
-  if (eTag && ctx.req.headers.etag) {
-    debug('ETag: %s', ctx.req.headers.etag);
+  if (eTag && ctx.get('req').headers.etag) {
+    debug('ETag: %s', ctx.get('req').headers.etag);
 
-    ctx.res.statusCode = 304;
-    debug('Status code:', ctx.res.statusCode);
+    ctx.get('res').statusCode = 304;
+    debug('Status code:', ctx.get('res').statusCode);
 
-    ctx.res.end();
+    ctx.get('res').end();
     debug('End of response');
 
     return Promise.reject();
   }
 
-  if (ctx.req.headers['if-modified-since']) {
-    debug('If-Modified-Since: %s', ctx.req.headers['if-modified-since']);
+  if (ctx.get('req').headers['if-modified-since']) {
+    debug('If-Modified-Since: %s', ctx.get('req').headers['if-modified-since']);
 
-    ctx.res.statusCode = 304;
-    debug('Status code:', ctx.res.statusCode);
+    ctx.get('res').statusCode = 304;
+    debug('Status code:', ctx.get('res').statusCode);
 
-    ctx.res.end();
+    ctx.get('res').end();
     debug('End of response');
 
     return Promise.reject();

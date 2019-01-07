@@ -54,7 +54,7 @@ app.then(async (ctx) => {
 router.get('/data').then(async (ctx) => {
   await express(ctx, json()); // works only for this route
   
-  return ctx.response.resolve(ctx.req.body); 
+  return ctx.response(ctx.req.body); 
 });
         
 app.then(router.resolve());

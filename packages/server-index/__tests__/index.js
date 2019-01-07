@@ -81,7 +81,7 @@ describe('Server static test', async () => {
       expect(response.data).toContain('');
 
       expect(response.headers.location).toEqual('/');
-      expect(response.headers['content-length']).toEqual('0');
+      expect(response.headers['content-length']).toEqual('1');
       expect(response.headers.connection).toEqual('close');
     });
   });

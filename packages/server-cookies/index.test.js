@@ -1,4 +1,5 @@
 const App = require('@skazka/server'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const cookies = require('.');
@@ -11,7 +12,10 @@ describe('Server cookies parser test', async () => {
 
   beforeEach(() => {
     app = new App();
-    app.then(cookies());
+    app.all([
+      cookies(),
+      response(),
+    ]);
 
     server = srv.createHttpServer(app);
   });
@@ -24,14 +28,13 @@ describe('Server cookies parser test', async () => {
     app.then(async (ctx) => {
       expect(ctx.request.cookies).toEqual({});
 
-      ctx.res.statusCode = 200;
-      ctx.res.end();
+      return ctx.response();
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('');
     });
   });
 
@@ -40,16 +43,16 @@ describe('Server cookies parser test', async () => {
       expect(ctx.request.cookies.data).toEqual('test');
       expect(ctx.request.cookies.test).toEqual('test');
 
-      ctx.res.statusCode = 200;
-      ctx.res.setHeader('Set-Cookie', 'data=test');
-      ctx.res.end('');
+      ctx.setHeader('Set-Cookie', 'data=test');
+
+      return ctx.response();
     });
 
-    await axios.get(host, { headers: { Cookie: 'data=test;test=test' } }).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('');
-      expect(response.headers['set-cookie']).toEqual(['data=test']);
+    await axios.get(host, { headers: { Cookie: 'data=test;test=test' } }).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('');
+      expect(res.headers['set-cookie']).toEqual(['data=test']);
     });
   });
 });

@@ -6,6 +6,7 @@ const util = require('util');
 const pem = require('pem'); //  eslint-disable-line
 
 const App = require('@skazka/server'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 
 const server = require('..');
 
@@ -20,6 +21,7 @@ describe('Server HTTP(s) test', () => {
 
   beforeEach(() => {
     app = new App();
+    app.then(response());
     Object.defineProperty(process, 'exit', {
       value: () => {
       },
@@ -34,10 +36,7 @@ describe('Server HTTP(s) test', () => {
   });
 
   test('It should test http server', async () => {
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response());
 
     srv = server.createHttpServer(app);
 
@@ -50,10 +49,7 @@ describe('Server HTTP(s) test', () => {
   test('It should test http server with custom port', async () => {
     const port = parseInt(process.env.PORT || '3000', 10);
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response());
 
     srv = server.createHttpServer(app, port);
 
@@ -64,10 +60,7 @@ describe('Server HTTP(s) test', () => {
   });
 
   test('It should test https server', async () => {
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response());
 
     const options = {
       key: readFileSync(resolve(__dirname, 'ssl', 'key.pem')),
@@ -85,10 +78,7 @@ describe('Server HTTP(s) test', () => {
   });
 
   test('It should test https server with pem', async () => {
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response());
 
     const days = 1;
     const selfSigned = true;
@@ -108,10 +98,7 @@ describe('Server HTTP(s) test', () => {
   test('It should test https server with custom port', async () => {
     const port = parseInt(process.env.PORT || '3000', 10);
 
-    app.then(async (ctx) => {
-      ctx.res.statusCode = 200;
-      ctx.res.end('');
-    });
+    app.then(ctx => ctx.response());
 
     const days = 1;
     const selfSigned = true;

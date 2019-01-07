@@ -51,7 +51,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve(ctx.req.method); 
+  return ctx.response(ctx.req.method); 
 });
         
 app.then(router.resolve());

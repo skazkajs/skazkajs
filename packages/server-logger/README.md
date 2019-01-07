@@ -63,7 +63,7 @@ router.get('/data').then(async (ctx) => {
       ctx.logger.error(error);
     }
             
-  return ctx.response.resolve(); 
+  return ctx.response(); 
 });
         
 app.then(router.resolve());

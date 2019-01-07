@@ -26,7 +26,7 @@ With yarn:
 
 ```javascript
 vhost.http('skazkajs.org').then(async ctx => {
-  ctx.response.resolve('response');
+  ctx.response('response');
 });
 ```
         
@@ -34,7 +34,7 @@ vhost.http('skazkajs.org').then(async ctx => {
 
 ```javascript
 vhost.https('skazkajs.org').then(async ctx => {
-  return ctx.response.resolve('response'); 
+  return ctx.response('response'); 
 });
 ```
 
@@ -42,7 +42,7 @@ vhost.https('skazkajs.org').then(async ctx => {
 
 ```javascript
 vhost.any('*.skazkajs.org').then(async ctx => {
-  return ctx.response.resolve('response');     
+  return ctx.response('response');     
 });
 ```
             
@@ -50,7 +50,7 @@ vhost.any('*.skazkajs.org').then(async ctx => {
 
 ```javascript
 vhost.catch({ domain, protocol: '*|http|https' }).then(async ctx => {
-  return ctx.response.resolve('response');     
+  return ctx.response('response');     
 });
 ```
     
@@ -82,7 +82,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
 
 vhost.http('skazkajs.org').then(router.resolve());
@@ -123,7 +123,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
 
 vhost.https('skazkajs.org').then(router.resolve());
@@ -173,7 +173,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
 
 vhost.http('skazkajs.org').then(router.resolve());
@@ -214,7 +214,7 @@ app.all([
 ]);
 
 router.get('/users').then(async (ctx) => {
-  return ctx.response.resolve([{ id: 1 }, { id: 2 }]); 
+  return ctx.response([{ id: 1 }, { id: 2 }]); 
 });
 
 vhost.http('skazkajs.org').then(spa({ root }));
@@ -253,7 +253,7 @@ app.all([
   response(),
 ]);
 
-vhost.http('skazkajs.org').then(ctx => ctx.response.redirect('https://skazkajs.org/'));
+vhost.http('skazkajs.org').then(ctx => ctx.redirect('https://skazkajs.org/'));
 
 app.then(vhost.resolve());
 
@@ -276,7 +276,7 @@ appSSL.then(async (ctx) => {
 });
     
 routerSSL.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
 
 vhostSSL.https('skazkajs.org').then(routerSSL.resolve());

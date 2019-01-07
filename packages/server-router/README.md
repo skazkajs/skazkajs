@@ -43,7 +43,7 @@ app.all([
 ]);
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
         
 app.then(router.resolve());
@@ -68,19 +68,19 @@ All methods are wrappers for catch() method:
 
 ```javascript
 router.catch().then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
     
 router.catch({ method: 'POST' }).then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
     
 router.catch({ url: '/data' }).then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
     
 router.catch({ method: 'POST', url: '/data' }).then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
 ```
 
@@ -90,9 +90,9 @@ You can use chain of methods:
 
 ```javascript
 router.get('/').then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 }).post('/data').then(async (ctx) => {
-  return ctx.response.resolve('data');
+  return ctx.response('data');
 });
 ```
     
@@ -104,7 +104,7 @@ router.get('/').then(async (ctx) => {
 
 ```javascript
 router.get('/').then(async (ctx) => {
-  return ctx.response.resolve(ctx.request.query.data); // test
+  return ctx.response(ctx.request.query.data); // test
 });
 ```
     
@@ -114,7 +114,7 @@ router.get('/').then(async (ctx) => {
 
 ```javascript
 router.get('/test/:id').then(async (ctx) => {
-  return ctx.response.resolve(ctx.request.params.id); // 125
+  return ctx.response(ctx.request.params.id); // 125
 });
 ```
 
@@ -126,10 +126,10 @@ const bodyParser = require('@skazka/server-body-parser');
 router.post('/test/:id').then(async (ctx) => {
   const body = await bodyParser.json(ctx);
   
-  return ctx.response.resolve(body);
+  return ctx.response(body);
   
   // Or 
-  // return ctx.response.resolve(ctx.request.body);
+  // return ctx.response(ctx.request.body);
 });
 ```
 
@@ -162,7 +162,7 @@ const vhost = new VirtualHost();
 router.post('/test/:id').then(async (ctx) => {
   await bodyParser.json(ctx);
   
-  return ctx.response.resolve(ctx.request.body);
+  return ctx.response(ctx.request.body);
 });
 
 vhost.http('skazkajs.org').then(router.resolve());
@@ -204,7 +204,7 @@ const vhost = new VirtualHost();
 router.post('/test/:id').then(async (ctx) => {
   await bodyParser.json(ctx);
   
-  return ctx.response.resolve(ctx.request.body);
+  return ctx.response(ctx.request.body);
 });
 
 const options = {

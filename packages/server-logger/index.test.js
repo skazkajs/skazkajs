@@ -1,6 +1,7 @@
 const App = require('@skazka/server'); //  eslint-disable-line
 const Router = require('@skazka/server-router'); //  eslint-disable-line
 const errorHandler = require('@skazka/server-error'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const logger = require('.');
@@ -29,21 +30,21 @@ describe('Server logger test', () => {
     app.all([
       errorHandler(),
       logger(),
+      response(),
     ]);
 
     app.then(async (ctx) => {
       expect(ctx.logger).not.toEqual(undefined);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end('test');
+      return ctx.response('test');
     });
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -52,33 +53,33 @@ describe('Server logger test', () => {
     app.all([
       errorHandler(),
       logger(),
+      response(),
     ]);
 
     app.then(async (ctx) => {
       expect(ctx.logger).not.toEqual(undefined);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end('test');
+      return ctx.response('test');
     });
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -87,6 +88,7 @@ describe('Server logger test', () => {
     app.all([
       errorHandler(),
       logger(),
+      response(),
     ]);
 
     const router = new Router();
@@ -94,18 +96,17 @@ describe('Server logger test', () => {
     router.catch().then(async (ctx) => {
       expect(ctx.logger).not.toEqual(undefined);
 
-      ctx.res.statusCode = 200;
-      ctx.res.end('test');
+      return ctx.response('test');
     });
 
     app.then(router.resolve());
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual('test');
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 
@@ -124,10 +125,10 @@ describe('Server logger test', () => {
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('test');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('test');
     });
 
     expect(spy).toHaveBeenCalled();
@@ -148,10 +149,10 @@ describe('Server logger test', () => {
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(404);
-      expect(response.statusText).toEqual('Not Found');
-      expect(response.data).toEqual('Not Found');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(404);
+      expect(res.statusText).toEqual('Not Found');
+      expect(res.data).toEqual('Not Found');
     });
 
     expect(spy).toHaveBeenCalled();
@@ -168,10 +169,34 @@ describe('Server logger test', () => {
 
     server = srv.createHttpServer(app);
 
-    await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.data).toEqual('Logger doesn\'t have "warn" and "error" methods!');
+    await axios.get(host).catch(({ response: res }) => {
+      expect(res.status).toEqual(500);
+      expect(res.statusText).toEqual('Internal Server Error');
+      expect(res.data).toEqual('Logger doesn\'t have "warn" and "error" methods!');
+    });
+  });
+
+  test('It should test 2 times', async () => {
+    app = new App();
+    app.all([
+      errorHandler(),
+      logger(),
+      response(),
+      logger(),
+    ]);
+
+    app.then(async (ctx) => {
+      expect(ctx.logger).not.toEqual(undefined);
+
+      return ctx.response('test');
+    });
+
+    server = srv.createHttpServer(app);
+
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual('test');
     });
   });
 });

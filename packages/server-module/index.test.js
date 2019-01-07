@@ -1,10 +1,8 @@
+const Context = require('@skazka/server-context');
+
 const serverModule = require('.');
 
-const normalContext = {
-  req: {},
-  res: {},
-  app: {},
-};
+const normalContext = new Context(null);
 
 describe('Server module test', () => {
   describe('Function test', () => {

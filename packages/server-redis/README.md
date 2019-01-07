@@ -69,7 +69,7 @@ router.get('/data').then(async (ctx) => {
   await ctx.redis.set('data', 'test');
   const data = await ctx.redis.get('data');
         
-  return ctx.response.resolve(data); 
+  return ctx.response(data); 
 });
     
 app.then(router.resolve());

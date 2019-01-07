@@ -33,7 +33,7 @@ describe('Server error handler test', () => {
     app.then(error({ hasUserError: false }));
     app.then(response());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     const data = await axios.get(host);
 
@@ -260,7 +260,7 @@ describe('Server error handler test', () => {
     app.then(error({ isJSON: true }));
     app.then(response());
 
-    app.then(ctx => ctx.response.resolve(''));
+    app.then(ctx => ctx.response(''));
 
     app.then(async () => {
       throw new Error('test');
@@ -482,7 +482,7 @@ describe('Server error handler test', () => {
     app.then(error({ isJSON: true }));
     app.then(response());
 
-    app.then(ctx => ctx.response.resolve({ data: 'test' }));
+    app.then(ctx => ctx.response({ data: 'test' }));
 
     await axios.get(host).then((res) => {
       expect(res.status).toEqual(200);

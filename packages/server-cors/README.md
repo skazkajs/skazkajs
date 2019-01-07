@@ -48,7 +48,7 @@ app.all([
 ]);
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
         
 app.then(router.resolve());
@@ -94,7 +94,7 @@ app.all([
     
 router.get('/data').then(async (ctx) => {
   await cors();
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
         
 app.then(router.resolve());

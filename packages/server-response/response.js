@@ -1,31 +1,41 @@
 const debug = require('debug')('skazka:server:response:response');
 
-const { STATUS_CODES } = require('http');
-
 debug('Response created');
 
 class Response {
   constructor(ctx) {
     debug('Response object created');
 
-    this.ctx = ctx;
+    this.res = ctx.get('res');
+
+    if (!this.res) {
+      throw new Error('Response should be set!');
+    }
   }
 
-  async resolve(data = '', code = 200) {
+  setHeader(name, value) {
+    this.res.setHeader(name, value);
+
+    return this;
+  }
+
+  async sendJSON(response = '', code = 200) {
+    return this.send(response, code, 'application/json');
+  }
+
+  async send(response = '', code = 200, contentType = null) {
     debug('Response resolve');
-    debug('Response data:');
-    debug(data);
 
-    debug('Response finished:', this.ctx.res.finished);
+    debug('Response', response);
+    debug('Code', code);
+    debug('Content-Type', contentType);
 
-    if (!this.ctx.res.finished) {
+    debug('Response finished:', this.res.finished);
+
+    if (!this.res.finished) {
       debug('Response sending');
 
-      let res = await data;
-
-      if (data instanceof Error) {
-        throw data;
-      }
+      let res = await response;
 
       debug('Type:', typeof res);
 
@@ -34,37 +44,19 @@ class Response {
       }
 
       debug('Finishing...');
-      this.ctx.res.statusCode = code;
-      this.ctx.res.end(res);
+      debug('Response:', res);
+
+      if (contentType) {
+        this.setHeader('Content-Type', contentType);
+      }
+
+      if (!this.res.getHeader('Content-Type')) {
+        this.setHeader('Content-Type', 'text/plain');
+      }
+
+      this.res.statusCode = code;
+      this.res.end(res);
     }
-
-    return Promise.reject();
-  }
-
-  async reject(data) {
-    debug('Response reject');
-
-    let res;
-
-    try {
-      debug('Getting data');
-      res = await this.resolve(data);
-    } catch (err) {
-      debug('Response error:');
-      debug(err);
-
-      const code = err.code || 500;
-      debug('Response code:', code);
-
-      const message = err.message || STATUS_CODES[500];
-      debug('Response message:', message);
-
-      res = message;
-      this.ctx.res.statusCode = code;
-    }
-
-    debug('Response finishing...');
-    this.ctx.res.end(res);
 
     return Promise.reject();
   }
@@ -75,10 +67,13 @@ class Response {
     debug('Response url:', url);
     debug('Response code:', code);
 
-    this.ctx.res.statusCode = code;
-    this.ctx.res.setHeader('Location', url);
+    this.setHeader('Location', url);
 
-    return this.resolve(undefined, code);
+    return this.send(url, code);
+  }
+
+  isFinished() {
+    return this.res.finished;
   }
 }
 

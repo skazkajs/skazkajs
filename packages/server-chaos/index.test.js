@@ -1,6 +1,7 @@
 const config = require('config');
 
 const App = require('@skazka/server'); //  eslint-disable-line
+const error = require('@skazka/server-error'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const chaos = require('.');
@@ -13,6 +14,7 @@ describe('Server chaos test', () => {
 
   beforeEach(() => {
     app = new App();
+    app.then(error());
     server = srv.createHttpServer(app);
   });
 
@@ -25,7 +27,7 @@ describe('Server chaos test', () => {
 
     app.then(chaos());
     app.then(async (ctx) => {
-      ctx.res.end();
+      ctx.get('res').end();
     });
 
     await axios.get(host).then((data) => {
@@ -89,7 +91,7 @@ describe('Server chaos test', () => {
     app.then(chaos());
     app.then(async (ctx) => {
       mockThen();
-      ctx.res.end();
+      ctx.get('res').end();
     });
 
     await axios.get(host).then((response) => {
@@ -114,7 +116,7 @@ describe('Server chaos test', () => {
     app.then(chaos());
     app.then(async (ctx) => {
       mockThen();
-      ctx.res.end();
+      ctx.get('res').end();
     });
 
     await axios.get(host).catch(({ response }) => {

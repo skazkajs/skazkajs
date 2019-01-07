@@ -86,7 +86,7 @@ router.get('/data').then(async (ctx) => {
   
   const users = await User.find({ name: 'Test' });
             
-  return ctx.response.resolve(users); 
+  return ctx.response(users); 
 });
         
 app.then(router.resolve());

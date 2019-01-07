@@ -45,12 +45,12 @@ app.all([
 app.then(async (ctx) => {
   // it works for each request
   // it stops all other modules
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
     
 router.get('/data').then(async (ctx) => {
   // it works only for this route
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
         
 app.then(router.resolve());
@@ -84,7 +84,7 @@ const Response = require('@skazka/server-response/response');
 app.then(async (ctx) => {
   const response = new Response(ctx);
     
-  return response.resolve('data');
+  return response.send(data = '', code = 200, contentType = 'text/plain');
 });
 ```
 
@@ -92,7 +92,7 @@ app.then(async (ctx) => {
 
 ```javascript
 app.then(async (ctx) => {
-  return ctx.response.redirect(url = '/', code = 301);
+  return ctx.redirect(url = '/', code = 301);
 });
 ```
 
@@ -106,12 +106,42 @@ app.then(async (ctx) => {
 });
 ```
 
-### Reject
-
-If you need to send request with error and finish response
+## Set header
 
 ```javascript
 app.then(async (ctx) => {
-  return ctx.response.reject(new Error('test'));
+  ctx.setHeader('Content-Type', 'text/plain');
+  
+  return ctx.response('');
+});
+```
+
+### Custom response
+
+```javascript
+app.then(async (ctx) => {
+  const response = new Response(ctx);
+
+  response.setHeader('Content-Type', 'text/plain');
+  
+  return response.send('');
+});
+```
+
+## JSON
+
+```javascript
+app.then(async (ctx) => {
+  return ctx.json(data, code = 200);
+});
+```
+
+### Custom json response
+
+```javascript
+app.then(async (ctx) => {
+  const response = new Response(ctx);
+
+  return response.sendJSON(data, code = 200);
 });
 ```

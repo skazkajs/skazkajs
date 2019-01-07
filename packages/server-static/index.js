@@ -40,33 +40,33 @@ module.exports = ({
       debug('ETag: %s', context.req.url);
     }
 
-    context.res.setHeader('Last-Modified', stats.mtime.toUTCString());
+    context.get('res').setHeader('Last-Modified', stats.mtime.toUTCString());
     debug('Last-Modified: %s', stats.mtime.toUTCString());
 
     if (maxage) {
       const age = maxage / 1000;
-      context.res.setHeader('Cache-Control', `max-age=${age}`);
+      context.get('res').setHeader('Cache-Control', `max-age=${age}`);
       debug('Cache-Control: %s', `max-age=${age}`);
     }
 
-    context.res.setHeader('Content-Type', type);
+    context.get('res').setHeader('Content-Type', type);
     debug('Content-Type: %s', type);
 
     if (gzip) {
-      context.res.setHeader('Content-Encoding', encoding);
+      context.get('res').setHeader('Content-Encoding', encoding);
       debug('Content-Encoding: %s', encoding);
     }
 
-    context.res.statusCode = 200; // eslint-disable-line
+    context.get('res').statusCode = 200; // eslint-disable-line
     debug('Status code:', 200);
 
     if (gzip) {
       debug('gzip enabled!');
       debug('Encoding: %s', encoding);
 
-      await gzipFileStream(newPath, context.res, encoding);
+      await gzipFileStream(newPath, context.get('res'), encoding);
     } else {
-      await fileStream(newPath, context.res);
+      await fileStream(newPath, context.get('res'));
     }
   } catch (error) {
     debug('Error: %O', error);

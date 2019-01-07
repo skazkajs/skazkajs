@@ -1,6 +1,7 @@
 const App = require('@skazka/server'); //  eslint-disable-line
 const Router = require('@skazka/server-router'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
+const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
 const mysql = require('.');
@@ -18,6 +19,7 @@ describe('Server mysql test', async () => {
     app.all([
       error(),
       mysql(),
+      response(),
     ]);
     router = new Router();
     server = srv.createHttpServer(app);
@@ -36,14 +38,13 @@ describe('Server mysql test', async () => {
       const rows = await ctx.mysql.query('SELECT 1+1 AS res;');
       expect(rows[0].res).toEqual(2);
 
-      ctx.res.writeHead(200);
-      ctx.res.end(JSON.stringify(rows[0].res));
+      return ctx.response(rows[0].res);
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual(2);
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual(2);
     });
   });
 
@@ -57,14 +58,13 @@ describe('Server mysql test', async () => {
 
       expect(rows[0].res).toEqual(2);
 
-      ctx.res.writeHead(200);
-      ctx.res.end(JSON.stringify(rows[0].res));
+      return ctx.response(rows[0].res);
     });
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual(2);
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual(2);
     });
   });
 
@@ -74,16 +74,15 @@ describe('Server mysql test', async () => {
 
       expect(rows[0].res).toEqual(2);
 
-      ctx.res.writeHead(200);
-      ctx.res.end(JSON.stringify(rows[0].res));
+      return ctx.response(rows[0].res);
     });
 
     app.then(router.resolve());
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual(2);
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual(2);
     });
   });
 
@@ -97,16 +96,15 @@ describe('Server mysql test', async () => {
 
       expect(rows[0].res).toEqual(2);
 
-      ctx.res.writeHead(200);
-      ctx.res.end(JSON.stringify(rows[0].res));
+      return ctx.response(rows[0].res);
     });
 
     app.then(router.resolve());
 
-    await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.data).toEqual(2);
+    await axios.get(host).then((res) => {
+      expect(res.status).toEqual(200);
+      expect(res.statusText).toEqual('OK');
+      expect(res.data).toEqual(2);
     });
   });
 

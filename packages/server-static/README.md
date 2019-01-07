@@ -70,7 +70,7 @@ app.then(async (ctx) => {
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response.resolve('data'); 
+  return ctx.response('data'); 
 });
         
 app.then(router.resolve());
@@ -135,7 +135,7 @@ app.all([
   response(),
 ]);
     
-router.get('/').then(ctx => ctx.response.resolve({ status : 'OK' }));
+router.get('/').then(ctx => ctx.response({ status : 'OK' }));
     
 vhost.http('api.skazkajs.org').then(router.resolve());
         

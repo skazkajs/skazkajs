@@ -1,9 +1,8 @@
-const debug = require('debug')('skazka:server:chaos:index');
+const debug = require('debug')('skazka:server:chaos');
 
 const config = require('config');
+const pause = require('promise-pause-timeout');
 const Response = require('@skazka/server-response/response');
-
-const { timeout, error } = require('./chaos');
 
 debug('Chaos module created');
 
@@ -14,7 +13,7 @@ module.exports = () => async (ctx) => {
   debug('Enabled:', enabled);
 
   if (enabled) {
-    ctx.res.setHeader('X-Chaos', 1);
+    ctx.get('res').setHeader('X-Chaos', 1);
 
     const timeoutProbability = parseFloat(config.chaos.timeout.probability);
     debug('Timeout probability:', timeoutProbability);
@@ -25,9 +24,9 @@ module.exports = () => async (ctx) => {
       const time = parseInt(config.chaos.timeout.time, 10);
       debug('Time:', time);
 
-      ctx.res.setHeader('X-Chaos-Timeout', time);
+      ctx.get('res').setHeader('X-Chaos-Timeout', time);
 
-      await timeout(time);
+      await pause(time * 1000);
     }
 
     const errorProbability = parseFloat(config.chaos.error.probability);
@@ -36,11 +35,11 @@ module.exports = () => async (ctx) => {
     if (Math.random() <= errorProbability) {
       debug('Chaos error is working...');
 
-      ctx.res.setHeader('X-Chaos-Error', 1);
+      ctx.get('res').setHeader('X-Chaos-Error', 1);
 
       const response = new Response(ctx);
 
-      return response.reject(error());
+      return response.send('Chaos', 500);
     }
   }
 

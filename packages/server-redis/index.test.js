@@ -41,7 +41,7 @@ describe('Server redis test', async () => {
 
       expect(data).toEqual('test');
 
-      return ctx.response.resolve(data);
+      return ctx.response(data);
     });
 
     await axios.get(host).then((res) => {
@@ -59,7 +59,7 @@ describe('Server redis test', async () => {
 
       expect(data).toEqual('test');
 
-      return ctx.response.resolve(data);
+      return ctx.response(data);
     });
 
     app.then(router.resolve());

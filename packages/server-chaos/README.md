@@ -74,7 +74,7 @@ app.then(chaos()); // it runs chaos next modules
 
 router.get('/data').then(async (ctx) => {
   // with chaos
-  return ctx.response.resolve(result); 
+  return ctx.response(result); 
 });
 
 app.then(router.resolve());
