@@ -1,0 +1,48 @@
+{
+  "name": "@skazka/server-virtual-host",
+  "version": "0.0.0",
+  "description": "Server Virtual Host",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "author": "SkazkaJS",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazkajs/skazka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js",
+    "promise",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "virtual",
+    "host"
+  ],
+  "peerDependencies": {
+    "debug": ">=4.0.0"
+  },
+  "dependencies": {
+    "path-to-regexp": ">=2.4.0"
+  }
+}

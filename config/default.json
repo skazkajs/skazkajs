@@ -1,0 +1,37 @@
+{
+  "chaos": {
+    "enabled": true,
+    "error": {
+      "probability": 0.1
+    },
+    "timeout": {
+      "probability": 0.1,
+      "time": 30
+    }
+  },
+  "mysql": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "user": "root",
+    "password": "root",
+    "database": "skazka",
+    "connectionLimit": 10
+  },
+  "pg": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "user": "root",
+    "password": "root",
+    "database": "skazka"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  },
+  "mongoose": {
+    "uri": "mongodb://localhost/test",
+    "parameters": {
+      "useNewUrlParser": true
+    }
+  }
+}

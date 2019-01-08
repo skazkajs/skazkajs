@@ -1,0 +1,1 @@
+# React Strict Mode HOC

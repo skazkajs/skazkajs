@@ -1,0 +1,53 @@
+{
+  "name": "@skazka/server-method-override",
+  "version": "0.0.0",
+  "description": "Server Method Override",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "author": "SkazkaJS",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazkajs/skazka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js",
+    "promise",
+    "body",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "parser",
+    "json",
+    "text",
+    "file"
+  ],
+  "peerDependencies": {
+    "@skazka/server-express": "*",
+    "@skazka/server-module": "*",
+    "debug": ">=4.0.0"
+  },
+  "dependencies": {
+    "method-override": ">=3.0.0"
+  }
+}

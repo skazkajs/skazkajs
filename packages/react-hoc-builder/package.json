@@ -1,0 +1,30 @@
+{
+  "name": "@skazka/react-hoc-builder",
+  "version": "0.0.0",
+  "description": "React HOC Builder",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "license": "MIT",
+  "author": "SkazkaJS",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazkajs/skazka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js"
+  ],
+  "peerDependencies": {
+    "react": ">=16.0.0"
+  }
+}

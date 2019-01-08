@@ -1,0 +1,12 @@
+{
+  "chaos": {
+    "enabled": true,
+    "error": {
+      "probability": 0.1
+    },
+    "timeout": {
+      "probability": 0.1,
+      "time": 30
+    }
+  }
+}
