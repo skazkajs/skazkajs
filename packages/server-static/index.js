@@ -1,5 +1,7 @@
 const debug = require('debug')('skazka:server:static:index');
 
+const moduleBuilder = require('@skazka/server-module');
+
 const methodCheck = require('./lib/methodCheck');
 const cacheCheck = require('./lib/cacheCheck');
 const getPath = require('./lib/getPath');
@@ -9,14 +11,16 @@ const getEncoding = require('./lib/getEncoding');
 const fileStream = require('./lib/fileStream');
 const gzipFileStream = require('./lib/gzipFileStream');
 
-module.exports = ({
-  root = __dirname,
-  index = 'index.html',
-  etag = true,
-  gzip = true,
-  maxage = 0,
-} = {}) => async (context) => {
+module.exports = moduleBuilder(async (context, options = {}) => {
   debug('Server Static');
+
+  const {
+    root = __dirname,
+    index = 'index.html',
+    etag = true,
+    gzip = true,
+    maxage = 0,
+  } = options;
 
   debug('root:', root);
   debug('index:', index);
@@ -24,20 +28,20 @@ module.exports = ({
   debug('gzip:', gzip);
   debug('maxage:', maxage);
 
-  debug('Headers: %O', context.req.headers);
+  debug('Headers: %O', context.get('req').headers);
 
   try {
-    await methodCheck(context.req.method.toUpperCase());
+    await methodCheck(context.get('req').method.toUpperCase());
     await cacheCheck(etag, context);
-    const path = await getPath(root, index, context.req.url);
+    const path = await getPath(root, index, context.get('req').url);
     const stats = await getStats(index, path);
     const newPath = stats.path;
     const type = getType(newPath);
-    const encoding = getEncoding(context.req.headers['accept-encoding']);
+    const encoding = getEncoding(context.get('req').headers['accept-encoding']);
 
     if (etag) {
-      context.res.setHeader('ETag', context.req.url);
-      debug('ETag: %s', context.req.url);
+      context.res.setHeader('ETag', context.get('req').url);
+      debug('ETag: %s', context.get('req').url);
     }
 
     context.get('res').setHeader('Last-Modified', stats.mtime.toUTCString());
@@ -83,4 +87,4 @@ module.exports = ({
   }
 
   return Promise.reject();
-};
+});

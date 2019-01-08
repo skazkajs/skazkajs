@@ -139,4 +139,14 @@ describe('Server static test', async () => {
 
     expect(mock).not.toHaveBeenCalled();
   });
+
+  test('It should test empty root', async () => {
+    app.then(index());
+
+    await axios.get(host).catch(({ response }) => {
+      expect(response.status).toEqual(500);
+      expect(response.statusText).toEqual('Internal Server Error');
+      expect(response.data).toContain('The "root" parameter is required!');
+    });
+  });
 });

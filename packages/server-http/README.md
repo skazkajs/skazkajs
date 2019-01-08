@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-http
     
-Optionally you can add error handler, logger, router and response:
+Optionally you can add error handler, logger, router, request and response:
 
-    npm i @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -28,7 +28,8 @@ const Router = require('@skazka/server-router');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -39,6 +40,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -91,6 +93,26 @@ pem.createCertificate({ days, selfSigned }, (err, { serviceKey: key, certificate
   }
   server.createHttpsServer({ key, cert }, app);
 });
+```
+
+And async/await:
+
+```javascript
+const util = require('util');
+
+const createCertificate = util.promisify(pem.createCertificate);
+
+(async () => {
+  const days = 1;
+  const selfSigned = true;
+  
+  const { 
+    serviceKey: key, 
+    certificate: cert,
+  } = await createCertificate({ days, selfSigned });
+  
+  server.createHttpsServer({ key, cert }, app);
+})();
 ```
 
 ### Port

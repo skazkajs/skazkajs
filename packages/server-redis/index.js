@@ -7,5 +7,5 @@ const redis = require('./redis');
 module.exports = moduleBuilder((context) => {
   debug('Redis created');
 
-  context.redis = redis; // eslint-disable-line
+  context.set('redis', redis);
 });

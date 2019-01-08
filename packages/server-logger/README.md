@@ -13,13 +13,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-logger
     
-Optionally you can add http server, error handler, router and response:
+Optionally you can add http server, error handler, router, request and response:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -32,7 +32,8 @@ const Router = require('@skazka/server-router');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -43,6 +44,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -50,6 +52,7 @@ app.then(async (ctx) => {
   try {
     ctx.logger.info('some text');
     // some code with errors
+    throw new Error('test');
   } catch(error) {
     ctx.logger.error(error);
   }
@@ -59,6 +62,7 @@ router.get('/data').then(async (ctx) => {
   try {
       ctx.logger.log('/url');
       // some code with errors
+      throw new Error('test');
     } catch(error) {
       ctx.logger.error(error);
     }

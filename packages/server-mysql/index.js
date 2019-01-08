@@ -7,5 +7,5 @@ const pool = require('./pool');
 module.exports = moduleBuilder((context) => {
   debug('MySQL created');
 
-  context.mysql = pool; // eslint-disable-line
+  context.set('mysql', pool);
 });

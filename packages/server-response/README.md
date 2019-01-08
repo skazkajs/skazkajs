@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-response
     
-Optionally you can add http server, error handler, logger and router:
+Optionally you can add http server, error handler, logger, router and request:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request
 
 ## How to use
 
@@ -28,7 +28,8 @@ const Router = require('@skazka/server-router');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -39,6 +40,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     

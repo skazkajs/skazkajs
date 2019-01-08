@@ -45,6 +45,8 @@ app.all([
 ]);
     
 router.get('/data').then(async (ctx) => {
+  console.log(ctx.request);
+  
   return ctx.response(ctx.request.url);
 });
         

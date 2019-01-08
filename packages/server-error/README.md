@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-error
     
-Optionally you can add http server, logger, router and response:
+Optionally you can add http server, logger, router, request and response:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -28,7 +28,8 @@ const Router = require('@skazka/server-router');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -39,6 +40,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -90,18 +92,15 @@ app.all([
 
 ## Custom error handlers
 
-To add custom user error handler for 404 error you need to add last app.then:
+To add custom user error handler for 404 error you need to add last app.then and finish response:
 
 ```javascript
 // 404 error handler
 app.then(async (ctx) => {
-  const error = new Error();
-  error.code = 404;
-  
-  return ctx.response.reject(error);
+  return ctx.response('Not Found', 404);
   
   // Or
-  // return ctx.response('Not Found', 404);
+  // return ctx.json({ message: 'Not Found' }, 404);
   
   // Or
   // ctx.res.statusCode = 404;
@@ -114,13 +113,10 @@ To add app error handler for 500 error you need to add app.catch:
 ```javascript
 // 500 error handler
 app.catch(async (err, ctx) => {
-  const error = new Error();
-  error.code = 500;
-    
-  return ctx.response.reject(error);
+  return ctx.response('Internal Server Error', 500);
   
   // Or
-  // return ctx.response('Internal Server Error', 500);
+  // return ctx.json({ message: 'Internal Server Error' }, 500);
    
   // Or
   // ctx.res.statusCode = 500;

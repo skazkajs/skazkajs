@@ -25,7 +25,7 @@ But all of them use ideas from other programming languages or they are too old.
 
 Skazka Server created with deep understanding of JavaScript core (and node.js), its new ideas like promises and async/await.
 
-Core of the server was created to resolve highload problems, work as a separate server or with serverless.
+Core of the server was created to resolve highload problems, work as a separate server or serverless.
 
 And performance is the main reason to maintain this server because in real life you need to pay for each millisecond. 
 
@@ -77,13 +77,13 @@ app.then(async (ctx) => {
 
 ## Real example
 
-Add http server, error handler, logger, router and response:
+Add http server, error handler, logger, router, request and response:
     
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
           
 With yarn:
     
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ```javascript
 const App = require('@skazka/server');
@@ -92,6 +92,7 @@ const Router = require('@skazka/server-router');
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
         
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -102,11 +103,13 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
 app.then(async (ctx) => {
   // code for each request
+  console.log(ctx.request);
 });
     
 router.get('/data').then(async (ctx) => {

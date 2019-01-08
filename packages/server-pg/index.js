@@ -7,5 +7,5 @@ const pool = require('./pool');
 module.exports = moduleBuilder((context) => {
   debug('PostgreSQL client created');
 
-  context.pg = pool; // eslint-disable-line
+  context.set('pg', pool);
 });

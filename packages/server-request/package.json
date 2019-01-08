@@ -11,6 +11,10 @@
   },
   "license": "MIT",
   "author": "SkazkaJS",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/skazkajs/skazka.git"
@@ -35,6 +39,7 @@
     "request"
   ],
   "peerDependencies": {
+    "@skazka/server-module": "*",
     "debug": ">=4.0.0"
   }
 }

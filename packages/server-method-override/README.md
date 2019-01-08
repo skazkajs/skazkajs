@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-method-override
     
-Optionally you can add http server, error handler, logger, router and response:
+Optionally you can add http server, error handler, logger, router, request and response:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -30,7 +30,8 @@ const methodOverride = require('@skazka/server-method-override');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -41,17 +42,18 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   methodOverride(),
   response(),
 ]);
     
 app.then(async (ctx) => {
-  // ctx.req.method
+  console.log(ctx.get('request').method);
   // it works for each request
 });
     
 router.get('/data').then(async (ctx) => {
-  return ctx.response(ctx.get('req').method); 
+  return ctx.response(ctx.get('request').method); 
 });
         
 app.then(router.resolve());
@@ -191,11 +193,13 @@ const app = new App();
 //       before you call methodOverride() in your middleware stack,
 //       otherwise req.body will not be populated.
 app.then(bodyParser.urlencoded())
-app.then(methodOverride(function (req, res) {
+app.then(methodOverride((req) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
     const method = req.body._method;
+    
     delete req.body._method;
+    
     return method;
   }
 }))

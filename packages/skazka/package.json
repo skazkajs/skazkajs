@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/server-module",
+  "name": "skazka",
   "version": "0.0.0",
-  "description": "Server Module Builder",
+  "description": "Skazka",
   "main": "index.js",
   "files": [
     "index.js"
@@ -35,7 +35,9 @@
     "await",
     "https",
     "ssl",
-    "easy",
-    "wrapper"
-  ]
+    "easy"
+  ],
+  "scripts": {
+    "preinstall": "node index.js"
+  }
 }

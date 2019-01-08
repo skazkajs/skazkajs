@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-virtual-host
     
-Optionally you can add http server, error handler, logger, router and response:
+Optionally you can add http server, error handler, logger, router, request and response:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -63,6 +63,7 @@ const VirtualHost = require('@skazka/server-virtual-host');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
 
 const server = require('@skazka/server-http');
@@ -74,6 +75,7 @@ const vhost = new VirtualHost();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -104,6 +106,7 @@ const VirtualHost = require('@skazka/server-virtual-host');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
 
 const server = require('@skazka/server-http');
@@ -115,6 +118,7 @@ const vhost = new VirtualHost();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
     
@@ -147,6 +151,7 @@ const VirtualHost = require('@skazka/server-virtual-host');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
 
 const server = require('@skazka/server-http');
@@ -164,6 +169,7 @@ const root = resolve(__dirname, 'dist');
 app.all([
   error(),
   logger(),
+  request(),
   response(),
   index({ root }),
 ]).then(serve({ root, index: false }));
@@ -194,6 +200,7 @@ const VirtualHost = require('@skazka/server-virtual-host');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
 
 const server = require('@skazka/server-http');
@@ -210,6 +217,7 @@ const root = resolve(__dirname, 'dist');
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
 
@@ -238,6 +246,7 @@ const VirtualHost = require('@skazka/server-virtual-host');
 
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -250,6 +259,7 @@ const vhost = new VirtualHost();
 app.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
 
@@ -268,6 +278,7 @@ const vhostSSL  = new VirtualHost();
 appSSL.all([
   error(),
   logger(),
+  request(),
   response(),
 ]);
 

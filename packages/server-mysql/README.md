@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-mysql
     
-Optionally you can add http server, error handler, logger, router and response:
+Optionally you can add http server, error handler, logger, router, request and response:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-request @skazka/server-response
 
 ## How to use
 
@@ -49,7 +49,8 @@ const mysql = require('@skazka/server-mysql');
         
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
+
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
@@ -60,6 +61,7 @@ const router = new Router();
 app.all([
   error(),
   logger(),
+  request(),
   mysql(),
   response(),
 ]);
@@ -131,6 +133,7 @@ const App = require('@skazka/server');
 const app = new App();
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
+const request = require('@skazka/server-request');
 const response = require('@skazka/server-response');
     
 const mysql = require('@skazka/server-mysql');
@@ -138,6 +141,7 @@ const mysql = require('@skazka/server-mysql');
 app.all([
   error(),
   logger(),
+  request(),
   mysql(),
   response(),
 ]);

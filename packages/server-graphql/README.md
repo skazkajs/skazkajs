@@ -12,13 +12,13 @@ With yarn:
 
     yarn add @skazka/server @skazka/server-graphql graphql
     
-Optionally you can add http server, error handler, logger, router and response:
+Optionally you can add http server, error handler, logger and router:
 
-    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    npm i @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger
       
 With yarn:
 
-    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger @skazka/server-response
+    yarn add @skazka/server-http @skazka/server-router @skazka/server-error @skazka/server-logger
 
 ## How to use
 
@@ -30,8 +30,6 @@ const graphql = require('@skazka/server-graphql');
 
 const error = require('@skazka/server-error');
 const logger = require('@skazka/server-logger');
-        
-const response = require('@skazka/server-response');
         
 const server = require('@skazka/server-http');
 
@@ -47,7 +45,6 @@ const router = new Router();
 app.all([
   error(),
   logger(),
-  response(),
 ]);
 
 const schema = new GraphQLSchema({
@@ -74,4 +71,4 @@ app.then(router.resolve());
 server.createHttpServer(app);
 ```
 
-How to configure Skazka Server GraphQL you can read docs from **[express-graphql](https://github.com/graphql/express-graphql)**.
+To configure Skazka Server GraphQL you can read docs from **[express-graphql](https://github.com/graphql/express-graphql)**.
