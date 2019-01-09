@@ -9,3 +9,6 @@ coverage
 
 # Keep .gitkeep files
 !/**/.gitkeep
+
+website/build/
+website/node_modules

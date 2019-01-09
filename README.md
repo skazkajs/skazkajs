@@ -3,7 +3,8 @@ A node.js platform for building web application.
 
 TODO:
 
-- site https://docusaurus.io/
+- server examples
+- server docs
 
 - front part
   - redux-builder
