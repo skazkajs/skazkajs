@@ -1,24 +1,25 @@
 {
   "name": "@skazka/server-request",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Server request",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "request.js"
   ],
   "engines": {
     "node": ">=8.9.0"
   },
   "license": "MIT",
-  "author": "SkazkaJS",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
   "authors": [
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skazkajs/skazka.git"
-  },
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-request",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },

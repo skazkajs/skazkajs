@@ -10,15 +10,15 @@
     "node": ">=8.9.0"
   },
   "license": "MIT",
-  "author": "SkazkaJS",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
   "authors": [
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skazkajs/skazka.git"
-  },
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-cookies",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
