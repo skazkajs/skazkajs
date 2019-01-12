@@ -6,11 +6,11 @@ Skazka Server Redis client.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-redis
+    npm i @skazka/server @skazka/server-redis config ioredis
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-redis
+    yarn add @skazka/server @skazka/server-redis config ioredis
     
 Optionally you can add http server, error handler, logger, router, request and response:
 

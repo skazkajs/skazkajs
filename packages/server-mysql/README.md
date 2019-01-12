@@ -6,11 +6,11 @@ Skazka Server Promise based mysql client.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-mysql
+    npm i @skazka/server @skazka/server-mysql config promise-mysql
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-mysql
+    yarn add @skazka/server @skazka/server-mysql config promise-mysql
     
 Optionally you can add http server, error handler, logger, router, request and response:
 

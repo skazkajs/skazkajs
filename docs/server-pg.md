@@ -8,11 +8,11 @@ Skazka Server PostgreSQL client.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-pg
+    npm i @skazka/server @skazka/server-pg pg config
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-pg
+    yarn add @skazka/server @skazka/server-pg pg config
     
 Optionally you can add http server, error handler, logger, router, request and response:
 
