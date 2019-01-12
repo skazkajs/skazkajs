@@ -29,6 +29,7 @@ const siteConfig = {
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
   docsUrl: '', // don't prefix docs URLs with /docs/
+  cname: 'skazkajs.org',
 
   // Used for publishing and more
   projectName: 'skazkajs.github.io',
@@ -39,9 +40,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: 'doc1', label: 'Docs' },
-    { doc: 'doc4', label: 'API' },
-    { page: 'help', label: 'Help' },
+    { doc: 'server', label: 'API' },
+    // { doc: 'doc4', label: 'API' },
+    // { page: 'help', label: 'Help' },
     { href: 'https://www.github.com/skazkajs/skazka', label: 'Github' },
     { blog: true, label: 'Blog' },
   ],

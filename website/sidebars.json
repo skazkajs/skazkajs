@@ -1,10 +1,43 @@
 {
   "docs": {
-    "Docusaurus": ["doc1"],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
-  },
-  "docs-other": {
-    "First Category": ["doc4", "doc5"]
+    "Introduction": [
+      "server"
+    ],
+    "Start working": [
+      "server-init",
+      "server-request",
+      "server-response",
+      "server-error",
+      "server-logger",
+      "server-cookies",
+      "server-helmet"
+    ],
+    "Running server": [
+      "server-http"
+    ],
+    "API": [
+      "server-graphql",
+      "server-router",
+      "server-body-parser",
+      "server-cors",
+      "server-method-override",
+      "server-virtual-host",
+      "server-chaos"
+    ],
+    "Database": [
+      "server-mongoose",
+      "server-mysql",
+      "server-pg",
+      "server-redis"
+    ],
+    "Static files": [
+      "server-index",
+      "server-static",
+      "server-spa"
+    ],
+    "Creating a new modules": [
+      "server-module",
+      "server-express"
+    ]
   }
 }

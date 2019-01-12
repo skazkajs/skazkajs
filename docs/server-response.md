@@ -1,8 +1,10 @@
-# Server response
+---
+id: server-response
+title: Server Response
+sidebar_label: Server Response
+---
 
 Skazka Server response.
-
-[![NPM](https://nodei.co/npm/@skazka/server-response.png)](https://npmjs.org/package/@skazka/server-response)
 
 ## How to install
 

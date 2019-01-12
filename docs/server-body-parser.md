@@ -1,8 +1,10 @@
-# Server Body Parser
+---
+id: server-body-parser
+title: Server Body Parser
+sidebar_label: Server Body Parser
+---
 
 Skazka Server request body parser.
-
-[![NPM](https://nodei.co/npm/@skazka/server-body-parser.png)](https://npmjs.org/package/@skazka/server-body-parser)
 
 ## How to install
 

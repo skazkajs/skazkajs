@@ -5,34 +5,120 @@
     "previous": "Previous",
     "tagline": "A node.js platform for building web application",
     "docs": {
-      "doc1": {
-        "title": "Latin-ish",
-        "sidebar_label": "Example Page"
+      "server-body-parser": {
+        "title": "Server Body Parser",
+        "sidebar_label": "Server Body Parser"
       },
-      "doc2": {
-        "title": "document number 2"
+      "server-chaos": {
+        "title": "Server Chaos",
+        "sidebar_label": "Server Chaos"
       },
-      "doc3": {
-        "title": "This is document number 3"
+      "server-cookies": {
+        "title": "Server Cookies Parser",
+        "sidebar_label": "Server Cookies Parser"
       },
-      "doc4": {
-        "title": "Other Document"
+      "server-cors": {
+        "title": "Server CORS",
+        "sidebar_label": "Server CORS"
       },
-      "doc5": {
-        "title": "Fifth Document"
+      "server-error": {
+        "title": "Server Error Handler",
+        "sidebar_label": "Server Error Handler"
+      },
+      "server-express": {
+        "title": "Server Express Wrapper",
+        "sidebar_label": "Server Express Wrapper"
+      },
+      "server-graphql": {
+        "title": "Server GraphQL",
+        "sidebar_label": "Server GraphQL"
+      },
+      "server-helmet": {
+        "title": "Server Helmet",
+        "sidebar_label": "Server Helmet"
+      },
+      "server-http": {
+        "title": "Server HTTP(S)",
+        "sidebar_label": "Server HTTP(S)"
+      },
+      "server-index": {
+        "title": "Server Index",
+        "sidebar_label": "Server Index"
+      },
+      "server-init": {
+        "title": "Server Init",
+        "sidebar_label": "Server Init"
+      },
+      "server-logger": {
+        "title": "Server Logger",
+        "sidebar_label": "Server Logger"
+      },
+      "server-method-override": {
+        "title": "Server Method Override",
+        "sidebar_label": "Server Method Override"
+      },
+      "server-module": {
+        "title": "Server Module Builder",
+        "sidebar_label": "Server Module Builder"
+      },
+      "server-mongoose": {
+        "title": "Server Mongoose",
+        "sidebar_label": "Server Mongoose"
+      },
+      "server-mysql": {
+        "title": "Server MySQL",
+        "sidebar_label": "Server MySQL"
+      },
+      "server-pg": {
+        "title": "Server PostgreSQL",
+        "sidebar_label": "Server PostgreSQL"
+      },
+      "server-redis": {
+        "title": "Server Redis",
+        "sidebar_label": "Server Redis"
+      },
+      "server-request": {
+        "title": "Server Request",
+        "sidebar_label": "Server Request"
+      },
+      "server-response": {
+        "title": "Server Response",
+        "sidebar_label": "Server Response"
+      },
+      "server-router": {
+        "title": "Server Router",
+        "sidebar_label": "Server Router"
+      },
+      "server-spa": {
+        "title": "Server SPA",
+        "sidebar_label": "Server SPA"
+      },
+      "server-static": {
+        "title": "Server Static",
+        "sidebar_label": "Server Static"
+      },
+      "server-virtual-host": {
+        "title": "Server Virtual Host",
+        "sidebar_label": "Server Virtual Host"
+      },
+      "server": {
+        "title": "Server",
+        "sidebar_label": "Server"
       }
     },
     "links": {
-      "Docs": "Docs",
       "API": "API",
-      "Help": "Help",
       "Github": "Github",
       "Blog": "Blog"
     },
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Introduction": "Introduction",
+      "Start working": "Start working",
+      "Running server": "Running server",
+      "API": "API",
+      "Database": "Database",
+      "Static files": "Static files",
+      "Creating a new modules": "Creating a new modules"
     }
   },
   "pages-strings": {
