@@ -6,7 +6,6 @@ A node.js platform for building web application.
 TODO:
 
 - server examples:
-  - Rest API (init, router, body, cors)
   - graphql(init, cors)
   - serverless
   - virtual host (redirect http->https, init)

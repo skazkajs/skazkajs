@@ -139,15 +139,15 @@ describe('SPA example test', async () => {
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": "^0.0.0",
-    "@skazka/server-http": "^0.0.0",
-    "@skazka/server-index": "^0.0.0",
-    "@skazka/server-init": "^0.0.0",
-    "@skazka/server-spa": "^0.0.0",
-    "@skazka/server-static": "^0.0.0",
-    "axios": "^0.18.0",
-    "debug": "^4.1.1",
-    "jest": "^23.6.0"
+    "@skazka/server": ">=0.0.0",
+    "@skazka/server-http": ">=0.0.0",
+    "@skazka/server-index": ">=0.0.0",
+    "@skazka/server-init": ">=0.0.0",
+    "@skazka/server-spa": ">=0.0.0",
+    "@skazka/server-static": ">=0.0.0",
+    "axios": ">=0.18.0",
+    "debug": ">=4.0.0",
+    "jest": ">=23.6.0"
   }
 }
 ```
@@ -177,17 +177,18 @@ Or
 ## More docs
 
 - [Server](https://skazkajs.org/server)
-- [Server Index](https://skazkajs.org/server-index)
-- [Server Static](https://skazkajs.org/server-static)
-- [Server SPA](https://skazkajs.org/server-spa)
-- [Server HTTPS(S)](https://skazkajs.org/server-http)
+- [Server init](https://skazkajs.org/server/init)
+- [Server Index](https://skazkajs.org/server/index)
+- [Server Static](https://skazkajs.org/server/static)
+- [Server SPA](https://skazkajs.org/server/spa)
+- [Server HTTPS(S)](https://skazkajs.org/server/http)
 
 ## Copy from git
 
 Clone:
 
     git clone https://github.com/skazkajs/skazka.git
-    cd skazka/examples/spaa
+    cd skazka/examples/spa
 
 Install:
     

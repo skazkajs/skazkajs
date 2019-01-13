@@ -18,6 +18,7 @@
     "test:code": "cross-env PORT=5000 jest --runInBand",
     "test:coverage": "cross-env PORT=6000 jest --coverage --runInBand",
     "test:examples:spa": "cd examples/spa && yarn && yarn test",
+    "test:examples:rest": "cd examples/spa && yarn && yarn test",
     "pretest": "npm-run-all -c -p --silent db:stop:* && npm-run-all -p --silent db:start:* || npm-run-all -p --silent db:start:*",
     "posttest": "npm-run-all -c -p --silent db:stop:*",
     "db:start:mysql": "docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=skazka mysql:5",

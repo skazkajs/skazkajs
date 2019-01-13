@@ -5,6 +5,10 @@
     "previous": "Previous",
     "tagline": "A node.js platform for building web application",
     "docs": {
+      "examples/rest": {
+        "title": "Server REST API",
+        "sidebar_label": "REST API"
+      },
       "examples/spa": {
         "title": "Server SPA",
         "sidebar_label": "SPA"
