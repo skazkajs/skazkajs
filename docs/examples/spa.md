@@ -1,7 +1,7 @@
 ---
 id: spa
 title: Server SPA
-sidebar_label: Server SPA
+sidebar_label: SPA
 ---
 
 There are 3 Skazka Server modules for working with static files:

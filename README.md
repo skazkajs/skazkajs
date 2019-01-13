@@ -1,13 +1,15 @@
 # Skazka
 A node.js platform for building web application.
 
+[![Build Status](https://travis-ci.org/skazkajs/skazka.svg?branch=master)](https://travis-ci.org/skazkajs/skazka)
+
 TODO:
 
 - server examples:
   - Rest API (init, router, body, cors)
   - graphql(init, cors)
-  - virtual host (redirect http->https, init)
   - serverless
+  - virtual host (redirect http->https, init)
   - (readme + docs) for each
   
 - change peer dependencies >=0.0.0

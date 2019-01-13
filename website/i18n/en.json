@@ -7,7 +7,7 @@
     "docs": {
       "examples/spa": {
         "title": "Server SPA",
-        "sidebar_label": "Server SPA"
+        "sidebar_label": "SPA"
       },
       "server/body-parser": {
         "title": "Server Body Parser",

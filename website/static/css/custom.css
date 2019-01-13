@@ -1,6 +1,18 @@
 /* your custom css */
 
+.example {
+  text-align: center;
+  padding: 0;
+}
+
+.example > img {
+  width: 50%;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+  .example > img {
+    width: 100%;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
