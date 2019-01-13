@@ -1,5 +1,5 @@
 ---
-id: server-virtual-host
+id: virtual-host
 title: Server Virtual Host
 sidebar_label: Server Virtual Host
 ---

@@ -1,5 +1,5 @@
 ---
-id: server-helmet
+id: helmet
 title: Server Helmet
 sidebar_label: Server Helmet
 ---

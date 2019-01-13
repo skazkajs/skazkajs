@@ -1,5 +1,5 @@
 ---
-id: server-cookies
+id: cookies
 title: Server Cookies Parser
 sidebar_label: Server Cookies Parser
 ---

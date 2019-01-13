@@ -1,5 +1,5 @@
 ---
-id: server-init
+id: init
 title: Server Init
 sidebar_label: Server Init
 ---

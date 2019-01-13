@@ -1,10 +1,10 @@
 ---
-id: server-static
-title: Server Static
-sidebar_label: Server Static
+id: spa
+title: Server SPA
+sidebar_label: Server SPA
 ---
 
-Skazka Server Static helps to serve static files.
+Skazka Server single page application (SPA) is serving index.html file without cache.
 
 There are 3 Skazka Server modules for working with static files:
 - **Skazka Server Index** should be the first module for checking url and returning index.html file without caching.
@@ -14,19 +14,19 @@ It returns index.html file for any request - the main idea of any SPA server.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-static
+    npm i @skazka/server @skazka/server-spa
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-static
+    yarn add @skazka/server @skazka/server-spa
     
-##### Skazka Server index and spa:
+##### Skazka Server index and static:
 
-    npm i @skazka/server @skazka/server-index @skazka/server-spa
+    npm i @skazka/server @skazka/server-index @skazka/server-static
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-index @skazka/server-spa
+    yarn add @skazka/server @skazka/server-index @skazka/server-static
     
 Optionally you can add http server, error handler, logger, router, request and response:
 
@@ -86,64 +86,17 @@ server.createHttpServer(app);
 
 ### Options
 
-- **root** - directory with index file, by default: **__dirname**.
-- **index** - file name, by default: **index.html** (you can use for example index.htm...). Or **false** to disable serving index file (useful working with Skazka Server Index).
-- **etag** - caching using etag, by default: **true**.
-- **gzip** - compression functionality, by default: **true**.
-- **maxage** - caching using maxage, by default: **0**.
+- **root** - directory with index file, by default: __dirname.
+- **index** - file name, by default: index.html (you can use for example index.htm...).
 
 Example with all options:
 
 ```javascript
 app.all([
   ...
-  serve({
+  spa({
     root: resolve(__dirname, 'dist'),
     index: 'index.html',
-    etag: true,
-    gzip: true,
-    maxage: 0,
   }),
 ]);
-```
-
-#### With virtual host
-
-```javascript
-const { resolve } = require('path');
-
-const App = require('@skazka/server');
-const VirtualHost = require('@skazka/server-virtual-host');
-const Router = require('@skazka/server-router');
-
-const serve = require('@skazka/server-static');
-        
-const error = require('@skazka/server-error');
-const logger = require('@skazka/server-logger');
-        
-const response = require('@skazka/server-response');
-        
-const server = require('@skazka/server-http');
-        
-const app = new App();
-const router = new Router();
-const vhost = new VirtualHost();
-
-const root = resolve(__dirname, 'dist');
-    
-app.all([
-  error({ isJSON: true }),
-  logger(),
-  response(),
-]);
-    
-router.get('/').then(ctx => ctx.response({ status : 'OK' }));
-    
-vhost.http('api.skazkajs.org').then(router.resolve());
-        
-vhost.http('static.skazkajs.org').then(serve({ root }));
-
-app.then(vhost.resolve());
-    
-server.createHttpServer(app);
 ```

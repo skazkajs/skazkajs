@@ -1,5 +1,5 @@
 ---
-id: server-mongoose
+id: mongoose
 title: Server Mongoose
 sidebar_label: Server Mongoose
 ---

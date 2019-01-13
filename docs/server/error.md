@@ -1,5 +1,5 @@
 ---
-id: server-error
+id: error
 title: Server Error Handler
 sidebar_label: Server Error Handler
 ---

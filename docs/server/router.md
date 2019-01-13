@@ -1,5 +1,5 @@
 ---
-id: server-router
+id: router
 title: Server Router
 sidebar_label: Server Router
 ---

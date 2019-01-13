@@ -1,5 +1,5 @@
 ---
-id: server-logger
+id: logger
 title: Server Logger
 sidebar_label: Server Logger
 ---

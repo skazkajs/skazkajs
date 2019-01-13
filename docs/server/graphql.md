@@ -1,5 +1,5 @@
 ---
-id: server-graphql
+id: graphql
 title: Server GraphQL
 sidebar_label: Server GraphQL
 ---

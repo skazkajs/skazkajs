@@ -1,5 +1,5 @@
 ---
-id: server-mysql
+id: mysql
 title: Server MySQL
 sidebar_label: Server MySQL
 ---

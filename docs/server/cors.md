@@ -1,5 +1,5 @@
 ---
-id: server-cors
+id: cors
 title: Server CORS
 sidebar_label: Server CORS
 ---

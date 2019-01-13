@@ -1,5 +1,5 @@
 ---
-id: server-body-parser
+id: body-parser
 title: Server Body Parser
 sidebar_label: Server Body Parser
 ---

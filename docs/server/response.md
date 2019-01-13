@@ -1,5 +1,5 @@
 ---
-id: server-response
+id: response
 title: Server Response
 sidebar_label: Server Response
 ---

@@ -1,5 +1,5 @@
 ---
-id: server-module
+id: module
 title: Server Module Builder
 sidebar_label: Server Module Builder
 ---

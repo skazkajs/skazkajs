@@ -40,7 +40,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: 'server', label: 'API' },
+    { doc: 'server/server', label: 'Server' },
+    { doc: 'examples/spa', label: 'Examples' },
     // { doc: 'doc4', label: 'API' },
     // { page: 'help', label: 'Help' },
     { href: 'https://www.github.com/skazkajs/skazka', label: 'Github' },

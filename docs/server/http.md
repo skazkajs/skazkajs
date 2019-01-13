@@ -1,5 +1,5 @@
 ---
-id: server-http
+id: http
 title: Server HTTP(S)
 sidebar_label: Server HTTP(S)
 ---

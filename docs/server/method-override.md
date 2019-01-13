@@ -1,5 +1,5 @@
 ---
-id: server-method-override
+id: method-override
 title: Server Method Override
 sidebar_label: Server Method Override
 ---

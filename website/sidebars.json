@@ -1,43 +1,48 @@
 {
   "docs": {
     "Introduction": [
-      "server"
+      "server/server"
     ],
     "Start working": [
-      "server-init",
-      "server-request",
-      "server-response",
-      "server-error",
-      "server-logger",
-      "server-cookies",
-      "server-helmet"
+      "server/init",
+      "server/request",
+      "server/response",
+      "server/error",
+      "server/logger",
+      "server/cookies",
+      "server/helmet"
     ],
     "Running server": [
-      "server-http"
+      "server/http"
     ],
     "API": [
-      "server-graphql",
-      "server-router",
-      "server-body-parser",
-      "server-cors",
-      "server-method-override",
-      "server-virtual-host",
-      "server-chaos"
+      "server/graphql",
+      "server/router",
+      "server/body-parser",
+      "server/cors",
+      "server/method-override",
+      "server/virtual-host",
+      "server/chaos"
     ],
     "Database": [
-      "server-mongoose",
-      "server-mysql",
-      "server-pg",
-      "server-redis"
+      "server/mongoose",
+      "server/mysql",
+      "server/pg",
+      "server/redis"
     ],
     "Static files": [
-      "server-index",
-      "server-static",
-      "server-spa"
+      "server/index",
+      "server/static",
+      "server/spa"
     ],
     "Creating a new modules": [
-      "server-module",
-      "server-express"
+      "server/module",
+      "server/express"
+    ]
+  },
+  "Examples": {
+    "Server": [
+      "examples/spa"
     ]
   }
 }

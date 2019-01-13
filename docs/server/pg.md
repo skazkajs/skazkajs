@@ -1,5 +1,5 @@
 ---
-id: server-pg
+id: pg
 title: Server PostgreSQL
 sidebar_label: Server PostgreSQL
 ---

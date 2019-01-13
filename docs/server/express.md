@@ -1,5 +1,5 @@
 ---
-id: server-express
+id: express
 title: Server Express Wrapper
 sidebar_label: Server Express Wrapper
 ---

@@ -1,5 +1,5 @@
 ---
-id: server-request
+id: request
 title: Server Request
 sidebar_label: Server Request
 ---

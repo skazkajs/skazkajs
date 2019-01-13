@@ -1,5 +1,5 @@
 ---
-id: server-index
+id: index
 title: Server Index
 sidebar_label: Server Index
 ---

@@ -3,12 +3,15 @@ A node.js platform for building web application.
 
 TODO:
 
-- server examples
-  - Rest API (init, router, body)
-  - graphql
-  - spa
+- server examples:
+  - Rest API (init, router, body, cors)
+  - graphql(init, cors)
   - virtual host (redirect http->https, init)
   - serverless
+  - (readme + docs) for each
+  
+- change peer dependencies >=0.0.0
+- Finish website index
 
 - front part
   - redux-builder
