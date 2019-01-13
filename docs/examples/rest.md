@@ -5,6 +5,7 @@ sidebar_label: REST API
 ---
 
 This example shows how to use router, body parser and CORS packages to create REST API.
+
 ## How to install
 
     npm i @skazka/server @skazka/server-init @skazka/server-router @skazka/server-body-parser @skazka/server-cors @skazka/server-http debug axios jest

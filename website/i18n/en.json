@@ -5,6 +5,10 @@
     "previous": "Previous",
     "tagline": "A node.js platform for building web application",
     "docs": {
+      "examples/graphql": {
+        "title": "Server GraphQL",
+        "sidebar_label": "GraphQL"
+      },
       "examples/rest": {
         "title": "Server REST API",
         "sidebar_label": "REST API"

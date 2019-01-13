@@ -43,6 +43,7 @@
   "Examples": {
     "Server": [
       "examples/rest",
+      "examples/graphql",
       "examples/spa"
     ]
   }

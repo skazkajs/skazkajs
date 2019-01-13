@@ -6,10 +6,11 @@ A node.js platform for building web application.
 TODO:
 
 - server examples:
-  - graphql(init, cors)
   - serverless
   - virtual host (redirect http->https, init)
   - (readme + docs) for each
+  - http benchmark(express/koa2/http)
+  - lambda benchmark(express)
   
 - change peer dependencies >=0.0.0
 - Finish website index

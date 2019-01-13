@@ -1,5 +1,5 @@
 {
-  "name": "example-rest",
+  "name": "example-graphql",
   "version": "0.0.0",
   "description": "",
   "private": true,
@@ -9,7 +9,7 @@
     "test": "PORT=7000 jest  --coverage --runInBand"
   },
   "keywords": [
-    "rest",
+    "graphql",
     "node.js",
     "skazka",
     "cors"
@@ -18,13 +18,13 @@
   "license": "MIT",
   "dependencies": {
     "@skazka/server": ">=0.0.0",
-    "@skazka/server-body-parser": ">=0.0.0",
     "@skazka/server-cors": ">=0.0.0",
+    "@skazka/server-graphql": ">=0.0.0",
     "@skazka/server-http": ">=0.0.0",
     "@skazka/server-init": ">=0.0.0",
-    "@skazka/server-router": ">=0.0.0",
     "axios": ">=0.18.0",
     "debug": ">=4.0.0",
+    "graphql": ">=14.0.0",
     "jest": ">=23.6.0"
   }
 }
