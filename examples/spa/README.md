@@ -148,13 +148,13 @@ describe('SPA example test', async () => {
 }
 ```
 
-### Commands
+### dist directory
 
-#### Run app
+Create **dist** directory and put index.html, images, css and js files there.
 
-Create **dist** directory and put index.html, css, js files, images there.
+## Commands
 
-And run next command:
+### Run app
 
     npm start
     
@@ -162,7 +162,7 @@ Or
 
     yarn start
     
-#### Test app
+### Test app
 
     npm test
     
@@ -170,10 +170,27 @@ Or
 
     yarn test
 
-### More docs
+## More docs
 
 - [Server](https://skazkajs.org/server)
 - [Server Index](https://skazkajs.org/server-index)
 - [Server Static](https://skazkajs.org/server-static)
 - [Server SPA](https://skazkajs.org/server-spa)
 - [Server HTTPS(S)](https://skazkajs.org/server-http)
+
+## Copy from git
+
+Clone:
+
+    git clone https://github.com/skazkajs/skazka.git
+    cd skazka/examples/spaa
+
+Install:
+    
+    npm i
+
+Or 
+
+    yarn
+    
+And run **start** or **test** [commands](#commands).

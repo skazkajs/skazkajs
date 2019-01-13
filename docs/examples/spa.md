@@ -187,7 +187,7 @@ Or
 Clone:
 
     git clone https://github.com/skazkajs/skazka.git
-    cd skazka
+    cd skazka/examples/spaa
 
 Install:
     
