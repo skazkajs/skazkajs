@@ -28,6 +28,6 @@
     "react": ">=16.0.0"
   },
   "dependencies": {
-    "@skazka/react-hoc-builder": "*"
+    "@skazka/react-hoc-builder": ">=0.0.0"
   }
 }

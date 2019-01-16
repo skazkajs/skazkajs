@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-pg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server PostgreSQL",
   "main": "index.js",
   "files": [
@@ -41,7 +41,7 @@
     "pg"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "*",
+    "@skazka/server-module": ">=0.0.0",
     "config": ">=3.0.0",
     "debug": ">=4.0.0",
     "pg": ">=7.0.0"

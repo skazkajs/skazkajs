@@ -25,10 +25,10 @@
     "node.js"
   ],
   "peerDependencies": {
-    "@skazka/history": "*",
+    "@skazka/history": ">=0.0.0",
     "react-router": ">=4.3.1"
   },
   "dependencies": {
-    "@skazka/react-hoc-builder": "*"
+    "@skazka/react-hoc-builder": ">=0.0.0"
   }
 }

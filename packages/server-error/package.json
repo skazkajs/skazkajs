@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-error",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Server Error Handler",
   "main": "index.js",
   "files": [
@@ -42,8 +42,8 @@
     "handler"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "*",
-    "@skazka/server-response": "*",
+    "@skazka/server-module": ">=0.0.0",
+    "@skazka/server-response": ">=0.0.0",
     "debug": ">=4.0.0"
   }
 }
