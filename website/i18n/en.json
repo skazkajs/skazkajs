@@ -13,6 +13,10 @@
         "title": "Server REST API",
         "sidebar_label": "REST API"
       },
+      "examples/serverless": {
+        "title": "Server Serverless",
+        "sidebar_label": "Serverless"
+      },
       "examples/spa": {
         "title": "Server SPA",
         "sidebar_label": "SPA"
