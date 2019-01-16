@@ -381,7 +381,7 @@ describe('GraphQL example test', async () => {
 #!/usr/bin/env node
 
 const server = require('@skazka/server-http');
-const app = require('..');
+const app = require('../app');
 
 server.createHttpServer(app);
 ```
