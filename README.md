@@ -5,18 +5,14 @@ A node.js platform for building web application.
 
 TODO:
 
+- redux-ns (name space)
+- relay + main/unpkg/module/typings ??? typescript docs ???
+- add lerna build
+- add lerna release ??? prerelease => build
+
 - server examples:
-  - serverless
   - virtual host (redirect http->https, init)
-  - (readme + docs) for each
   - http benchmark(express/koa2/http)
   - lambda benchmark(express)
-  
-- change peer dependencies >=0.0.0
-- Finish website index
-
-- front part
-  - redux-builder
-  - relay + main/unpkg/module/typings ??? typescript docs ???
-  - add lerna build
-  - add lerna release ??? prerelease => build
+  - swagger for rest api (add example to rest api)
+  - joi for validation (add example to rest api)
