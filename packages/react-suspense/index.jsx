@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import hocBuilder from '@skazka/react-hoc-builder';
 
-export default hocBuilder(Suspense, { fallback: <div>Loading...</div> });
+export default hocBuilder(React.Suspense, { fallback: <div>Loading...</div> });

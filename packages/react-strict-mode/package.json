@@ -2,27 +2,42 @@
   "name": "@skazka/react-strict-mode",
   "version": "0.0.0",
   "description": "React Strict Mode HOC",
-  "main": "index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "clean": "rimraf lib dist es",
+    "prebuild": "yarn clean"
+  },
+  "main": "lib/index.js",
+  "unpkg": "dist/index.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
   "engines": {
     "node": ">=8.9.0"
   },
   "license": "MIT",
-  "author": "SkazkaJS",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
   "authors": [
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skazkajs/skazka.git"
-  },
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react-strict-mode",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
   "homepage": "https://skazkajs.org/",
   "keywords": [
     "skazka",
-    "node.js"
+    "node.js",
+    "react",
+    "strict",
+    "mode"
   ],
   "peerDependencies": {
     "react": ">=16.0.0"

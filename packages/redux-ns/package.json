@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Redux NameSpace",
   "scripts": {
-    "build": "rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
     "clean": "rimraf lib dist es",
     "prebuild": "yarn clean"
   },
@@ -19,24 +19,36 @@
     "node": ">=8.9.0"
   },
   "license": "MIT",
-  "author": "SkazkaJS",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
   "authors": [
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skazkajs/skazka.git"
-  },
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/redux-ns",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
   "homepage": "https://skazkajs.org/",
   "keywords": [
     "skazka",
-    "node.js"
+    "node.js",
+    "redux",
+    "ns",
+    "NameSpace",
+    "name",
+    "space",
+    "builder",
+    "action",
+    "type",
+    "creator",
+    "reducer",
+    "container"
   ],
   "peerDependencies": {
+    "redux": ">=4.0.1",
     "react-redux": ">=6.0.0"
   }
 }

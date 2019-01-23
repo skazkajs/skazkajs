@@ -11,6 +11,7 @@ module.exports = {
     '/es/',
   ],
   setupFiles: ['<rootDir>/axios.config.js'],
+  coverageReporters: ['lcov', 'clover', 'text', 'text-summary'],
   testEnvironment: 'node',
   bail: true,
   verbose: false,
