@@ -215,11 +215,11 @@ class NS {
       throw new Error('React-Redux connect should be set!');
     }
 
-    return this.connect(this.getMapStateToProps, this.getMapDispatchToProps());
+    return this.connect(this.getMapStateToProps(), this.getMapDispatchToProps());
   }
 
-  getMapStateToProps(state) {
-    return state[this.getNameSpace()];
+  getMapStateToProps() {
+    return state => state[this.getNameSpace()];
   }
 
   getMapDispatchToProps() {
