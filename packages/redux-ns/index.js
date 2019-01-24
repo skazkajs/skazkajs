@@ -1,3 +1,5 @@
+import { connect as ReactReduxConnect } from 'react-redux';
+
 const toConst = text => text.replace(/([A-Z])/g, $1 => `_${$1.toLowerCase()}`).toUpperCase();
 
 const getNameSpaceKey = (nameSpace, globalNameSpace, nameSpacePrefix) => (
@@ -29,7 +31,7 @@ const getReducer = (types, defaultState) => (state = defaultState, action) => {
 class NS {
   constructor(nameSpace, options = {}) {
     const {
-      connect = null,
+      connect = ReactReduxConnect,
       globalNameSpace = '',
       nameSpacePrefix = '@@',
       actionPostfix = 'Action',
@@ -213,11 +215,11 @@ class NS {
       throw new Error('React-Redux connect should be set!');
     }
 
-    return this.connect(this.getMapStateToProps, this.getMapDispatchToProps);
+    return this.connect(this.getMapStateToProps, this.getMapDispatchToProps());
   }
 
   getMapStateToProps(state) {
-    return state[this.nameSpace];
+    return state[this.getNameSpace()];
   }
 
   getMapDispatchToProps() {

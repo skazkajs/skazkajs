@@ -1,19 +1,13 @@
 {
   "name": "@skazka/react-hoc-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React HOC Builder",
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c",
-    "clean": "rimraf lib dist es",
-    "prebuild": "yarn clean"
+    "build": "cross-env NODE_ENV=production gulp"
   },
   "main": "lib/index.js",
-  "unpkg": "dist/index.js",
-  "module": "es/index.js",
   "files": [
-    "dist",
-    "lib",
-    "es"
+    "lib"
   ],
   "engines": {
     "node": ">=8.9.0"

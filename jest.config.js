@@ -6,9 +6,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/coverage/',
-    '/dist/',
     '/lib/',
-    '/es/',
   ],
   setupFiles: ['<rootDir>/axios.config.js'],
   coverageReporters: ['lcov', 'clover', 'text', 'text-summary'],
