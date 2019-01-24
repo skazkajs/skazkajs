@@ -1,6 +1,6 @@
 {
   "name": "@skazka/env",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js Environment",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp"

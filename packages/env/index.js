@@ -2,7 +2,7 @@ const PRODUCTION = 'production';
 const DEVELOPMENT = 'development';
 const TEST = 'test';
 
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV || DEVELOPMENT;
 
 const isProduction = env === PRODUCTION;
 const isDevelopment = ![PRODUCTION, TEST].includes(env);
