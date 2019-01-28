@@ -8,6 +8,7 @@ node_modules
 coverage
 .serverless
 lib
+!packages/server/**/lib
 
 # Keep .gitkeep files
 !/**/.gitkeep

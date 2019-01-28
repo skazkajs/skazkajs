@@ -1,8 +1,11 @@
 {
   "packages": [
-    "packages/*"
+    "packages/server/*",
+    "packages/react/*",
+    "packages/redux/*",
+    "packages/core/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "0.0.0"
+  "version": "independent"
 }
