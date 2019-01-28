@@ -89,7 +89,7 @@ class NS {
 
     this.defaultState[name] = defaultValue;
     this.types[typeKey] = type;
-    this.actions[actionKey] = payload => ({ type, [name]: payload });
+    this.actions[actionKey] = (payload = defaultValue) => ({ type, [name]: payload });
   }
 
   addEventAction(name) {
@@ -145,7 +145,7 @@ class NS {
 
     this.defaultState[name] = defaultValue;
     this.types[typeKey] = type;
-    this.actions[actionKey] = (event) => {
+    this.actions[actionKey] = (event = defaultValue) => {
       let payload = defaultValue;
       if (event && event.target && event.target.value !== undefined) {
         const { target: { value } } = event;
