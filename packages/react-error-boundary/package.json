@@ -3,7 +3,8 @@
   "version": "0.0.2",
   "description": "React Error Boundary HOC",
   "scripts": {
-    "build": "cross-env NODE_ENV=production gulp"
+    "build": "cross-env NODE_ENV=production gulp",
+    "prebuild": "rimraf lib"
   },
   "main": "lib/index.js",
   "files": [

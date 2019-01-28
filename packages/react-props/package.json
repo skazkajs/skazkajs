@@ -1,7 +1,7 @@
 {
-  "name": "@skazka/react-compose",
-  "version": "0.0.1",
-  "description": "Composing React HOCs",
+  "name": "@skazka/react-props",
+  "version": "0.0.0",
+  "description": "Useful React HOCs",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
     "prebuild": "rimraf lib"
@@ -22,7 +22,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react-compose",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react-hoc-builder",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -30,6 +30,11 @@
   "keywords": [
     "skazka",
     "node.js",
-    "react"
-  ]
+    "react",
+    "hoc",
+    "builder"
+  ],
+  "peerDependencies": {
+    "react": ">=16.0.0"
+  }
 }
