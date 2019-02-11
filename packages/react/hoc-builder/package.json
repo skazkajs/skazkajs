@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-hoc-builder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React HOC Builder",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",

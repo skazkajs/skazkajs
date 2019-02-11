@@ -179,7 +179,7 @@ class NS {
     };
   }
 
-  addResetAction(name = 'clear') {
+  addResetAction(name = 'reset') {
     nameValidation(name);
 
     const typeKey = `${toConst(name)}${this.resetTypePostfix}`;
@@ -219,11 +219,23 @@ class NS {
   }
 
   getMapStateToProps() {
-    return state => state[this.getNameSpace()];
+    return (state) => {
+      const currentState = state[this.getNameSpace()];
+
+      if (currentState === undefined) {
+        throw new Error('Forgot to inject name space!');
+      }
+
+      return currentState;
+    };
   }
 
   getMapDispatchToProps() {
     return this.actions;
+  }
+
+  getConnect() {
+    return this.connect;
   }
 }
 
