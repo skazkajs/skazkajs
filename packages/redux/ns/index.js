@@ -150,6 +150,8 @@ class NS {
       if (event && event.target && event.target.value !== undefined) {
         const { target: { value } } = event;
         payload = value;
+      } else if (event && !event.target) {
+        payload = event;
       }
 
       return { type, [name]: payload };
