@@ -6,6 +6,10 @@ module.exports = (api) => {
       [
         '@babel/preset-env', {
           useBuiltIns: 'entry',
+          targets: {
+            node: '8.10',
+          },
+          corejs: '2',
         },
       ],
       '@babel/preset-react',

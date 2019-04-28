@@ -1,6 +1,6 @@
 {
   "name": "@skazka/history",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Browser History",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -32,6 +32,6 @@
     "node.js"
   ],
   "peerDependencies": {
-    "history": ">=4.7.2"
+    "history": ">=4.9.0"
   }
 }
