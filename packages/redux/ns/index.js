@@ -220,6 +220,10 @@ class NS {
     return this.connect(this.getMapStateToProps(), this.getMapDispatchToProps());
   }
 
+  getDefaultState() {
+    return this.defaultState;
+  }
+
   getMapStateToProps() {
     return (state) => {
       const currentState = state[this.getNameSpace()];
