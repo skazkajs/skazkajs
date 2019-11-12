@@ -1,7 +1,7 @@
 const debug = require('debug')('skazka:server:router');
 
 const parser = require('url');
-const pathToRegexp = require('path-to-regexp');
+const { pathToRegexp } = require('path-to-regexp');
 
 module.exports = class {
   constructor() {

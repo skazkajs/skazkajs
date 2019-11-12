@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-router",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Server Router",
   "main": "index.js",
   "files": [
@@ -42,6 +42,6 @@
     "debug": ">=4.0.0"
   },
   "dependencies": {
-    "path-to-regexp": ">=2.4.0"
+    "path-to-regexp": ">=5.0.0"
   }
 }
