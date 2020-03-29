@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-error-boundary",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Error Boundary HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -34,7 +34,7 @@
     "boundary"
   ],
   "peerDependencies": {
-    "@skazka/react-hoc-builder": "^0.0.4",
+    "@skazka/react-hoc-builder": "^0.0.5",
     "react-error-boundary": "^1.2.5"
   }
 }
