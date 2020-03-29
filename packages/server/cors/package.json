@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-cors",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Server cors",
   "main": "index.js",
   "files": [
@@ -43,8 +43,8 @@
     "Sharing"
   ],
   "peerDependencies": {
-    "@skazka/server-express": "0.0.2",
-    "@skazka/server-module": "0.0.1",
+    "@skazka/server-express": "^0.0.4",
+    "@skazka/server-module": "^0.0.2",
     "debug": "^4.1.1"
   },
   "dependencies": {

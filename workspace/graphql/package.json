@@ -1,12 +1,12 @@
 {
   "name": "example-graphql",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "",
   "private": true,
   "main": "index.js",
   "scripts": {
     "start": "node bin/www",
-    "test": "PORT=7000 jest  --coverage --runInBand"
+    "test": "PORT=7000 mocha **/*.test.js"
   },
   "keywords": [
     "graphql",
@@ -17,14 +17,13 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": "0.0.2",
-    "@skazka/server-cors": "0.0.2",
-    "@skazka/server-graphql": "0.0.2",
-    "@skazka/server-http": "0.0.1",
-    "@skazka/server-init": "0.0.2",
+    "@skazka/server": "^0.0.5",
+    "@skazka/server-cors": "^0.0.5",
+    "@skazka/server-graphql": "^0.0.5",
+    "@skazka/server-http": "^0.0.1",
+    "@skazka/server-init": "^0.0.6",
     "axios": "^0.19.2",
     "debug": "^4.1.1",
-    "graphql": "^14.6.0",
-    "jest": "^25.2.3"
+    "graphql": "^14.6.0"
   }
 }

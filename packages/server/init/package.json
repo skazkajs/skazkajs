@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-init",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Pack of useful packages: cookies, error, helmet, logger, request and response",
   "main": "index.js",
   "files": [
@@ -45,16 +45,16 @@
     "response"
   ],
   "peerDependencies": {
-    "@skazka/server-express": "0.0.2",
-    "@skazka/server-module": "0.0.1",
+    "@skazka/server-express": "^0.0.4",
+    "@skazka/server-module": "^0.0.2",
     "debug": "^4.1.1"
   },
   "dependencies": {
-    "@skazka/server-cookies": "0.0.2",
-    "@skazka/server-error": "0.0.2",
-    "@skazka/server-helmet": "0.0.2",
-    "@skazka/server-logger": "0.0.2",
-    "@skazka/server-request": "0.0.3",
-    "@skazka/server-response": "0.0.3"
+    "@skazka/server-cookies": "^0.0.4",
+    "@skazka/server-error": "^0.0.5",
+    "@skazka/server-helmet": "^0.0.5",
+    "@skazka/server-logger": "^0.0.4",
+    "@skazka/server-request": "^0.0.5",
+    "@skazka/server-response": "^0.0.5"
   }
 }

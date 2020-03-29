@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Server",
   "main": "index.js",
   "files": [
@@ -38,11 +38,11 @@
     "easy"
   ],
   "dependencies": {
-    "@skazka/server-context": "0.0.1",
-    "@skazka/server-core": "0.0.1",
-    "@skazka/server-express": "0.0.2",
-    "@skazka/server-module": "0.0.1",
-    "@skazka/server-response": "0.0.3",
+    "@skazka/server-context": "^0.0.1",
+    "@skazka/server-core": "^0.0.1",
+    "@skazka/server-express": "^0.0.4",
+    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-response": "^0.0.5",
     "debug": "^4.1.1"
   }
 }

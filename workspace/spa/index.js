@@ -9,7 +9,7 @@ const spa = require('@skazka/server-spa');
 
 const server = new Server();
 
-const root = resolve(__dirname, 'dist');
+const root = resolve(__dirname, 'files');
 
 server
   .then(init())

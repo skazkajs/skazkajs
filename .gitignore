@@ -6,8 +6,8 @@ yarn-error.log
 *.log
 node_modules
 coverage
+dist
 .serverless
-lib
 !packages/server/**/lib
 
 # Keep .gitkeep files

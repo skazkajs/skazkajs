@@ -1,6 +1,6 @@
 {
   "name": "example-spa",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "",
   "private": true,
   "main": "index.js",
@@ -16,14 +16,13 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": "0.0.2",
-    "@skazka/server-http": "0.0.1",
-    "@skazka/server-index": "0.0.2",
-    "@skazka/server-init": "0.0.2",
-    "@skazka/server-spa": "0.0.2",
-    "@skazka/server-static": "0.0.2",
+    "@skazka/server": "^0.0.5",
+    "@skazka/server-http": "^0.0.1",
+    "@skazka/server-index": "^0.0.5",
+    "@skazka/server-init": "^0.0.6",
+    "@skazka/server-spa": "^0.0.4",
+    "@skazka/server-static": "^0.0.4",
     "axios": "^0.19.2",
-    "debug": "^4.1.1",
-    "jest": "^25.2.3"
+    "debug": "^4.1.1"
   }
 }

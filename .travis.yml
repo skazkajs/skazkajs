@@ -17,8 +17,8 @@ before_install:
   - sudo service postgresql stop
 
 install:
-  - npm i -g yarn lerna jest
-  - lerna bootstrap
+  - npm i -g yarn lerna
+  - yarn bootstrap
 
 script:
   - yarn test

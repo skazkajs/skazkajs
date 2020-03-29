@@ -1,14 +1,14 @@
 {
   "name": "@skazka/react-error-boundary",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React Error Boundary HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
-    "prebuild": "rimraf lib"
+    "prebuild": "rimraf dist"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "engines": {
     "node": ">=10.0.0"
@@ -35,6 +35,6 @@
   ],
   "peerDependencies": {
     "react-error-boundary": "^1.2.5",
-    "@skazka/react-hoc-builder": "0.0.4"
+    "@skazka/react-hoc-builder": "^0.0.4"
   }
 }

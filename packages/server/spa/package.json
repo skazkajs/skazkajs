@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-spa",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Server SPA",
   "main": "index.js",
   "files": [
@@ -40,7 +40,7 @@
     "static"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "0.0.1",
+    "@skazka/server-module": "^0.0.2",
     "debug": "^4.1.1"
   }
 }

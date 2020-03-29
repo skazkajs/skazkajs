@@ -3,4 +3,5 @@ node_modules
 test-results
 .nyc_output
 coverage
+dist
 workspace/**/dist

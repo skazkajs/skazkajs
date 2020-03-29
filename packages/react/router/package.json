@@ -1,14 +1,14 @@
 {
   "name": "@skazka/react-router",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React Router HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
-    "prebuild": "rimraf lib"
+    "prebuild": "rimraf dist"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "engines": {
     "node": ">=10.0.0"
@@ -34,8 +34,8 @@
     "router"
   ],
   "peerDependencies": {
-    "@skazka/history": "0.0.3",
-    "@skazka/react-hoc-builder": "0.0.4",
+    "@skazka/history": "^0.0.3",
+    "@skazka/react-hoc-builder": "^0.0.4",
     "react-router": "^5.1.2"
   }
 }

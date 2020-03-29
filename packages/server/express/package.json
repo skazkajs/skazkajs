@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-express",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Server Express Wrapper",
   "main": "index.js",
   "files": [
@@ -40,7 +40,7 @@
     "wrapper"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "0.0.1",
+    "@skazka/server-module": "^0.0.2",
     "debug": "^4.1.1"
   }
 }

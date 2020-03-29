@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-mysql",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Server MySQL",
   "main": "index.js",
   "files": [
@@ -40,7 +40,7 @@
     "mysql"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "0.0.1",
+    "@skazka/server-module": "^0.0.2",
     "config": "^3.3.1",
     "debug": "^4.1.1",
     "mysql2": "^2.1.0"
