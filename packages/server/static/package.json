@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-static",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Server static",
   "main": "index.js",
   "files": [

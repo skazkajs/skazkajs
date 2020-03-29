@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-virtual-host",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server Virtual Host",
   "main": "index.js",
   "files": [

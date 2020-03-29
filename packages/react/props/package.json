@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-props",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Useful React HOCs",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",

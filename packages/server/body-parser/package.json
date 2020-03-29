@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-body-parser",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server Body Parser",
   "main": "index.js",
   "files": [

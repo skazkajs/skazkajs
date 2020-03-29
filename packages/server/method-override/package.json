@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-method-override",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server Method Override",
   "main": "index.js",
   "files": [

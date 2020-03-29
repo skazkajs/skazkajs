@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-request",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server request",
   "main": "index.js",
   "files": [

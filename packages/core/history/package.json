@@ -1,6 +1,6 @@
 {
   "name": "@skazka/history",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Browser History",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",

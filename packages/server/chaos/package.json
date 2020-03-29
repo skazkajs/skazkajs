@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-chaos",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server Chaos",
   "main": "index.js",
   "files": [

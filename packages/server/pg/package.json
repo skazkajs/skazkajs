@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-pg",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server PostgreSQL",
   "main": "index.js",
   "files": [

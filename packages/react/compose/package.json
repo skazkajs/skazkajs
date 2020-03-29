@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-compose",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Composing React HOCs",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",

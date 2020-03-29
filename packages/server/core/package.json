@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server Core",
   "main": "index.js",
   "files": [
