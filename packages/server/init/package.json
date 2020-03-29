@@ -1,13 +1,13 @@
 {
   "name": "@skazka/server-init",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pack of useful packages: cookies, error, helmet, logger, request and response",
   "main": "index.js",
   "files": [
     "index.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -18,7 +18,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-init",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server/init",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -45,16 +45,16 @@
     "response"
   ],
   "peerDependencies": {
-    "@skazka/server-express": ">=0.0.0",
-    "@skazka/server-module": ">=0.0.0",
-    "debug": ">=4.0.0"
+    "@skazka/server-express": "0.0.2",
+    "@skazka/server-module": "0.0.1",
+    "debug": "^4.1.1"
   },
   "dependencies": {
-    "@skazka/server-cookies": ">=0.0.0",
-    "@skazka/server-error": ">=0.0.0",
-    "@skazka/server-helmet": ">=0.0.0",
-    "@skazka/server-logger": ">=0.0.0",
-    "@skazka/server-request": ">=0.0.0",
-    "@skazka/server-response": ">=0.0.0"
+    "@skazka/server-cookies": "0.0.2",
+    "@skazka/server-error": "0.0.2",
+    "@skazka/server-helmet": "0.0.2",
+    "@skazka/server-logger": "0.0.2",
+    "@skazka/server-request": "0.0.3",
+    "@skazka/server-response": "0.0.3"
   }
 }

@@ -3,9 +3,9 @@ const request = require('@skazka/server-request'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const cookies = require('.');
+const { expect, axios, host } = require('../../../test.config');
 
-const { host, axios } = global;
+const cookies = require('.');
 
 describe('Server cookies parser test', async () => {
   let app;
@@ -21,7 +21,7 @@ describe('Server cookies parser test', async () => {
     server.close(done);
   });
 
-  test('It should test empty cookies', async () => {
+  it('It should test empty cookies', async () => {
     app.all([
       request(),
       cookies(),
@@ -29,19 +29,19 @@ describe('Server cookies parser test', async () => {
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.request.cookies).toEqual({});
+      expect(ctx.request.cookies).eql({});
 
       return ctx.response();
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test cookies parser', async () => {
+  it('It should test cookies parser', async () => {
     app.all([
       request(),
       cookies(),
@@ -49,8 +49,8 @@ describe('Server cookies parser test', async () => {
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.request.cookies.data).toEqual('test');
-      expect(ctx.request.cookies.test).toEqual('test');
+      expect(ctx.request.cookies.data).equal('test');
+      expect(ctx.request.cookies.test).equal('test');
 
       ctx.setHeader('Set-Cookie', 'data=test');
 
@@ -58,14 +58,14 @@ describe('Server cookies parser test', async () => {
     });
 
     await axios.get(host, { headers: { Cookie: 'data=test;test=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['set-cookie']).toEqual(['data=test']);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['set-cookie']).eql(['data=test']);
     });
   });
 
-  test('It should test cookies in module', async () => {
+  it('It should test cookies in module', async () => {
     app.all([
       request(),
       response(),
@@ -74,8 +74,8 @@ describe('Server cookies parser test', async () => {
     app.then(async (ctx) => {
       const data = await cookies(ctx);
 
-      expect(data.data).toEqual('test');
-      expect(data.test).toEqual('test');
+      expect(data.data).equal('test');
+      expect(data.test).equal('test');
 
       ctx.setHeader('Set-Cookie', 'data=test');
 
@@ -83,21 +83,21 @@ describe('Server cookies parser test', async () => {
     });
 
     await axios.get(host, { headers: { Cookie: 'data=test;test=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['set-cookie']).toEqual(['data=test']);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['set-cookie']).eql(['data=test']);
     });
   });
 
-  test('It should test cookies without request', async () => {
+  it('It should test cookies without request', async () => {
     app.all([
       cookies(),
       response(),
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.request).toEqual(undefined);
+      expect(ctx.request).equal(undefined);
 
       ctx.setHeader('Set-Cookie', 'data=test');
 
@@ -105,10 +105,10 @@ describe('Server cookies parser test', async () => {
     });
 
     await axios.get(host, { headers: { Cookie: 'data=test;test=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['set-cookie']).toEqual(['data=test']);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['set-cookie']).eql(['data=test']);
     });
   });
 });

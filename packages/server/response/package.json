@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-response",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Server response",
   "main": "index.js",
   "files": [
@@ -8,7 +8,7 @@
     "response.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -19,7 +19,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-response",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server/response",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -39,7 +39,7 @@
     "easy"
   ],
   "peerDependencies": {
-    "@skazka/server-module": ">=0.0.0",
-    "debug": ">=4.0.0"
+    "@skazka/server-module": "0.0.1",
+    "debug": "^4.1.1"
   }
 }

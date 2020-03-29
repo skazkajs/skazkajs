@@ -1,5 +1,7 @@
 const Context = require('@skazka/server-context');
 
+const { expect, sinon } = require('../../../test.config');
+
 const serverModule = require('.');
 
 const normalContext = new Context(null);
@@ -7,8 +9,8 @@ const normalContext = new Context(null);
 describe('Server module test', () => {
   describe('Function test', () => {
     describe('Without context test', () => {
-      test('It should test 0 parameters', () => {
-        const mock = jest.fn();
+      it('It should test 0 parameters', () => {
+        const mock = sinon.spy();
 
         const app = serverModule((context) => {
           mock(context);
@@ -16,10 +18,10 @@ describe('Server module test', () => {
 
         app()(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext);
+        expect(mock.calledWith(normalContext)).is.true();
       });
-      test('It should test 1 parameter', () => {
-        const mock = jest.fn();
+      it('It should test 1 parameter', () => {
+        const mock = sinon.spy();
         const options = {};
 
         const app = serverModule((context, opts) => {
@@ -28,10 +30,10 @@ describe('Server module test', () => {
 
         app(options)(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, options);
+        expect(mock.calledWith(normalContext, options)).is.true();
       });
-      test('It should test 2 parameters', () => {
-        const mock = jest.fn();
+      it('It should test 2 parameters', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -41,10 +43,10 @@ describe('Server module test', () => {
 
         app(option1, option2)(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test error', () => {
-        const mock = jest.fn();
+      it('It should test error', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -56,13 +58,13 @@ describe('Server module test', () => {
         try {
           app(option1, option2)(normalContext);
         } catch (e) {
-          expect(e.message).toEqual('test');
+          expect(e.message).equal('test');
         }
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test wrong context', () => {
-        const mock = jest.fn();
+      it('It should test wrong context', () => {
+        const mock = sinon.spy();
         const ctx = {};
         const option1 = {};
         const option2 = {};
@@ -74,13 +76,13 @@ describe('Server module test', () => {
         try {
           app(option1, option2)(ctx);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
-      test('It should test context in wrong place', () => {
-        const mock = jest.fn();
+      it('It should test context in wrong place', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -91,15 +93,15 @@ describe('Server module test', () => {
         try {
           app(option1, option2, normalContext);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
     });
     describe('With context test', () => {
-      test('It should test 0 parameters', () => {
-        const mock = jest.fn();
+      it('It should test 0 parameters', () => {
+        const mock = sinon.spy();
 
         const app = serverModule((context) => {
           mock(context);
@@ -107,10 +109,10 @@ describe('Server module test', () => {
 
         app(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext);
+        expect(mock.calledWith(normalContext)).is.true();
       });
-      test('It should test 1 parameter', () => {
-        const mock = jest.fn();
+      it('It should test 1 parameter', () => {
+        const mock = sinon.spy();
         const options = {};
 
         const app = serverModule((context, opts) => {
@@ -119,10 +121,10 @@ describe('Server module test', () => {
 
         app(normalContext, options);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, options);
+        expect(mock.calledWith(normalContext, options)).is.true();
       });
-      test('It should test 2 parameters', () => {
-        const mock = jest.fn();
+      it('It should test 2 parameters', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -132,10 +134,10 @@ describe('Server module test', () => {
 
         app(normalContext, option1, option2);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test error', () => {
-        const mock = jest.fn();
+      it('It should test error', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -147,13 +149,13 @@ describe('Server module test', () => {
         try {
           app(normalContext, option1, option2);
         } catch (e) {
-          expect(e.message).toEqual('test');
+          expect(e.message).equal('test');
         }
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test wrong context', () => {
-        const mock = jest.fn();
+      it('It should test wrong context', () => {
+        const mock = sinon.spy();
         const ctx = {};
         const option1 = {};
         const option2 = {};
@@ -165,13 +167,13 @@ describe('Server module test', () => {
         try {
           app(ctx, option1, option2);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
-      test('It should test context in wrong place', () => {
-        const mock = jest.fn();
+      it('It should test context in wrong place', () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -182,17 +184,17 @@ describe('Server module test', () => {
         try {
           app(option1, option2, normalContext);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
     });
   });
   describe('Promise test', () => {
     describe('Without context test', () => {
-      test('It should test 0 parameters', async () => {
-        const mock = jest.fn();
+      it('It should test 0 parameters', async () => {
+        const mock = sinon.spy();
 
         const app = serverModule(async (context) => {
           mock(context);
@@ -200,10 +202,10 @@ describe('Server module test', () => {
 
         await app()(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext);
+        expect(mock.calledWith(normalContext)).is.true();
       });
-      test('It should test 1 parameter', async () => {
-        const mock = jest.fn();
+      it('It should test 1 parameter', async () => {
+        const mock = sinon.spy();
         const options = {};
 
         const app = serverModule(async (context, opts) => {
@@ -212,10 +214,10 @@ describe('Server module test', () => {
 
         await app(options)(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, options);
+        expect(mock.calledWith(normalContext, options)).is.true();
       });
-      test('It should test 2 parameters', async () => {
-        const mock = jest.fn();
+      it('It should test 2 parameters', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -225,10 +227,10 @@ describe('Server module test', () => {
 
         await app(option1, option2)(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test error', async () => {
-        const mock = jest.fn();
+      it('It should test error', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -240,13 +242,13 @@ describe('Server module test', () => {
         try {
           await app(option1, option2)(normalContext);
         } catch (e) {
-          expect(e.message).toEqual('test');
+          expect(e.message).equal('test');
         }
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test wrong context', async () => {
-        const mock = jest.fn();
+      it('It should test wrong context', async () => {
+        const mock = sinon.spy();
         const ctx = {};
         const option1 = {};
         const option2 = {};
@@ -258,13 +260,13 @@ describe('Server module test', () => {
         try {
           await app(option1, option2)(ctx);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
-      test('It should test context in wrong place', async () => {
-        const mock = jest.fn();
+      it('It should test context in wrong place', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -275,15 +277,15 @@ describe('Server module test', () => {
         try {
           await app(option1, option2, normalContext);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
     });
     describe('With context test', () => {
-      test('It should test 0 parameters', async () => {
-        const mock = jest.fn();
+      it('It should test 0 parameters', async () => {
+        const mock = sinon.spy();
 
         const app = serverModule(async (context) => {
           mock(context);
@@ -291,10 +293,10 @@ describe('Server module test', () => {
 
         await app(normalContext);
 
-        expect(mock).toHaveBeenCalledWith(normalContext);
+        expect(mock.calledWith(normalContext)).is.true();
       });
-      test('It should test 1 parameter', async () => {
-        const mock = jest.fn();
+      it('It should test 1 parameter', async () => {
+        const mock = sinon.spy();
         const options = {};
 
         const app = serverModule(async (context, opts) => {
@@ -303,10 +305,10 @@ describe('Server module test', () => {
 
         await app(normalContext, options);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, options);
+        expect(mock.calledWith(normalContext, options)).is.true();
       });
-      test('It should test 2 parameters', async () => {
-        const mock = jest.fn();
+      it('It should test 2 parameters', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -316,10 +318,10 @@ describe('Server module test', () => {
 
         await app(normalContext, option1, option2);
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test error', async () => {
-        const mock = jest.fn();
+      it('It should test error', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -331,13 +333,13 @@ describe('Server module test', () => {
         try {
           await app(normalContext, option1, option2);
         } catch (e) {
-          expect(e.message).toEqual('test');
+          expect(e.message).equal('test');
         }
 
-        expect(mock).toHaveBeenCalledWith(normalContext, option1, option2);
+        expect(mock.calledWith(normalContext, option1, option2)).is.true();
       });
-      test('It should test wrong context', async () => {
-        const mock = jest.fn();
+      it('It should test wrong context', async () => {
+        const mock = sinon.spy();
         const ctx = {};
         const option1 = {};
         const option2 = {};
@@ -349,13 +351,13 @@ describe('Server module test', () => {
         try {
           await app(ctx, option1, option2);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
-      test('It should test context in wrong place', async () => {
-        const mock = jest.fn();
+      it('It should test context in wrong place', async () => {
+        const mock = sinon.spy();
         const option1 = {};
         const option2 = {};
 
@@ -366,10 +368,10 @@ describe('Server module test', () => {
         try {
           await app(option1, option2, normalContext);
         } catch (e) {
-          expect(e.message).toEqual('Context should be the first parameter!');
+          expect(e.message).equal('Context should be the first parameter!');
         }
 
-        expect(mock).not.toHaveBeenCalled();
+        expect(mock.called).is.false();
       });
     });
   });

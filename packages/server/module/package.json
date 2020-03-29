@@ -1,13 +1,13 @@
 {
   "name": "@skazka/server-module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Server Module Builder",
   "main": "index.js",
   "files": [
     "index.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -18,7 +18,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-module",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server/module",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -39,7 +39,7 @@
     "wrapper"
   ],
   "peerDependencies": {
-    "@skazka/server-context": ">=0.0.0",
-    "debug": ">=4.0.0"
+    "@skazka/server-context": "0.0.1",
+    "debug": "^4.1.1"
   }
 }

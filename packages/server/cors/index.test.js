@@ -2,9 +2,9 @@ const App = require('@skazka/server'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const cors = require('.');
+const { expect, axios, host } = require('../../../test.config');
 
-const { host, axios } = global;
+const cors = require('.');
 
 describe('Server cors test', async () => {
   let app;
@@ -21,31 +21,31 @@ describe('Server cors test', async () => {
     server.close(done);
   });
 
-  test('It should test cors for GET', async () => {
+  it('It should test cors for GET', async () => {
     app.then(cors());
 
-    app.then(ctx => ctx.response());
+    app.then((ctx) => ctx.response());
 
     await axios.get(host, { headers: { Origin: 'skazkajs.rog' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['access-control-allow-origin']).toEqual('*');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['access-control-allow-origin']).equal('*');
     });
   });
 
-  test('It should test cors for OPTIONS', async () => {
+  it('It should test cors for OPTIONS', async () => {
     app.then(cors());
 
-    app.then(ctx => ctx.response());
+    app.then((ctx) => ctx.response());
 
     await axios.options(host, { headers: { Origin: 'http://skazkajs.rog/' } }).then((res) => {
-      expect(res.status).toEqual(204);
-      expect(res.statusText).toEqual('No Content');
-      expect(res.data).toEqual('');
-      expect(res.headers['access-control-allow-origin']).toEqual('*');
-      expect(res.headers['access-control-allow-methods']).toEqual('GET,HEAD,PUT,PATCH,POST,DELETE');
-      expect(res.headers.vary).toEqual('Access-Control-Request-Headers');
+      expect(res.status).equal(204);
+      expect(res.statusText).equal('No Content');
+      expect(res.data).equal('');
+      expect(res.headers['access-control-allow-origin']).equal('*');
+      expect(res.headers['access-control-allow-methods']).equal('GET,HEAD,PUT,PATCH,POST,DELETE');
+      expect(res.headers.vary).equal('Access-Control-Request-Headers');
     });
   });
 });

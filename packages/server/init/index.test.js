@@ -1,9 +1,9 @@
 const App = require('@skazka/server'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const init = require('.');
+const { expect, axios, host } = require('../../../test.config');
 
-const { host, axios } = global;
+const init = require('.');
 
 describe('Server init test', async () => {
   let app;
@@ -18,95 +18,95 @@ describe('Server init test', async () => {
     server.close(done);
   });
 
-  test('It should test default params', async () => {
+  it('It should test default params', async () => {
     app.then(init());
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test enabled cookies', async () => {
+  it('It should test enabled cookies', async () => {
     app.then(init({ cookies: true }));
 
     app.then((ctx) => {
-      expect(ctx.request.cookies).toEqual({ data: 'test' });
+      expect(ctx.request.cookies).eql({ data: 'test' });
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test;' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled cookies', async () => {
+  it('It should test disabled cookies', async () => {
     app.then(init({ cookies: false }));
 
     app.then((ctx) => {
-      expect(ctx.request.cookies).toEqual(undefined);
+      expect(ctx.request.cookies).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled request', async () => {
+  it('It should test disabled request', async () => {
     app.then(init({ request: false }));
 
     app.then((ctx) => {
-      expect(ctx.request).toEqual(undefined);
+      expect(ctx.request).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled response', async () => {
+  it('It should test disabled response', async () => {
     app.then(init({ response: false }));
 
     app.then((ctx) => {
-      expect(ctx.response).toEqual(undefined);
+      expect(ctx.response).equal(undefined);
     });
 
     app.then((ctx) => {
@@ -116,120 +116,120 @@ describe('Server init test', async () => {
     });
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled logger', async () => {
+  it('It should test disabled logger', async () => {
     app.then(init({ logger: false }));
 
     app.then((ctx) => {
-      expect(ctx.logger).toEqual(undefined);
+      expect(ctx.logger).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled error', async () => {
+  it('It should test disabled error', async () => {
     app.then(init({ error: false }));
 
     app.then((ctx) => {
-      expect(ctx.error).toEqual(undefined);
+      expect(ctx.error).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-dns-prefetch-control']).toEqual('off');
-      expect(res.headers['x-frame-options']).toEqual('SAMEORIGIN');
-      expect(res.headers['strict-transport-security']).toEqual('max-age=15552000; includeSubDomains');
-      expect(res.headers['x-download-options']).toEqual('noopen');
-      expect(res.headers['x-content-type-options']).toEqual('nosniff');
-      expect(res.headers['x-xss-protection']).toEqual('1; mode=block');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-dns-prefetch-control']).equal('off');
+      expect(res.headers['x-frame-options']).equal('SAMEORIGIN');
+      expect(res.headers['strict-transport-security']).equal('max-age=15552000; includeSubDomains');
+      expect(res.headers['x-download-options']).equal('noopen');
+      expect(res.headers['x-content-type-options']).equal('nosniff');
+      expect(res.headers['x-xss-protection']).equal('1; mode=block');
     });
   });
 
-  test('It should test disabled helmet', async () => {
+  it('It should test disabled helmet', async () => {
     app.then(init({ helmet: false }));
 
     app.then((ctx) => {
-      expect(ctx.helmet).toEqual(undefined);
+      expect(ctx.helmet).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test error params', async () => {
+  it('It should test error params', async () => {
     app.then(init({ error: { hasServerError: false } }));
 
     app.then((ctx) => {
-      expect(ctx.hasServerError).toEqual(undefined);
+      expect(ctx.hasServerError).equal(undefined);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test logger params', async () => {
+  it('It should test logger params', async () => {
     app.then(init({ logger: console }));
 
     app.then((ctx) => {
-      expect(ctx.logger).toEqual(console);
+      expect(ctx.logger).equal(console);
     });
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test helmet params', async () => {
+  it('It should test helmet params', async () => {
     app.then(init({ helmet: { frameguard: { action: 'deny' } } }));
 
-    app.then(ctx => ctx.response(''));
+    app.then((ctx) => ctx.response(''));
 
     await axios.get(host, { headers: { Cookie: 'data=test' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
-      expect(res.headers['x-frame-options']).toEqual('DENY');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
+      expect(res.headers['x-frame-options']).equal('DENY');
     });
   });
 });

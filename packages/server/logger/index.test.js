@@ -4,9 +4,14 @@ const errorHandler = require('@skazka/server-error'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const logger = require('.');
+const {
+  expect,
+  sinon,
+  axios,
+  host,
+} = require('../../../test.config');
 
-const { host, axios } = global;
+const logger = require('.');
 
 describe('Server logger test', () => {
   const { warn, error } = console;
@@ -25,7 +30,7 @@ describe('Server logger test', () => {
     server.close(done);
   });
 
-  test('It should test access from middleware', async () => {
+  it('It should test access from middleware', async () => {
     app = new App();
     app.all([
       errorHandler(),
@@ -34,7 +39,7 @@ describe('Server logger test', () => {
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.logger).not.toEqual(undefined);
+      expect(ctx.logger).not.equal(undefined);
 
       return ctx.response('test');
     });
@@ -42,13 +47,13 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
   });
 
-  test('It should run 3 times', async () => {
+  it('It should run 3 times', async () => {
     app = new App();
     app.all([
       errorHandler(),
@@ -57,7 +62,7 @@ describe('Server logger test', () => {
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.logger).not.toEqual(undefined);
+      expect(ctx.logger).not.equal(undefined);
 
       return ctx.response('test');
     });
@@ -65,25 +70,25 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
   });
 
-  test('It should test access from router', async () => {
+  it('It should test access from router', async () => {
     app = new App();
     app.all([
       errorHandler(),
@@ -94,7 +99,7 @@ describe('Server logger test', () => {
     const router = new Router();
 
     router.catch().then(async (ctx) => {
-      expect(ctx.logger).not.toEqual(undefined);
+      expect(ctx.logger).not.equal(undefined);
 
       return ctx.response('test');
     });
@@ -104,14 +109,14 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
   });
 
-  test('It should test middleware', async () => {
-    const spy = jest.spyOn(console, 'error');
+  it('It should test middleware', async () => {
+    const spy = sinon.spy(console, 'error');
 
     app = new App();
     app.all([
@@ -126,18 +131,16 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).catch(({ response: res }) => {
-      expect(res.status).toEqual(500);
-      expect(res.statusText).toEqual('Internal Server Error');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(500);
+      expect(res.statusText).equal('Internal Server Error');
+      expect(res.data).equal('test');
     });
 
-    expect(spy).toHaveBeenCalled();
-
-    spy.mockRestore();
+    expect(spy.called).is.true();
   });
 
-  test('It should test middleware with resolve', async () => {
-    const spy = jest.spyOn(console, 'warn');
+  it('It should test middleware with resolve', async () => {
+    const spy = sinon.spy(console, 'warn');
 
     app = new App();
     app.all([
@@ -150,17 +153,15 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).catch(({ response: res }) => {
-      expect(res.status).toEqual(404);
-      expect(res.statusText).toEqual('Not Found');
-      expect(res.data).toEqual('Not Found');
+      expect(res.status).equal(404);
+      expect(res.statusText).equal('Not Found');
+      expect(res.data).equal('Not Found');
     });
 
-    expect(spy).toHaveBeenCalled();
-
-    spy.mockRestore();
+    expect(spy.called).is.true();
   });
 
-  test('It should test wrong logger object', async () => {
+  it('It should test wrong logger object', async () => {
     app = new App();
     app.all([
       errorHandler(),
@@ -170,13 +171,13 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).catch(({ response: res }) => {
-      expect(res.status).toEqual(500);
-      expect(res.statusText).toEqual('Internal Server Error');
-      expect(res.data).toEqual('Logger doesn\'t have "warn" and "error" methods!');
+      expect(res.status).equal(500);
+      expect(res.statusText).equal('Internal Server Error');
+      expect(res.data).equal('Logger doesn\'t have "warn" and "error" methods!');
     });
   });
 
-  test('It should test 2 times', async () => {
+  it('It should test 2 times', async () => {
     app = new App();
     app.all([
       errorHandler(),
@@ -186,7 +187,7 @@ describe('Server logger test', () => {
     ]);
 
     app.then(async (ctx) => {
-      expect(ctx.logger).not.toEqual(undefined);
+      expect(ctx.logger).not.equal(undefined);
 
       return ctx.response('test');
     });
@@ -194,9 +195,9 @@ describe('Server logger test', () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
   });
 });

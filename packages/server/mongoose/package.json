@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-mongoose",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server Mongoose",
   "main": "index.js",
   "files": [
@@ -8,7 +8,7 @@
     "mongoose.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -19,7 +19,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-mongoose",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server/mongoose",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -41,9 +41,9 @@
     "mongo"
   ],
   "peerDependencies": {
-    "@skazka/server-module": ">=0.0.0",
-    "config": ">=3.0.0",
-    "debug": ">=4.0.0",
-    "mongoose": ">=5.0.0"
+    "@skazka/server-module": "0.0.1",
+    "config": "^3.3.1",
+    "debug": "^4.1.1",
+    "mongoose": "^5.9.6"
   }
 }

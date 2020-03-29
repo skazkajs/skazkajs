@@ -8,9 +8,15 @@ const error = require('@skazka/server-error'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const VirtualHost = require('.');
+const {
+  expect,
+  sinon,
+  axios,
+  host,
+  hostSSL,
+} = require('../../../test.config');
 
-const { host, hostSSL, axios } = global;
+const VirtualHost = require('.');
 
 const createCertificate = util.promisify(pem.createCertificate);
 
@@ -30,42 +36,42 @@ describe('Server virtual host test', async () => {
     server.close(done);
   });
 
-  test('It should test http method', async () => {
+  it('It should test http method', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('skazkajs.org').then(ctx => ctx.response(''));
+    vhost.http('skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test all method for http', async () => {
+  it('It should test all method for http', async () => {
     const vhost = new VirtualHost();
 
-    vhost.all('skazkajs.org').then(ctx => ctx.response(''));
+    vhost.all('skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test https method', async () => {
+  it('It should test https method', async () => {
     const vhost = new VirtualHost();
 
-    vhost.https('skazkajs.org').then(ctx => ctx.response(''));
+    vhost.https('skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -80,16 +86,16 @@ describe('Server virtual host test', async () => {
       headers: { Host: 'skazkajs.org' },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test all method for https', async () => {
+  it('It should test all method for https', async () => {
     const vhost = new VirtualHost();
 
-    vhost.all('skazkajs.org').then(ctx => ctx.response(''));
+    vhost.all('skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
@@ -104,29 +110,29 @@ describe('Server virtual host test', async () => {
       headers: { Host: 'skazkajs.org' },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test 404 error', async () => {
+  it('It should test 404 error', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('api.skazkajs.org').then(ctx => ctx.response(''));
+    vhost.http('api.skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).catch(({ response: res }) => {
-      expect(res.status).toEqual(404);
-      expect(res.statusText).toEqual('Not Found');
-      expect(res.data).toEqual('Not Found');
+      expect(res.status).equal(404);
+      expect(res.statusText).equal('Not Found');
+      expect(res.data).equal('Not Found');
     });
   });
 
-  test('It should test 500 error', async () => {
+  it('It should test 500 error', async () => {
     const vhost = new VirtualHost();
 
     vhost.http('skazkajs.org').then(async () => {
@@ -138,16 +144,16 @@ describe('Server virtual host test', async () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).catch(({ response: res }) => {
-      expect(res.status).toEqual(500);
-      expect(res.statusText).toEqual('Internal Server Error');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(500);
+      expect(res.statusText).equal('Internal Server Error');
+      expect(res.data).equal('test');
     });
   });
 
-  test('It should test router', async () => {
+  it('It should test router', async () => {
     const router = new Router();
 
-    router.get('/').then(ctx => ctx.response('data'));
+    router.get('/').then((ctx) => ctx.response('data'));
 
     const vhost = new VirtualHost();
 
@@ -158,78 +164,78 @@ describe('Server virtual host test', async () => {
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('data');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('data');
     });
   });
 
-  test('It should test regexp string domain', async () => {
+  it('It should test regexp string domain', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('*.skazkajs.org').then(ctx => ctx.response(''));
+    vhost.http('*.skazkajs.org').then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'api.skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test regexp domain', async () => {
+  it('It should test regexp domain', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http(/skazkajs.org/).then(ctx => ctx.response(''));
+    vhost.http(/skazkajs.org/).then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test empty catch', async () => {
+  it('It should test empty catch', async () => {
     const vhost = new VirtualHost();
 
-    vhost.catch().then(ctx => ctx.response(''));
+    vhost.catch().then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test empty catch without header', async () => {
+  it('It should test empty catch without header', async () => {
     const vhost = new VirtualHost();
 
-    vhost.catch().then(ctx => ctx.response(''));
+    vhost.catch().then((ctx) => ctx.response(''));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test redirect from http to https', async () => {
-    const mock = jest.fn();
+  it('It should test redirect from http to https', async () => {
+    const mock = sinon.spy();
 
     const vhost = new VirtualHost();
 
@@ -241,7 +247,7 @@ describe('Server virtual host test', async () => {
       response(),
     ]);
 
-    vhost.http('skazkajs.org').then(ctx => ctx.redirect('https://skazkajs.org/'));
+    vhost.http('skazkajs.org').then((ctx) => ctx.redirect('https://skazkajs.org/'));
 
     app.then(vhost.resolve());
 
@@ -257,7 +263,7 @@ describe('Server virtual host test', async () => {
       response(),
     ]);
 
-    vhostSSL.https('skazkajs.org').then(ctx => ctx.response('data'));
+    vhostSSL.https('skazkajs.org').then((ctx) => ctx.response('data'));
 
     appSSL.then(vhostSSL.resolve());
 
@@ -272,54 +278,54 @@ describe('Server virtual host test', async () => {
       headers: { Host: 'skazkajs.org' },
       maxRedirects: 0,
     }).catch(({ response: res }) => {
-      expect(res.status).toEqual(301);
-      expect(res.statusText).toEqual('Moved Permanently');
-      expect(res.data).toEqual('https://skazkajs.org/');
-      expect(res.headers.location).toEqual('https://skazkajs.org/');
+      expect(res.status).equal(301);
+      expect(res.statusText).equal('Moved Permanently');
+      expect(res.data).equal('https://skazkajs.org/');
+      expect(res.headers.location).equal('https://skazkajs.org/');
       mock();
     });
 
-    expect(mock).toHaveBeenCalled();
+    expect(mock.called).is.true();
 
     await axios.get(`https://localhost:${portSSL}`, {
       headers: { Host: 'skazkajs.org' },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('data');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('data');
 
-      return new Promise(r => serverSSL.close(r));
+      return new Promise((r) => serverSSL.close(r));
     });
   });
 
-  test('It should test subdomains', async () => {
+  it('It should test subdomains', async () => {
     const vhost = new VirtualHost();
 
-    vhost.http('skazkajs.org').then(ctx => ctx.response('spa'));
-    vhost.http('static.skazkajs.org').then(ctx => ctx.response('static'));
-    vhost.http('api.skazkajs.org').then(ctx => ctx.response([{ id: 1 }]));
+    vhost.http('skazkajs.org').then((ctx) => ctx.response('spa'));
+    vhost.http('static.skazkajs.org').then((ctx) => ctx.response('static'));
+    vhost.http('api.skazkajs.org').then((ctx) => ctx.response([{ id: 1 }]));
 
     app.then(vhost.resolve());
 
     server = srv.createHttpServer(app);
 
     await axios.get(host, { headers: { Host: 'skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('spa');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('spa');
     });
 
     await axios.get(host, { headers: { Host: 'static.skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('static');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('static');
     });
 
     await axios.get(host, { headers: { Host: 'api.skazkajs.org' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data[0].id).toEqual(1);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data[0].id).equal(1);
     });
   });
 });

@@ -1,0 +1,37 @@
+{
+  "name": "@skazka/ds",
+  "version": "0.0.1",
+  "description": "Lerna Monorepo dependencies synchronization",
+  "main": "cli.js",
+  "bin": {
+    "ds": "./cli.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/core/ds",
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js",
+    "dependecy",
+    "sync",
+    "versions"
+  ],
+  "dependencies": {
+    "glob": "^7.1.6",
+    "semver": "^7.1.3"
+  }
+}

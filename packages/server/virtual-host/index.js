@@ -5,7 +5,7 @@ const ASTERISK_REPLACE = '([^.]+)';
 const ESCAPE_REGEXP = /([.+?^=!:${}()|[\]/\\])/g;
 const ESCAPE_REPLACE = '\\$1';
 
-const isRegexp = val => Object.prototype.toString.call(val) === '[object RegExp]';
+const isRegexp = (val) => Object.prototype.toString.call(val) === '[object RegExp]';
 
 const getRegexp = (val) => {
   const source = !isRegexp(val)
@@ -44,9 +44,9 @@ module.exports = class {
   resolve() {
     debug('VirtualHost started!');
 
-    return ctx => Promise.all(this.domains.map(domain => domain(ctx)))
+    return (ctx) => Promise.all(this.domains.map((domain) => domain(ctx)))
       .then(() => debug('Host not found!'))
-      .catch(fn => fn(ctx));
+      .catch((fn) => fn(ctx));
   }
 
   catch({ domain = /.*/, protocol = '*' } = {}) {

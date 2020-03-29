@@ -1,3 +1,7 @@
+const chai = require('chai'); //  eslint-disable-line
+const dirtyChai = require('dirty-chai'); //  eslint-disable-line
+const sinon = require('sinon'); //  eslint-disable-line
+
 const axios = require('axios'); // eslint-disable-line
 const httpAdapter = require('axios/lib/adapters/http'); // eslint-disable-line
 
@@ -7,6 +11,15 @@ const hostSSL = `https://localhost:${process.env.PORT || '3000'}`;
 axios.defaults.host = host;
 axios.defaults.adapter = httpAdapter;
 
-global.host = host;
-global.axios = axios;
-global.hostSSL = hostSSL;
+chai.use(dirtyChai);
+
+const { expect } = chai;
+
+module.exports = {
+  host,
+  hostSSL,
+  axios,
+  chai,
+  expect,
+  sinon,
+};

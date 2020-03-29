@@ -1,3 +1,4 @@
+/* eslint react/jsx-props-no-spreading: 0 */
 import React from 'react';
 
 const wrapper = (

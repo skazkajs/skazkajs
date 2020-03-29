@@ -1,6 +1,6 @@
 import { connect as ReactReduxConnect } from 'react-redux';
 
-const toConst = text => text.replace(/([A-Z])/g, $1 => `_${$1.toLowerCase()}`).toUpperCase();
+const toConst = (text) => text.replace(/([A-Z])/g, ($1) => `_${$1.toLowerCase()}`).toUpperCase();
 
 const getNameSpaceKey = (nameSpace, globalNameSpace, nameSpacePrefix) => (
   `${nameSpacePrefix}${globalNameSpace && `${globalNameSpace}/`}${nameSpace}`

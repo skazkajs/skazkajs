@@ -3,10 +3,10 @@ const error = require('@skazka/server-error'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
+const { expect, axios, host } = require('../../../test.config');
+
 const mongoose = require('./mongoose');
 const mongooseModule = require('.');
-
-const { host, axios } = global;
 
 describe('Server mongoose test', async () => {
   const { Schema } = mongoose;
@@ -37,25 +37,25 @@ describe('Server mongoose test', async () => {
     server.close(done);
   });
 
-  afterAll(() => {
+  after(() => {
     mongoose.connection.close();
   });
 
-  test('It should check mongoose in context', async () => {
+  it('It should check mongoose in context', async () => {
     app.then(async (ctx) => {
-      expect(ctx.mongoose).not.toBe(undefined);
+      expect(ctx.mongoose).not.to.be.an('undefined');
 
       return ctx.response();
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('');
     });
   });
 
-  test('It should test User', async () => {
+  it('It should test User', async () => {
     app.then(async (ctx) => {
       const test = new User({ name: 'Test' });
 
@@ -63,10 +63,10 @@ describe('Server mongoose test', async () => {
 
       const users = await User.find({ name: 'Test' });
 
-      expect(users[0]._id.toString()).toEqual(test._id.toString()); // eslint-disable-line
+      expect(users[0]._id.toString()).equal(test._id.toString()); // eslint-disable-line
 
       const user = await User.findOne({ _id: test._id }); // eslint-disable-line
-      expect(user.name).toEqual('Test');
+      expect(user.name).equal('Test');
 
       await test.remove();
 
@@ -74,9 +74,9 @@ describe('Server mongoose test', async () => {
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data.name).toEqual('Test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data.name).equal('Test');
     });
   });
 });

@@ -2,11 +2,11 @@ const debug = require('debug')('skazka:server:module');
 
 const Context = require('@skazka/server-context');
 
-const isCorrectContext = context => context instanceof Context;
+const isCorrectContext = (context) => context instanceof Context;
 
-const hasContext = options => options.find(isCorrectContext);
+const hasContext = (options) => options.find(isCorrectContext);
 
-const moduleBuilder = serverModule => (...options) => {
+const moduleBuilder = (serverModule) => (...options) => {
   debug('Creating a new module...');
 
   if (hasContext(options)) {

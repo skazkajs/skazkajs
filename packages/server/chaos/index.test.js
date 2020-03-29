@@ -4,9 +4,14 @@ const App = require('@skazka/server'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
-const chaos = require('.');
+const {
+  expect,
+  sinon,
+  axios,
+  host,
+} = require('../../../test.config');
 
-const { host, axios } = global;
+const chaos = require('.');
 
 describe('Server chaos test', () => {
   let app;
@@ -22,7 +27,7 @@ describe('Server chaos test', () => {
     server.close(done);
   });
 
-  test('It should test disabled', async () => {
+  it('It should test disabled', async () => {
     config.chaos.enabled = false;
 
     app.then(chaos());
@@ -31,12 +36,12 @@ describe('Server chaos test', () => {
     });
 
     await axios.get(host).then((data) => {
-      expect(data.status).toEqual(200);
-      expect(data.statusText).toEqual('OK');
+      expect(data.status).equal(200);
+      expect(data.statusText).equal('OK');
     });
   });
 
-  test('It should test enable with error', async () => {
+  it('It should test enable with error', async () => {
     config.chaos.enabled = true;
     config.chaos.timeout.probability = 0;
     config.chaos.error.probability = 1;
@@ -44,21 +49,21 @@ describe('Server chaos test', () => {
     app.then(chaos());
 
     await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['x-chaos']).toEqual('1');
-      expect(response.headers['x-chaos-error']).toEqual('1');
-      expect(response.data).toEqual('Chaos');
+      expect(response.status).equal(500);
+      expect(response.statusText).equal('Internal Server Error');
+      expect(response.headers['x-chaos']).equal('1');
+      expect(response.headers['x-chaos-error']).equal('1');
+      expect(response.data).equal('Chaos');
     });
   });
 
-  test('It should test enable with error and response', async () => {
+  it('It should test enable with error and response', async () => {
     config.chaos.enabled = true;
     config.chaos.timeout.probability = 0;
     config.chaos.error.probability = 1;
 
-    const mockThen = jest.fn();
-    const mockCatch = jest.fn();
+    const mockThen = sinon.spy();
+    const mockCatch = sinon.spy();
 
     app.then(chaos());
     app.then(async () => {
@@ -69,24 +74,24 @@ describe('Server chaos test', () => {
     });
 
     await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['x-chaos']).toEqual('1');
-      expect(response.headers['x-chaos-error']).toEqual('1');
-      expect(response.data).toEqual('Chaos');
+      expect(response.status).equal(500);
+      expect(response.statusText).equal('Internal Server Error');
+      expect(response.headers['x-chaos']).equal('1');
+      expect(response.headers['x-chaos-error']).equal('1');
+      expect(response.data).equal('Chaos');
     });
 
-    expect(mockThen).not.toHaveBeenCalled();
-    expect(mockCatch).not.toHaveBeenCalled();
+    expect(mockThen.called).is.false();
+    expect(mockCatch.called).is.false();
   });
 
-  test('It should test enable with timeout', async () => {
+  it('It should test enable with timeout', async () => {
     config.chaos.enabled = true;
     config.chaos.timeout.probability = 1;
     config.chaos.timeout.time = 1;
     config.chaos.error.probability = 0;
 
-    const mockThen = jest.fn();
+    const mockThen = sinon.spy();
 
     app.then(chaos());
     app.then(async (ctx) => {
@@ -95,23 +100,23 @@ describe('Server chaos test', () => {
     });
 
     await axios.get(host).then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.statusText).toEqual('OK');
-      expect(response.headers['x-chaos']).toEqual('1');
-      expect(response.headers['x-chaos-timeout']).toEqual('1');
-      expect(response.data).toEqual('');
+      expect(response.status).equal(200);
+      expect(response.statusText).equal('OK');
+      expect(response.headers['x-chaos']).equal('1');
+      expect(response.headers['x-chaos-timeout']).equal('1');
+      expect(response.data).equal('');
     });
 
-    expect(mockThen).toHaveBeenCalled();
+    expect(mockThen.called).is.true();
   });
 
-  test('It should test enable all', async () => {
+  it('It should test enable all', async () => {
     config.chaos.enabled = true;
     config.chaos.timeout.probability = 1;
     config.chaos.timeout.time = 1;
     config.chaos.error.probability = 1;
 
-    const mockThen = jest.fn();
+    const mockThen = sinon.spy();
 
     app.then(chaos());
     app.then(async (ctx) => {
@@ -120,13 +125,13 @@ describe('Server chaos test', () => {
     });
 
     await axios.get(host).catch(({ response }) => {
-      expect(response.status).toEqual(500);
-      expect(response.statusText).toEqual('Internal Server Error');
-      expect(response.headers['x-chaos']).toEqual('1');
-      expect(response.headers['x-chaos-error']).toEqual('1');
-      expect(response.data).toEqual('Chaos');
+      expect(response.status).equal(500);
+      expect(response.statusText).equal('Internal Server Error');
+      expect(response.headers['x-chaos']).equal('1');
+      expect(response.headers['x-chaos-error']).equal('1');
+      expect(response.data).equal('Chaos');
     });
 
-    expect(mockThen).not.toHaveBeenCalled();
+    expect(mockThen.called).is.false();
   });
 });

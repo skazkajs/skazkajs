@@ -1,8 +1,10 @@
+const { expect, sinon } = require('../../../test.config');
+
 const core = require('.');
 
 describe('Server core test', async () => {
-  test('It should work with one fn', async () => {
-    const mock = jest.fn();
+  it('It should work with one fn', async () => {
+    const mock = sinon.spy();
 
     const context = {};
 
@@ -14,10 +16,10 @@ describe('Server core test', async () => {
 
     await core(context, modules);
 
-    expect(mock).toHaveBeenCalledWith(context);
+    expect(mock.calledWith(context)).is.true();
   });
-  test('It should work with 3 fns', async () => {
-    const mock = jest.fn();
+  it('It should work with 3 fns', async () => {
+    const mock = sinon.spy();
 
     const context = {};
 
@@ -35,11 +37,11 @@ describe('Server core test', async () => {
 
     await core(context, modules);
 
-    expect(mock).toHaveBeenCalledWith(context);
-    expect(mock).toHaveBeenCalledTimes(3);
+    expect(mock.calledWith(context)).is.true();
+    expect(mock.callCount).equal(3);
   });
-  test('It should work with error', async () => {
-    const mock = jest.fn();
+  it('It should work with error', async () => {
+    const mock = sinon.spy();
 
     const context = {};
 
@@ -58,10 +60,10 @@ describe('Server core test', async () => {
     try {
       await core(context, modules);
     } catch (e) {
-      expect(e).toEqual(error);
+      expect(e).equal(error);
     }
 
-    expect(mock).toHaveBeenCalledWith(context);
-    expect(mock).toHaveBeenCalledTimes(1);
+    expect(mock.calledWith(context)).is.true();
+    expect(mock.callCount).equal(1);
   });
 });

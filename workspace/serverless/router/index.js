@@ -10,7 +10,7 @@ const router = new Router();
 
 router.all('/').then(graphql({ schema, graphiql }));
 
-router.get('/users').then(ctx => ctx.response(users));
+router.get('/users').then((ctx) => ctx.response(users));
 
 router.post('/users').then(async (ctx) => {
   await bodyParser.json(ctx);

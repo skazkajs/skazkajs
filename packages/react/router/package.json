@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Router HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -11,7 +11,7 @@
     "lib"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -22,7 +22,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react-router",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react/router",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -34,8 +34,8 @@
     "router"
   ],
   "peerDependencies": {
-    "@skazka/history": ">=0.0.0",
-    "@skazka/react-hoc-builder": ">=0.0.0",
-    "react-router": ">=4.3.1"
+    "@skazka/history": "0.0.3",
+    "@skazka/react-hoc-builder": "0.0.4",
+    "react-router": "^5.1.2"
   }
 }

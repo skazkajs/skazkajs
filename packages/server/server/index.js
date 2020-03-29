@@ -53,7 +53,7 @@ class Server {
         if (error) {
           debug('Running error handler');
 
-          await Promise.all(this.error.map(fn => fn(error, context)));
+          await Promise.all(this.error.map((fn) => fn(error, context)));
         }
       }
       debug('Request event finished');
@@ -64,7 +64,7 @@ class Server {
     debug('Server all');
 
     this.modules.push(async (ctx) => {
-      await Promise.all(fns.map(fn => fn(ctx)));
+      await Promise.all(fns.map((fn) => fn(ctx)));
     });
 
     return this;
@@ -74,7 +74,7 @@ class Server {
     debug('Server race');
 
     this.modules.push(async (ctx) => {
-      await Promise.race(fns.map(fn => fn(ctx)));
+      await Promise.race(fns.map((fn) => fn(ctx)));
     });
 
     return this;

@@ -5,9 +5,9 @@ const response = require('@skazka/server-response'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
 const bodyParser = require('@skazka/server-body-parser'); //  eslint-disable-line
 
-const methodOverride = require('.');
+const { expect, axios, host } = require('../../../test.config');
 
-const { host, axios } = global;
+const methodOverride = require('.');
 
 describe('Server methodOverride test', () => {
   let app;
@@ -27,105 +27,105 @@ describe('Server methodOverride test', () => {
     server.close(done);
   });
 
-  test('It should test origin method', async () => {
+  it('It should test origin method', async () => {
     app.all([
       request(),
       methodOverride(),
     ]);
 
-    app.then(ctx => ctx.response(ctx.get('request').get('method')));
+    app.then((ctx) => ctx.response(ctx.get('request').get('method')));
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('GET');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('GET');
     });
   });
 
-  test('It should test get _method', async () => {
+  it('It should test get _method', async () => {
     app.then(request());
     app.then(methodOverride('_method'));
 
-    app.then(ctx => ctx.response(ctx.request.method));
+    app.then((ctx) => ctx.response(ctx.request.method));
 
     await axios.post(`${host}/?_method=PATCH`).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('PATCH');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('PATCH');
     });
   });
 
-  test('It should test body method', async () => {
+  it('It should test body method', async () => {
     app.then(request());
     app.then(bodyParser.json());
-    app.then(methodOverride(req => req.body.method));
+    app.then(methodOverride((req) => req.body.method));
 
-    app.then(ctx => ctx.response(ctx.request.method));
+    app.then((ctx) => ctx.response(ctx.request.method));
 
     await axios.post(host, { method: 'get' }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('GET');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('GET');
     });
   });
 
-  test('It should test body method in module', async () => {
+  it('It should test body method in module', async () => {
     app.then(request());
 
     app.then(async (ctx) => {
       await bodyParser.json(ctx);
-      await methodOverride(ctx, req => req.body.method);
+      await methodOverride(ctx, (req) => req.body.method);
 
       return ctx.response(ctx.request.method);
     });
 
     await axios.post(host, { method: 'get' }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('GET');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('GET');
     });
   });
 
-  test('It should test X-HTTP-Method-Override', async () => {
+  it('It should test X-HTTP-Method-Override', async () => {
     app.then(request());
     app.then(methodOverride());
 
-    app.then(ctx => ctx.response(ctx.request.method));
+    app.then((ctx) => ctx.response(ctx.request.method));
 
     await axios.post(host, {}, { headers: { 'X-HTTP-Method-Override': 'DELETE' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('DELETE');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('DELETE');
     });
   });
 
-  test('It should test header X-HTTP-Method-Override', async () => {
+  it('It should test header X-HTTP-Method-Override', async () => {
     app.then(request());
     app.then(methodOverride('X-HTTP-Method-Override'));
 
-    app.then(ctx => ctx.response(ctx.request.method));
+    app.then((ctx) => ctx.response(ctx.request.method));
 
     await axios.post(host, {}, { headers: { 'X-HTTP-Method-Override': 'DELETE' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('DELETE');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('DELETE');
     });
   });
 
-  test('It should test header X-Method-Override', async () => {
+  it('It should test header X-Method-Override', async () => {
     app.then(request());
     app.then(methodOverride('X-Method-Override'));
 
-    app.then(ctx => ctx.response(ctx.request.method));
+    app.then((ctx) => ctx.response(ctx.request.method));
 
     await axios.post(host, {}, { headers: { 'X-Method-Override': 'DELETE' } }).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('DELETE');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('DELETE');
     });
   });
 
-  test('It should test module', async () => {
+  it('It should test module', async () => {
     app.then(request());
 
     app.then(async (ctx) => {
@@ -135,25 +135,25 @@ describe('Server methodOverride test', () => {
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('GET');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('GET');
     });
   });
 
-  test('It should test without request', async () => {
+  it('It should test without request', async () => {
     app.then(async (ctx) => {
       await methodOverride(ctx);
 
-      expect(ctx.get('request')).toEqual(undefined);
+      expect(ctx.get('request')).equal(undefined);
 
       return ctx.response(ctx.get('req').method);
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('GET');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('GET');
     });
   });
 });

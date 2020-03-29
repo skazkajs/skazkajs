@@ -1,0 +1,6 @@
+node_modules
+.localstack
+test-results
+.nyc_output
+coverage
+workspace/**/dist

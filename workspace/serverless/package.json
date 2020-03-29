@@ -1,0 +1,38 @@
+{
+  "name": "example-serverless",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node bin/www",
+    "test": "PORT=7000 jest  --coverage --runInBand",
+    "serverless": "sls offline start",
+    "deploy": "sls deploy",
+    "remove": "sls remove"
+  },
+  "keywords": [
+    "graphql",
+    "node.js",
+    "skazka",
+    "cors",
+    "serverless"
+  ],
+  "author": "skazkajs",
+  "license": "MIT",
+  "dependencies": {
+    "@skazka/server": "0.0.2",
+    "@skazka/server-body-parser": "0.0.2",
+    "@skazka/server-cors": "0.0.2",
+    "@skazka/server-graphql": "0.0.2",
+    "@skazka/server-http": "0.0.1",
+    "@skazka/server-init": "0.0.2",
+    "@skazka/server-router": "0.0.2",
+    "aws-serverless-express": "^3.3.8",
+    "axios": "^0.19.2",
+    "debug": "^4.1.1",
+    "graphql": "^14.6.0",
+    "jest": "^25.2.3",
+    "serverless-offline": "^6.1.2"
+  }
+}

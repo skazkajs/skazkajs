@@ -1,6 +1,6 @@
 import mapProps from './mapProps';
 
-const withProps = input => mapProps(props => ({
+const withProps = (input) => mapProps((props) => ({
   ...props,
   ...(typeof input === 'function' ? input(props) : input),
 }));

@@ -1,6 +1,6 @@
 {
   "name": "example-graphql",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "private": true,
   "main": "index.js",
@@ -17,14 +17,14 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": ">=0.0.0",
-    "@skazka/server-cors": ">=0.0.0",
-    "@skazka/server-graphql": ">=0.0.0",
-    "@skazka/server-http": ">=0.0.0",
-    "@skazka/server-init": ">=0.0.0",
-    "axios": ">=0.18.0",
-    "debug": ">=4.0.0",
-    "graphql": ">=14.0.0",
-    "jest": ">=23.6.0"
+    "@skazka/server": "0.0.2",
+    "@skazka/server-cors": "0.0.2",
+    "@skazka/server-graphql": "0.0.2",
+    "@skazka/server-http": "0.0.1",
+    "@skazka/server-init": "0.0.2",
+    "axios": "^0.19.2",
+    "debug": "^4.1.1",
+    "graphql": "^14.6.0",
+    "jest": "^25.2.3"
   }
 }

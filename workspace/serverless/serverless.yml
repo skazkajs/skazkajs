@@ -1,17 +1,16 @@
-service: serverless-example
+service: skazka-serverless-example
 
 plugins:
   - serverless-offline
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   stage: dev
-  region: eu-central-1
+  region: us-east-1
 
 functions:
   app:
     handler: index.handler
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - httpApi: '*'

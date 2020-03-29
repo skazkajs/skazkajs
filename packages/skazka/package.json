@@ -7,7 +7,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -18,7 +18,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/skazka",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },

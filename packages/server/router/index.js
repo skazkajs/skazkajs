@@ -44,7 +44,7 @@ module.exports = class {
     return (ctx) => {
       debug('Url:', ctx.get('req').url);
 
-      return Promise.all(this.routes.map(route => route(ctx)))
+      return Promise.all(this.routes.map((route) => route(ctx)))
         .then(() => debug('Router not found'))
         .catch(async (fn) => {
           debug('Router found');

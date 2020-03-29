@@ -3,10 +3,15 @@ const response = require('@skazka/server-response'); //  eslint-disable-line
 const error = require('@skazka/server-error'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
+const {
+  expect,
+  sinon,
+  axios,
+  host,
+} = require('../../../test.config');
+
 const requestModule = require('.');
 const Request = require('./request');
-
-const { host, axios } = global;
 
 describe('Server request test', async () => {
   let app;
@@ -28,18 +33,18 @@ describe('Server request test', async () => {
     server.close(done);
   });
 
-  test('It should test request', async () => {
+  it('It should test request', async () => {
     const request = new Request();
 
     const that = request.set('test', 'test');
 
-    expect(request).toEqual(that);
-    expect(request.test).toEqual('test');
-    expect(request.get('test')).toEqual('test');
+    expect(request).equal(that);
+    expect(request.test).equal('test');
+    expect(request.get('test')).equal('test');
   });
 
-  test('It should test request with existing value', async () => {
-    const mock = jest.fn();
+  it('It should test request with existing value', async () => {
+    const mock = sinon.spy();
 
     const request = new Request();
 
@@ -48,15 +53,15 @@ describe('Server request test', async () => {
     try {
       request.set('test', 'newTest');
     } catch (e) {
-      expect(e.message).toEqual('Value for test already set!');
+      expect(e.message).equal('Value for test already set!');
       mock();
     }
 
-    expect(mock).toHaveBeenCalled();
+    expect(mock.called).is.true();
   });
 
-  test('It should test request with existing value and rewrite', async () => {
-    const mock = jest.fn();
+  it('It should test request with existing value and rewrite', async () => {
+    const mock = sinon.spy();
 
     const request = new Request();
 
@@ -68,33 +73,33 @@ describe('Server request test', async () => {
       mock();
     }
 
-    expect(mock).not.toHaveBeenCalled();
-    expect(request.get('test')).toEqual('newTest');
+    expect(mock.called).is.false();
+    expect(request.get('test')).equal('newTest');
   });
 
-  test('It should test request module', async () => {
+  it('It should test request module', async () => {
     app.then(async (ctx) => {
       const req = ctx.get('request');
 
-      expect(req.get('headers').accept).toEqual('application/json, text/plain, */*');
-      expect(req.get('headers')['user-agent']).toEqual('axios/0.18.0');
-      expect(req.get('aborted')).toEqual(false);
-      expect(req.get('url')).toEqual('/');
-      expect(req.get('method')).toEqual('GET');
-      expect(req.get('statusCode')).toEqual(null);
-      expect(req.get('statusMessage')).toEqual(null);
-      expect(req.get('httpVersionMajor')).toEqual(1);
-      expect(req.get('httpVersionMinor')).toEqual(1);
-      expect(req.get('httpVersion')).toEqual('1.1');
-      expect(req.get('complete')).toEqual(false);
+      expect(req.get('headers').accept).equal('application/json, text/plain, */*');
+      expect(req.get('headers')['user-agent']).equal('axios/0.19.2');
+      expect(req.get('aborted')).equal(false);
+      expect(req.get('url')).equal('/');
+      expect(req.get('method')).equal('GET');
+      expect(req.get('statusCode')).equal(null);
+      expect(req.get('statusMessage')).equal(null);
+      expect(req.get('httpVersionMajor')).equal(1);
+      expect(req.get('httpVersionMinor')).equal(1);
+      expect(req.get('httpVersion')).equal('1.1');
+      expect(req.get('complete')).equal(false);
 
       return ctx.response('test');
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual('test');
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal('test');
     });
   });
 });

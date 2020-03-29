@@ -1,13 +1,13 @@
-const App = require('@skazka/server'); //  eslint-disable-line
-const Router = require('@skazka/server-router'); //  eslint-disable-line
-const error = require('@skazka/server-error'); //  eslint-disable-line
+const App = require('@skazka/server'); // eslint-disable-line
+const Router = require('@skazka/server-router'); // eslint-disable-line
+const error = require('@skazka/server-error'); // eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
-const srv = require('@skazka/server-http'); //  eslint-disable-line
+const srv = require('@skazka/server-http'); // eslint-disable-line
+
+const { expect, axios, host } = require('../../../test.config');
 
 const mysql = require('.');
 const pool = require('./pool');
-
-const { host, axios } = global;
 
 describe('Server mysql test', async () => {
   let app;
@@ -29,50 +29,50 @@ describe('Server mysql test', async () => {
     server.close(done);
   });
 
-  afterAll(() => {
-    pool.end();
+  after(async () => {
+    await pool.end();
   });
 
-  test('It should test middleware', async () => {
+  it('It should test middleware', async () => {
     app.then(async (ctx) => {
-      const rows = await ctx.mysql.query('SELECT 1+1 AS res;');
-      expect(rows[0].res).toEqual(2);
+      const [rows] = await ctx.mysql.query('SELECT 1+1 AS res;');
+      expect(rows[0].res).equal(2);
 
       return ctx.response(rows[0].res);
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test middleware with connection', async () => {
+  it('It should test middleware with connection', async () => {
     app.then(async (ctx) => {
       const connection = await ctx.mysql.getConnection();
 
-      const rows = await connection.query('SELECT 1+1 AS res;');
+      const [rows] = await connection.query('SELECT 1+1 AS res;');
 
-      ctx.mysql.releaseConnection(connection);
+      await connection.release();
 
-      expect(rows[0].res).toEqual(2);
+      expect(rows[0].res).equal(2);
 
       return ctx.response(rows[0].res);
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test router', async () => {
+  it('It should test router', async () => {
     router.catch().then(async (ctx) => {
-      const rows = await ctx.mysql.query('SELECT 1+1 AS res;');
+      const [rows] = await ctx.mysql.query('SELECT 1+1 AS res;');
 
-      expect(rows[0].res).toEqual(2);
+      expect(rows[0].res).equal(2);
 
       return ctx.response(rows[0].res);
     });
@@ -80,21 +80,21 @@ describe('Server mysql test', async () => {
     app.then(router.resolve());
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test router with connection', async () => {
+  it('It should test router with connection', async () => {
     router.catch().then(async (ctx) => {
       const connection = await ctx.mysql.getConnection();
 
-      const rows = await connection.query('SELECT 1+1 AS res;');
+      const [rows] = await connection.query('SELECT 1+1 AS res;');
 
-      ctx.mysql.releaseConnection(connection);
+      await connection.release();
 
-      expect(rows[0].res).toEqual(2);
+      expect(rows[0].res).equal(2);
 
       return ctx.response(rows[0].res);
     });
@@ -102,29 +102,29 @@ describe('Server mysql test', async () => {
     app.then(router.resolve());
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test pool', async () => {
-    const rows = await pool.query('SELECT 1+1 AS res;');
+  it('It should test pool', async () => {
+    const [rows] = await pool.query('SELECT 1+1 AS res;');
 
-    expect(rows[0].res).toEqual(2);
+    expect(rows[0].res).equal(2);
   });
 
-  test('It should test pool with connection', async () => {
+  it('It should test pool with connection', async () => {
     const connection = await pool.getConnection();
 
-    const rows = await connection.query('SELECT 1+1 AS res;');
+    const [rows] = await connection.query('SELECT 1+1 AS res;');
 
-    pool.releaseConnection(connection);
+    await connection.release();
 
-    expect(rows[0].res).toEqual(2);
+    expect(rows[0].res).equal(2);
   });
 
-  test('It should test transaction', async () => {
+  it('It should test transaction', async () => {
     let isTestFinished1 = false;
     let isTestFinished2 = false;
 
@@ -139,14 +139,14 @@ describe('Server mysql test', async () => {
       await connection.rollback();
       isTestFinished2 = true;
     } finally {
-      pool.releaseConnection(connection);
+      await connection.release();
     }
 
-    expect(isTestFinished1).toBe(true);
-    expect(isTestFinished2).not.toBe(true);
+    expect(isTestFinished1).is.true();
+    expect(isTestFinished2).is.false();
   });
 
-  test('It should test transaction with error', async () => {
+  it('It should test transaction with error', async () => {
     let isTestFinished1 = false;
     let isTestFinished2 = false;
 
@@ -161,10 +161,10 @@ describe('Server mysql test', async () => {
       await connection.rollback();
       isTestFinished2 = true;
     } finally {
-      pool.releaseConnection(connection);
+      await connection.release();
     }
 
-    expect(isTestFinished1).not.toBe(true);
-    expect(isTestFinished2).toBe(true);
+    expect(isTestFinished1).is.false();
+    expect(isTestFinished2).is.true();
   });
 });

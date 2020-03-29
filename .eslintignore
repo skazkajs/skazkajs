@@ -1,4 +1,13 @@
 node_modules
+testHelper.js
+test-results
 coverage
 website
-lib
+mongo
+workspace/**/prebuild
+workspace/**/build
+workspace/**/dist
+workspace/**/node_modules
+dist
+out
+.localstack

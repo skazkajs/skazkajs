@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-hoc-builder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React HOC Builder",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -11,7 +11,7 @@
     "lib"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -22,7 +22,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react-hoc-builder",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/react/hoc-builder",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -35,6 +35,6 @@
     "builder"
   ],
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "react": "^16.13.1"
   }
 }

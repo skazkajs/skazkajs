@@ -4,10 +4,10 @@ const error = require('@skazka/server-error'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 const srv = require('@skazka/server-http'); //  eslint-disable-line
 
+const { expect, axios, host } = require('../../../test.config');
+
 const pg = require('.');
 const pool = require('./pool');
-
-const { host, axios } = global;
 
 describe('Server pg test', async () => {
   let app;
@@ -29,26 +29,26 @@ describe('Server pg test', async () => {
     server.close(done);
   });
 
-  afterAll(() => {
+  after(() => {
     pool.end();
   });
 
-  test('It should test middleware', async () => {
+  it('It should test middleware', async () => {
     app.then(async (ctx) => {
       const result = await ctx.pg.query('SELECT 1+1 AS res;');
-      expect(result.rows[0].res).toEqual(2);
+      expect(result.rows[0].res).equal(2);
 
       return ctx.response(result.rows[0].res);
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test middleware with connection', async () => {
+  it('It should test middleware with connection', async () => {
     app.then(async (ctx) => {
       const connection = await ctx.pg.connect();
 
@@ -56,23 +56,23 @@ describe('Server pg test', async () => {
 
       connection.release();
 
-      expect(result.rows[0].res).toEqual(2);
+      expect(result.rows[0].res).equal(2);
 
       return ctx.response(result.rows[0].res);
     });
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test router', async () => {
+  it('It should test router', async () => {
     router.catch().then(async (ctx) => {
       const result = await ctx.pg.query('SELECT 1+1 AS res;');
 
-      expect(result.rows[0].res).toEqual(2);
+      expect(result.rows[0].res).equal(2);
 
       return ctx.response(result.rows[0].res);
     });
@@ -80,13 +80,13 @@ describe('Server pg test', async () => {
     app.then(router.resolve());
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test router with connection', async () => {
+  it('It should test router with connection', async () => {
     router.catch().then(async (ctx) => {
       const connection = await ctx.pg.connect();
 
@@ -94,7 +94,7 @@ describe('Server pg test', async () => {
 
       connection.release();
 
-      expect(result.rows[0].res).toEqual(2);
+      expect(result.rows[0].res).equal(2);
 
       return ctx.response(result.rows[0].res);
     });
@@ -102,29 +102,29 @@ describe('Server pg test', async () => {
     app.then(router.resolve());
 
     await axios.get(host).then((res) => {
-      expect(res.status).toEqual(200);
-      expect(res.statusText).toEqual('OK');
-      expect(res.data).toEqual(2);
+      expect(res.status).equal(200);
+      expect(res.statusText).equal('OK');
+      expect(res.data).equal(2);
     });
   });
 
-  test('It should test pool', async () => {
+  it('It should test pool', async () => {
     const result = await pool.query('SELECT 1+1 AS res;');
 
-    expect(result.rows[0].res).toEqual(2);
+    expect(result.rows[0].res).equal(2);
   });
 
-  test('It should test pool with connection', async () => {
+  it('It should test pool with connection', async () => {
     const connection = await pool.connect();
 
     const result = await connection.query('SELECT 1+1 AS res;');
 
     connection.release();
 
-    expect(result.rows[0].res).toEqual(2);
+    expect(result.rows[0].res).equal(2);
   });
 
-  test('It should test transaction', async () => {
+  it('It should test transaction', async () => {
     let isTestFinished1 = false;
     let isTestFinished2 = false;
 
@@ -142,11 +142,11 @@ describe('Server pg test', async () => {
       connection.release();
     }
 
-    expect(isTestFinished1).toBe(true);
-    expect(isTestFinished2).not.toBe(true);
+    expect(isTestFinished1).is.true();
+    expect(isTestFinished2).is.false();
   });
 
-  test('It should test transaction with error', async () => {
+  it('It should test transaction with error', async () => {
     let isTestFinished1 = false;
     let isTestFinished2 = false;
 
@@ -164,7 +164,7 @@ describe('Server pg test', async () => {
       connection.release();
     }
 
-    expect(isTestFinished1).not.toBe(true);
-    expect(isTestFinished2).toBe(true);
+    expect(isTestFinished1).is.false();
+    expect(isTestFinished2).is.true();
   });
 });

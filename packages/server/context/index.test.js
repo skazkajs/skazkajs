@@ -1,18 +1,20 @@
+const { expect, sinon } = require('../../../test.config');
+
 const Context = require('.');
 
 describe('Server context test', async () => {
-  test('It should test context', async () => {
+  it('It should test context', async () => {
     const context = new Context();
 
     const that = context.set('test', 'test');
 
-    expect(context).toEqual(that);
-    expect(context.test).toEqual('test');
-    expect(context.get('test')).toEqual('test');
+    expect(context).equal(that);
+    expect(context.test).equal('test');
+    expect(context.get('test')).equal('test');
   });
 
-  test('It should test context with existing value', async () => {
-    const mock = jest.fn();
+  it('It should test context with existing value', async () => {
+    const mock = sinon.spy();
 
     const context = new Context();
 
@@ -21,15 +23,15 @@ describe('Server context test', async () => {
     try {
       context.set('test', 'newTest');
     } catch (e) {
-      expect(e.message).toEqual('Value for test already set!');
+      expect(e.message).equal('Value for test already set!');
       mock();
     }
 
-    expect(mock).toHaveBeenCalled();
+    expect(mock.called).is.true();
   });
 
-  test('It should test context with existing value and rewrite', async () => {
-    const mock = jest.fn();
+  it('It should test context with existing value and rewrite', async () => {
+    const mock = sinon.spy();
 
     const context = new Context();
 
@@ -41,7 +43,7 @@ describe('Server context test', async () => {
       mock();
     }
 
-    expect(mock).not.toHaveBeenCalled();
-    expect(context.get('test')).toEqual('newTest');
+    expect(mock.called).is.false();
+    expect(context.get('test')).equal('newTest');
   });
 });

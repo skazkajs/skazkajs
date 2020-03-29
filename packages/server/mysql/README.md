@@ -6,11 +6,11 @@ Skazka Server Promise based mysql client.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-mysql config promise-mysql
+    npm i @skazka/server @skazka/server-mysql config mysql2
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-mysql config promise-mysql
+    yarn add @skazka/server @skazka/server-mysql config mysql2
     
 Optionally you can add http server, error handler, logger, router, request and response:
 
@@ -68,11 +68,11 @@ app.all([
     
 app.then(async (ctx) => {
   // it works for each request
-  const rows = await ctx.mysql.query('select * from users;');
+  const [rows] = await ctx.mysql.query('select * from users;');
 });
     
 router.get('/data').then(async (ctx) => {
-  const rows = await ctx.mysql.query('select * from users;');
+  const [rows] = await ctx.mysql.query('select * from users;');
             
   return ctx.response(rows); 
 });
@@ -87,8 +87,8 @@ With connection:
 ```javascript
 app.then(async (ctx) => {
   const connection = await ctx.mysql.getConnection();
-  const rows = await connection.query('select * from users;');
-  ctx.mysql.releaseConnection(connection);
+  const [rows] = await connection.query('select * from users;');
+  await connection.release();
   
   return ctx.response(rows); 
 });
@@ -101,7 +101,7 @@ const pool = require('@skazka/server-mysql/pool');
     
 async () => {
   try {
-    const rows = await pool.query('select * from users;');
+    const [rows] = await pool.query('select * from users;');
   } catch (error) {
     
   }
@@ -116,12 +116,12 @@ const pool = require('@skazka/server-mysql/pool');
 async () => {
   try {
     const connection = await pool.getConnection();
-    const rows = await connection.query('select * from users;');
-    pool.releaseConnection(connection);
+    const [rows] = await connection.query('select * from users;');
+    await connection.release();
   } catch (error) {
 
   } finally {
-    client.release();
+    await connection.release();
   }
 };
 ```
@@ -152,12 +152,13 @@ app.then(async (ctx) => {
         
   try {
     await connection.beginTransaction()
-    rows = await connection.query('select * from users;');
+    [data] = await connection.query('select * from users;');
+    rows = data;
     await connection.commit();
   } catch (e) {
     await connection.rollback();
   } finally {
-    ctx.mysql.releaseConnection(connection);
+    await connection.release();
   }
   
   return ctx.response(rows);
@@ -179,7 +180,7 @@ async () => {
   } catch (error) {
     await connection.rollback();
   } finally {
-    pool.releaseConnection(connection);
+    await connection.release();
   }
 };
 ```

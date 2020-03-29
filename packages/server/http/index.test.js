@@ -8,9 +8,14 @@ const pem = require('pem'); //  eslint-disable-line
 const App = require('@skazka/server'); //  eslint-disable-line
 const response = require('@skazka/server-response'); //  eslint-disable-line
 
-const server = require('..');
+const {
+  expect,
+  axios,
+  host,
+  hostSSL,
+} = require('../../../test.config');
 
-const { host, hostSSL, axios } = global;
+const server = require('.');
 
 const createCertificate = util.promisify(pem.createCertificate);
 
@@ -35,32 +40,32 @@ describe('Server HTTP(s) test', () => {
     srv.close(done);
   });
 
-  test('It should test http server', async () => {
-    app.then(ctx => ctx.response());
+  it('It should test http server', async () => {
+    app.then((ctx) => ctx.response());
 
     srv = server.createHttpServer(app);
 
     const data = await axios.get(host);
 
-    expect(data.status).toEqual(200);
-    expect(data.statusText).toEqual('OK');
+    expect(data.status).equal(200);
+    expect(data.statusText).equal('OK');
   });
 
-  test('It should test http server with custom port', async () => {
+  it('It should test http server with custom port', async () => {
     const port = parseInt(process.env.PORT || '3000', 10);
 
-    app.then(ctx => ctx.response());
+    app.then((ctx) => ctx.response());
 
     srv = server.createHttpServer(app, port);
 
     const data = await axios.get(host);
 
-    expect(data.status).toEqual(200);
-    expect(data.statusText).toEqual('OK');
+    expect(data.status).equal(200);
+    expect(data.statusText).equal('OK');
   });
 
-  test('It should test https server', async () => {
-    app.then(ctx => ctx.response());
+  it('It should test https server', async () => {
+    app.then((ctx) => ctx.response());
 
     const options = {
       key: readFileSync(resolve(__dirname, 'ssl', 'key.pem')),
@@ -73,12 +78,12 @@ describe('Server HTTP(s) test', () => {
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     });
 
-    expect(data.status).toEqual(200);
-    expect(data.statusText).toEqual('OK');
+    expect(data.status).equal(200);
+    expect(data.statusText).equal('OK');
   });
 
-  test('It should test https server with pem', async () => {
-    app.then(ctx => ctx.response());
+  it('It should test https server with pem', async () => {
+    app.then((ctx) => ctx.response());
 
     const days = 1;
     const selfSigned = true;
@@ -90,15 +95,15 @@ describe('Server HTTP(s) test', () => {
     await axios.get(hostSSL, {
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     }).then((data) => {
-      expect(data.status).toEqual(200);
-      expect(data.statusText).toEqual('OK');
+      expect(data.status).equal(200);
+      expect(data.statusText).equal('OK');
     });
   });
 
-  test('It should test https server with custom port', async () => {
+  it('It should test https server with custom port', async () => {
     const port = parseInt(process.env.PORT || '3000', 10);
 
-    app.then(ctx => ctx.response());
+    app.then((ctx) => ctx.response());
 
     const days = 1;
     const selfSigned = true;
@@ -110,8 +115,8 @@ describe('Server HTTP(s) test', () => {
     await axios.get(hostSSL, {
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     }).then((data) => {
-      expect(data.status).toEqual(200);
-      expect(data.statusText).toEqual('OK');
+      expect(data.status).equal(200);
+      expect(data.statusText).equal('OK');
     });
   });
 });

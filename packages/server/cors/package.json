@@ -1,13 +1,13 @@
 {
   "name": "@skazka/server-cors",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server cors",
   "main": "index.js",
   "files": [
     "index.js"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -18,7 +18,7 @@
     "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
     "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
   ],
-  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server-cors",
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/server/cors",
   "bugs": {
     "url": "https://github.com/skazkajs/skazka/issues"
   },
@@ -43,11 +43,11 @@
     "Sharing"
   ],
   "peerDependencies": {
-    "@skazka/server-express": ">=0.0.0",
-    "@skazka/server-module": ">=0.0.0",
-    "debug": ">=4.0.0"
+    "@skazka/server-express": "0.0.2",
+    "@skazka/server-module": "0.0.1",
+    "debug": "^4.1.1"
   },
   "dependencies": {
-    "cors": ">=2.8.5"
+    "cors": "^2.8.5"
   }
 }
