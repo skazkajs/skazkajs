@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-request",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Server request",
   "main": "index.js",
   "files": [
@@ -40,7 +40,7 @@
     "request"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-module": "^0.0.4",
     "debug": "^4.1.1"
   }
 }

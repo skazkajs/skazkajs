@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-static",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Server static",
   "main": "index.js",
   "files": [
@@ -41,7 +41,7 @@
     "static"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-module": "^0.0.4",
     "debug": "^4.1.1"
   },
   "dependencies": {

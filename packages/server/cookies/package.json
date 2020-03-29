@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-cookies",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Server cookies parser",
   "main": "index.js",
   "files": [
@@ -41,7 +41,7 @@
     "cookie"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-module": "^0.0.4",
     "debug": "^4.1.1"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "example-graphql",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "",
   "private": true,
   "main": "index.js",
@@ -17,11 +17,11 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": "^0.0.5",
-    "@skazka/server-cors": "^0.0.5",
-    "@skazka/server-graphql": "^0.0.5",
-    "@skazka/server-http": "^0.0.1",
-    "@skazka/server-init": "^0.0.6",
+    "@skazka/server": "0.0.9",
+    "@skazka/server-cors": "0.0.9",
+    "@skazka/server-graphql": "0.0.9",
+    "@skazka/server-http": "^0.0.2",
+    "@skazka/server-init": "0.0.10",
     "axios": "^0.19.2",
     "debug": "^4.1.1",
     "graphql": "^14.6.0"

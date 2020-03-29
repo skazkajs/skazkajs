@@ -15,3 +15,4 @@ dist
 
 website/build/
 website/node_modules
+.nyc_output

@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-strict-mode",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Strict Mode HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -35,7 +35,7 @@
     "mode"
   ],
   "peerDependencies": {
-    "@skazka/react-hoc-builder": "^0.0.4",
+    "@skazka/react-hoc-builder": "^0.0.5",
     "react": "^16.13.1"
   }
 }

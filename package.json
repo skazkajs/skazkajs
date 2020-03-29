@@ -37,8 +37,8 @@
     "db:stop:mongo": "docker rm -f mongo",
     "precommit": "npm t",
     "prepush": "npm t",
-    "publish": "lerna publish",
-    "prepublish": "yarn build"
+    "release": "lerna exec --no-private --bail=false -- npm publish",
+    "prerelease": "yarn build"
   },
   "keywords": [],
   "author": "SkazkaJS",

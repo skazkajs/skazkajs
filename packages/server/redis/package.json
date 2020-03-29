@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-redis",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Server Redis",
   "main": "index.js",
   "files": [
@@ -42,7 +42,7 @@
     "ioredis"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-module": "^0.0.4",
     "config": "^3.3.1",
     "debug": "^4.1.1",
     "ioredis": "^4.16.0"

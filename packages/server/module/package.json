@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Server Module Builder",
   "main": "index.js",
   "files": [
@@ -39,7 +39,7 @@
     "wrapper"
   ],
   "peerDependencies": {
-    "@skazka/server-context": "^0.0.1",
+    "@skazka/server-context": "^0.0.2",
     "debug": "^4.1.1"
   }
 }

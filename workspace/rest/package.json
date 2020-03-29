@@ -1,6 +1,6 @@
 {
   "name": "example-rest",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "",
   "private": true,
   "main": "index.js",
@@ -17,12 +17,12 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/server": "^0.0.5",
-    "@skazka/server-body-parser": "^0.0.5",
-    "@skazka/server-cors": "^0.0.5",
-    "@skazka/server-http": "^0.0.1",
-    "@skazka/server-init": "^0.0.6",
-    "@skazka/server-router": "^0.0.2",
+    "@skazka/server": "0.0.9",
+    "@skazka/server-body-parser": "0.0.9",
+    "@skazka/server-cors": "0.0.9",
+    "@skazka/server-http": "^0.0.2",
+    "@skazka/server-init": "0.0.10",
+    "@skazka/server-router": "^0.0.3",
     "axios": "^0.19.2",
     "debug": "^4.1.1"
   }

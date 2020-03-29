@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-graphql",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Server GraphQL",
   "main": "index.js",
   "files": [
@@ -39,8 +39,8 @@
     "graphql"
   ],
   "peerDependencies": {
-    "@skazka/server-express": "^0.0.4",
-    "@skazka/server-module": "^0.0.2",
+    "@skazka/server-express": "^0.0.7",
+    "@skazka/server-module": "^0.0.4",
     "debug": "^4.1.1",
     "graphql": "^14.6.0"
   },

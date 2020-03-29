@@ -1,6 +1,6 @@
 {
   "name": "@skazka/react-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Router HOC",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
@@ -34,8 +34,8 @@
     "router"
   ],
   "peerDependencies": {
-    "@skazka/history": "^0.0.3",
-    "@skazka/react-hoc-builder": "^0.0.4",
+    "@skazka/history": "^0.0.4",
+    "@skazka/react-hoc-builder": "^0.0.5",
     "react-router": "^5.1.2"
   }
 }

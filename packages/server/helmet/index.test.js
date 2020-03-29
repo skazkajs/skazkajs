@@ -155,22 +155,6 @@ describe('Server helmet test', async () => {
     });
   });
 
-  it('It should test helmet.hpkp', async () => {
-    app.then(helmet.hpkp({
-      maxAge: 7776000,
-      sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-    }));
-
-    app.then((ctx) => ctx.response(''));
-
-    await axios.get(host).then((res) => {
-      expect(res.status).equal(200);
-      expect(res.statusText).equal('OK');
-      expect(res.data).equal('');
-      expect(res.headers['public-key-pins']).equal('pin-sha256="AbCdEf123="; pin-sha256="ZyXwVu456="; max-age=7776000');
-    });
-  });
-
   it('It should test helmet.hsts', async () => {
     app.then(helmet.hsts({
       maxAge: 7776000,
@@ -196,20 +180,6 @@ describe('Server helmet test', async () => {
       expect(res.statusText).equal('OK');
       expect(res.data).equal('');
       expect(res.headers['x-download-options']).equal('noopen');
-    });
-  });
-
-  it('It should test helmet.noCache', async () => {
-    app.then(helmet.noCache());
-
-    app.then((ctx) => ctx.response(''));
-
-    await axios.get(host).then((res) => {
-      expect(res.status).equal(200);
-      expect(res.statusText).equal('OK');
-      expect(res.data).equal('');
-      expect(res.headers['surrogate-control']).equal('no-store');
-      expect(res.headers['cache-control']).equal('no-store, no-cache, must-revalidate, proxy-revalidate');
     });
   });
 
