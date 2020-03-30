@@ -1,5 +1,3 @@
-const debug = require('debug')('skazka:server:virtual-host');
-
 const ASTERISK_REGEXP = /\*/g;
 const ASTERISK_REPLACE = '([^.]+)';
 const ESCAPE_REGEXP = /([.+?^=!:${}()|[\]/\\])/g;
@@ -19,8 +17,6 @@ const getRegexp = (val) => {
 
 module.exports = class {
   constructor() {
-    debug('Virtual host created!');
-
     this.domains = [];
     this.protocols = [
       'http',
@@ -28,25 +24,16 @@ module.exports = class {
     ];
 
     this.protocols.forEach((protocol) => {
-      this[protocol.toLowerCase()] = (domain) => {
-        debug('%s %s', protocol, domain);
-        return this.catch({ domain, protocol });
-      };
+      this[protocol.toLowerCase()] = (domain) => this.catch({ domain, protocol });
     });
   }
 
   all(domain) {
-    debug('* %s', domain);
-
     return this.catch({ domain, protocol: '*' });
   }
 
   resolve() {
-    debug('VirtualHost started!');
-
-    return (ctx) => Promise.all(this.domains.map((domain) => domain(ctx)))
-      .then(() => debug('Host not found!'))
-      .catch((fn) => fn(ctx));
+    return (ctx) => Promise.all(this.domains.map((domain) => domain(ctx))).catch((fn) => fn(ctx));
   }
 
   catch({ domain = /.*/, protocol = '*' } = {}) {
@@ -57,27 +44,19 @@ module.exports = class {
       then(fn) {
         domains.push(async (ctx) => {
           const requestProtocol = ctx.get('req').connection.encrypted ? 'https' : 'http';
-          debug('Request protocol: %s', requestProtocol);
 
           const hostname = ctx.get('req').headers.host;
-          debug('Hostname: %s', hostname);
 
           const regexp = getRegexp(domain);
-          debug('Regexp: %s', regexp);
 
           const isProtocolMatched = (protocol === '*' || protocol === requestProtocol);
-          debug('Is protocol matched: %s', isProtocolMatched);
 
           const isDomainMatched = !!regexp.exec(hostname);
-          debug(regexp.exec(domain));
-          debug('Is domain matched: %s', isDomainMatched);
 
           if (isProtocolMatched && isDomainMatched) {
-            debug('Domain found!');
-            debug('%s %s', domain, requestProtocol);
-
             return Promise.reject(fn);
           }
+
           return Promise.resolve(ctx);
         });
 

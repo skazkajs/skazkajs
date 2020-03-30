@@ -1,10 +1,4 @@
-const debug = require('debug')('skazka:server:context');
-
 class Context {
-  constructor() {
-    debug('Context created');
-  }
-
   get(name) {
     return this[name];
   }

@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node bin/www",
-    "test": "PORT=7000 jest  --coverage --runInBand"
+    "test": "PORT=7000 mocha **/*.test.js"
   },
   "keywords": [
     "rest",
@@ -23,7 +23,6 @@
     "@skazka/server-http": "^0.0.2",
     "@skazka/server-init": "0.0.10",
     "@skazka/server-router": "^0.0.3",
-    "axios": "^0.19.2",
-    "debug": "^4.1.1"
+    "axios": "^0.19.2"
   }
 }

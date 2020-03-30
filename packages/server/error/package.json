@@ -43,7 +43,6 @@
   ],
   "peerDependencies": {
     "@skazka/server-module": "^0.0.4",
-    "@skazka/server-response": "^0.0.8",
-    "debug": "^4.1.1"
+    "@skazka/server-response": "^0.0.8"
   }
 }

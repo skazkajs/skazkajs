@@ -4,11 +4,11 @@ This example shows how to use router, body parser and CORS packages to create RE
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-init @skazka/server-router @skazka/server-body-parser @skazka/server-cors @skazka/server-http debug axios jest
+    npm i @skazka/server @skazka/server-init @skazka/server-router @skazka/server-body-parser @skazka/server-cors @skazka/server-http axios mocha chai sinon
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-init @skazka/server-router @skazka/server-body-parser @skazka/server-cors @skazka/server-http debug axios jest
+    yarn add @skazka/server @skazka/server-init @skazka/server-router @skazka/server-body-parser @skazka/server-cors @skazka/server-http axios mocha chai sinon
     
 ## How to use
 
@@ -174,7 +174,7 @@ describe('REST example test', async () => {
   "main": "index.js",
   "scripts": {
     "start": "node bin/www",
-    "test": "PORT=7000 jest  --coverage --runInBand"
+    "test": "PORT=7000 mocha **/*.test.jsd"
   },
   "keywords": [
     "rest",
@@ -190,9 +190,7 @@ describe('REST example test', async () => {
     "@skazka/server-http": ">=0.0.0",
     "@skazka/server-init": ">=0.0.0",
     "@skazka/server-router": ">=0.0.0",
-    "axios": ">=0.18.0",
-    "debug": ">=4.0.0",
-    "jest": ">=23.6.0"
+    "axios": ">=0.18.0"
   }
 }
 ```

@@ -1,5 +1,3 @@
-const debug = require('debug')('skazka:server:http');
-
 const http = require('http');
 const https = require('https');
 
@@ -17,16 +15,12 @@ const addListeners = (server, port) => {
       throw error;
     }
 
-    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
-
     // handle specific listen errors with friendly messages
     switch (error.code) {
       case 'EACCES':
-        debug(`${bind} requires elevated privileges`);
         process.exit(1);
         break;
       case 'EADDRINUSE':
-        debug(`${bind} is already in use`);
         process.exit(1);
         break;
       default:
@@ -38,11 +32,11 @@ const addListeners = (server, port) => {
    * Event listener for HTTP server "listening" event
    */
   /* istanbul ignore next */
-  const onListening = (srv) => {
+  /* const onListening = (srv) => {
     const address = srv.address();
     const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
-    debug(`Listening on ${bind}`);
-  };
+    console.log(`Listening on ${bind}`); // eslint-disable-line
+  }; */
   /**
    * Stop server
    */
@@ -55,12 +49,11 @@ const addListeners = (server, port) => {
   /**
    * Listen on provided port, on all network interfaces
    */
-  server.on('listening', () => onListening(server));
+  // server.on('listening', () => onListening(server));
   server.on('error', onError);
   server.listen(port);
 
   server.on('close', () => {
-    debug('Server stop');
     process.removeAllListeners();
     server.removeAllListeners();
   });

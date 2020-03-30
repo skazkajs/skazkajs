@@ -4,11 +4,11 @@ This example shows how to create GraphQL and REST APIs using Serverless.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-body-parser @skazka/server-cors @skazka/server-graphql @skazka/server-http @skazka/server-init @skazka/server-router aws-serverless-express serverless serverless-offline debug graphql axios jest
+    npm i @skazka/server @skazka/server-body-parser @skazka/server-cors @skazka/server-graphql @skazka/server-http @skazka/server-init @skazka/server-router aws-serverless-express serverless serverless-offline graphql axios mocha chai sinon
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-body-parser @skazka/server-cors @skazka/server-graphql @skazka/server-http @skazka/server-init @skazka/server-router aws-serverless-express serverless serverless-offline debug graphql axios jest
+    yarn add @skazka/server @skazka/server-body-parser @skazka/server-cors @skazka/server-graphql @skazka/server-http @skazka/server-init @skazka/server-router aws-serverless-express serverless serverless-offline graphql axios mocha chai sinon
     
 ## How to use
 
@@ -338,7 +338,7 @@ describe('GraphQL example test', async () => {
   "main": "index.js",
   "scripts": {
     "start": "node bin/www",
-    "test": "PORT=7000 jest  --coverage --runInBand",
+    "test": "PORT=7000 mocha **/*.test.js",
     "serverless": "sls offline start",
     "deploy": "sls deploy",
     "remove": "sls remove"
@@ -362,9 +362,7 @@ describe('GraphQL example test', async () => {
     "@skazka/server-router": ">=0.0.0",
     "aws-serverless-express": ">=3.3.5",
     "axios": ">=0.18.0",
-    "debug": ">=4.0.0",
     "graphql": ">=14.0.0",
-    "jest": ">=23.6.0",
     "serverless": ">=1.36.1",
     "serverless-offline": ">=3.33.0"
   }

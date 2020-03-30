@@ -23,7 +23,6 @@
     "@skazka/server-http": "^0.0.2",
     "@skazka/server-init": "0.0.10",
     "axios": "^0.19.2",
-    "debug": "^4.1.1",
     "graphql": "^14.6.0"
   }
 }

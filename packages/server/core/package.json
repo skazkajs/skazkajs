@@ -36,8 +36,5 @@
     "https",
     "ssl",
     "easy"
-  ],
-  "peerDependencies": {
-    "debug": "^4.1.1"
-  }
+  ]
 }

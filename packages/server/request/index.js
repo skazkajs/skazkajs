@@ -1,14 +1,8 @@
-const debug = require('debug')('skazka:server:request:index');
-
 const moduleBuilder = require('@skazka/server-module');
 
 const Request = require('./request');
 
-debug('Request module created');
-
 module.exports = moduleBuilder(async (context) => {
-  debug('Creating request');
-
   const {
     headers,
     rawHeaders,

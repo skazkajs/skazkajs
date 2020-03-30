@@ -1,11 +1,5 @@
-const debug = require('debug')('skazka:server:response:response');
-
-debug('Response created');
-
 class Response {
   constructor(ctx) {
-    debug('Response object created');
-
     this.res = ctx.get('res');
 
     if (!this.res) {
@@ -24,27 +18,12 @@ class Response {
   }
 
   async send(response = '', code = 200, contentType = null) {
-    debug('Response resolve');
-
-    debug('Response', response);
-    debug('Code', code);
-    debug('Content-Type', contentType);
-
-    debug('Response finished:', this.res.finished);
-
     if (!this.res.finished) {
-      debug('Response sending');
-
       let res = await response;
-
-      debug('Type:', typeof res);
 
       if (typeof res !== 'string') {
         res = JSON.stringify(res);
       }
-
-      debug('Finishing...');
-      debug('Response:', res);
 
       if (contentType) {
         this.setHeader('Content-Type', contentType);
@@ -62,11 +41,6 @@ class Response {
   }
 
   async redirect(url = '/', code = 301) {
-    debug('Response redirect');
-
-    debug('Response url:', url);
-    debug('Response code:', code);
-
     this.setHeader('Location', url);
 
     return this.send(url, code);

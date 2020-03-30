@@ -39,7 +39,6 @@
     "wrapper"
   ],
   "peerDependencies": {
-    "@skazka/server-context": "^0.0.2",
-    "debug": "^4.1.1"
+    "@skazka/server-context": "^0.0.2"
   }
 }

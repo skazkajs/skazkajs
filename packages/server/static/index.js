@@ -1,5 +1,3 @@
-const debug = require('debug')('skazka:server:static:index');
-
 const moduleBuilder = require('@skazka/server-module');
 
 const methodCheck = require('./lib/methodCheck');
@@ -12,8 +10,6 @@ const fileStream = require('./lib/fileStream');
 const gzipFileStream = require('./lib/gzipFileStream');
 
 module.exports = moduleBuilder(async (context, options = {}) => {
-  debug('Server Static');
-
   const {
     root = __dirname,
     index = 'index.html',
@@ -21,14 +17,6 @@ module.exports = moduleBuilder(async (context, options = {}) => {
     gzip = true,
     maxage = 0,
   } = options;
-
-  debug('root:', root);
-  debug('index:', index);
-  debug('etag:', etag);
-  debug('gzip:', gzip);
-  debug('maxage:', maxage);
-
-  debug('Headers: %O', context.get('req').headers);
 
   try {
     await methodCheck(context.get('req').method.toUpperCase());
@@ -41,40 +29,29 @@ module.exports = moduleBuilder(async (context, options = {}) => {
 
     if (etag) {
       context.res.setHeader('ETag', context.get('req').url);
-      debug('ETag: %s', context.get('req').url);
     }
 
     context.get('res').setHeader('Last-Modified', stats.mtime.toUTCString());
-    debug('Last-Modified: %s', stats.mtime.toUTCString());
 
     if (maxage) {
       const age = maxage / 1000;
       context.get('res').setHeader('Cache-Control', `max-age=${age}`);
-      debug('Cache-Control: %s', `max-age=${age}`);
     }
 
     context.get('res').setHeader('Content-Type', type);
-    debug('Content-Type: %s', type);
 
     if (gzip) {
       context.get('res').setHeader('Content-Encoding', encoding);
-      debug('Content-Encoding: %s', encoding);
     }
 
     context.get('res').statusCode = 200; // eslint-disable-line
-    debug('Status code:', 200);
 
     if (gzip) {
-      debug('gzip enabled!');
-      debug('Encoding: %s', encoding);
-
       await gzipFileStream(newPath, context.get('res'), encoding);
     } else {
       await fileStream(newPath, context.get('res'));
     }
   } catch (error) {
-    debug('Error: %O', error);
-
     if (error) {
       if (!['ENOENT', 'ENAMETOOLONG', 'ENOTDIR'].includes(error.code)) {
         error.code = 403;

@@ -8,11 +8,11 @@ It returns index.html file for any request - the main idea of any SPA server.
 
 ## How to install
 
-    npm i @skazka/server @skazka/server-index @skazka/server-static @skazka/server-spa @skazka/server-init @skazka/server-http debug axios jest
+    npm i @skazka/server @skazka/server-index @skazka/server-static @skazka/server-spa @skazka/server-init @skazka/server-http axios mocha chai sinon
     
 With yarn:
 
-    yarn add @skazka/server @skazka/server-index @skazka/server-static @skazka/server-spa @skazka/server-init @skazka/server-http debug axios jest
+    yarn add @skazka/server @skazka/server-index @skazka/server-static @skazka/server-spa @skazka/server-init @skazka/server-http axios mocha chai sinon
     
 ## How to use
 
@@ -125,7 +125,7 @@ describe('SPA example test', async () => {
   "main": "index.js",
   "scripts": {
     "start": "node bin/www",
-    "test": "PORT=7000 jest --runInBand"
+    "test": "PORT=7000 mocha **/*.test.js"
   },
   "keywords": [
     "spa",
@@ -141,9 +141,7 @@ describe('SPA example test', async () => {
     "@skazka/server-init": ">=0.0.0",
     "@skazka/server-spa": ">=0.0.0",
     "@skazka/server-static": ">=0.0.0",
-    "axios": ">=0.18.0",
-    "debug": ">=4.0.0",
-    "jest": ">=23.6.0"
+    "axios": ">=0.18.0"
   }
 }
 ```

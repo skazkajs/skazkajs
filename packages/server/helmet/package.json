@@ -41,8 +41,7 @@
   ],
   "peerDependencies": {
     "@skazka/server-express": "^0.0.7",
-    "@skazka/server-module": "^0.0.4",
-    "debug": "^4.1.1"
+    "@skazka/server-module": "^0.0.4"
   },
   "dependencies": {
     "helmet": "^3.22.0"

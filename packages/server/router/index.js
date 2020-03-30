@@ -1,12 +1,8 @@
-const debug = require('debug')('skazka:server:router');
-
 const parser = require('url');
 const { pathToRegexp } = require('path-to-regexp');
 
 module.exports = class {
   constructor() {
-    debug('Router created');
-
     this.routes = [];
     this.methods = [
       'HEAD',
@@ -19,49 +15,26 @@ module.exports = class {
     ];
 
     this.methods.forEach((method) => {
-      debug('Adding methods:');
-
-      this[method.toLowerCase()] = (url) => {
-        debug('%s %s', method.toUpperCase(), url);
-
-        return this.catch({ method, url });
-      };
+      this[method.toLowerCase()] = (url) => this.catch({ method, url });
     });
 
     this.del = this.delete;
   }
 
   all(url) {
-    debug('Method: *');
-    debug('Url:', url);
-
     return this.catch({ method: '*', url });
   }
 
   resolve() {
-    debug('Router started');
+    return (ctx) => Promise.all(this.routes.map((route) => route(ctx)))
+      .catch(async (fn) => {
+        await fn(ctx);
 
-    return (ctx) => {
-      debug('Url:', ctx.get('req').url);
-
-      return Promise.all(this.routes.map((route) => route(ctx)))
-        .then(() => debug('Router not found'))
-        .catch(async (fn) => {
-          debug('Router found');
-
-          await fn(ctx);
-
-          return Promise.reject();
-        });
-    };
+        return Promise.reject();
+      });
   }
 
   catch({ method = '*', url = '/' } = {}) {
-    debug('Rote registering...');
-
-    debug('Method:', method);
-    debug('Url:', url);
-
     const { routes } = this;
     const that = this;
 
@@ -70,9 +43,6 @@ module.exports = class {
         routes.push(async (ctx) => {
           if (method === '*' || ctx.get('req').method.toUpperCase() === method.toUpperCase()) {
             if (ctx.get('req').url === url) {
-              debug('Router found');
-              debug('%s: %s', ctx.get('req').method.toUpperCase(), url);
-
               const request = ctx.get('request');
 
               if (request) {
@@ -87,9 +57,6 @@ module.exports = class {
             const regexp = pathToRegexp(url, paramNames);
 
             if (regexp.test(parsedUrl.pathname)) {
-              debug('Router found');
-              debug('%s: %s', ctx.get('req').method.toUpperCase(), url);
-
               const { query } = parsedUrl;
               const params = {};
 

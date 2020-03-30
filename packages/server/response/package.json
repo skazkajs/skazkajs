@@ -39,7 +39,6 @@
     "easy"
   ],
   "peerDependencies": {
-    "@skazka/server-module": "^0.0.4",
-    "debug": "^4.1.1"
+    "@skazka/server-module": "^0.0.4"
   }
 }

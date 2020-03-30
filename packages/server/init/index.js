@@ -1,5 +1,3 @@
-const debug = require('debug')('skazka:server:init');
-
 const moduleBuilder = require('@skazka/server-module');
 
 const cookiesModule = require('@skazka/server-cookies');
@@ -10,8 +8,6 @@ const requestModule = require('@skazka/server-request');
 const responseModule = require('@skazka/server-response');
 
 const init = moduleBuilder(async (context, options = {}) => {
-  debug('Options: %O', options);
-
   const {
     cookies = true,
     error = true,

@@ -1,10 +1,4 @@
-const debug = require('debug')('skazka:server:request:request');
-
 class Request {
-  constructor() {
-    debug('Request created');
-  }
-
   get(name) {
     return this[name];
   }
