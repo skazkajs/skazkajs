@@ -7,11 +7,11 @@ const actions = require('./actions');
 describe('DynamoDB actions test', () => {
   const TableName = 'users-dev';
 
-  beforeEach(async () => {
+  before(async () => {
     await init();
   });
 
-  afterEach(async () => {
+  after(async () => {
     await clear();
   });
 
