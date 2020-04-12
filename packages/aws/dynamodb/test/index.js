@@ -16,7 +16,8 @@ const {
 const loadYaml = () => safeLoad(readFileSync(join(__dirname, 'serverless.yml'), 'utf8'));
 
 const index = async () => {
-  console.log(isDev(), getLocalhost(), getRegion(), getStage()); // eslint-disable-line
+  console.log(getStage(), isDev(), getLocalhost(), getRegion()); // eslint-disable-line
+  console.log(JSON.stringify(process.env, null, 2)); // eslint-disable-line
   const properties = [];
 
   const sls = loadYaml();
