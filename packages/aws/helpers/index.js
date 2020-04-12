@@ -130,6 +130,7 @@ module.exports = {
   STAGE_STAGING,
   STAGE_TEST,
   STAGE_PRODUCTION,
+  getStage,
   isDev,
   isStaging,
   isTest,

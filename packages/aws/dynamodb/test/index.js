@@ -6,9 +6,17 @@ const { join } = require('path');
 
 const { dynamoDB } = require('../client');
 
+const {
+  isDev,
+  getLocalhost,
+  getStage,
+  getRegion,
+} = require('../../helpers');
+
 const loadYaml = () => safeLoad(readFileSync(join(__dirname, 'serverless.yml'), 'utf8'));
 
 const index = async () => {
+  console.log(isDev(), getLocalhost(), getRegion(), getStage()); // eslint-disable-line
   const properties = [];
 
   const sls = loadYaml();
