@@ -1,5 +1,6 @@
 const chai = require('chai'); //  eslint-disable-line
 const dirtyChai = require('dirty-chai'); //  eslint-disable-line
+const chaiSubset = require('chai-subset'); //  eslint-disable-line
 const sinon = require('sinon'); //  eslint-disable-line
 
 const axios = require('axios'); // eslint-disable-line
@@ -12,6 +13,7 @@ axios.defaults.host = host;
 axios.defaults.adapter = httpAdapter;
 
 chai.use(dirtyChai);
+chai.use(chaiSubset);
 
 const { expect } = chai;
 

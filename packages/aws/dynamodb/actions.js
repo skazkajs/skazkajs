@@ -1,42 +1,27 @@
-/* eslint no-console: 0 */
-
 const { dynamoDBClient } = require('./client');
 
-const getItem = async (TableName, Key, options = {}) => {
-  console.log('DynamoDB Model: getItem');
-  console.log('TableName:', TableName);
-  console.log('Key:', Key);
-  console.log('Options:', JSON.stringify(options, null, 2));
+const getItem = async (TableName, Key, options = {}) => (
+  dynamoDBClient.get({ TableName, Key, ...options }).promise().then((result) => result.Item)
+);
 
-  return dynamoDBClient.get({ TableName, Key, ...options }).promise().then((result) => result.Item);
-};
+const getItems = (TableName) => (
+  dynamoDBClient.scan({ TableName }).promise()
+).then((result) => result.Items);
 
-const createItem = async (TableName, Item, options = {}) => {
-  console.log('DynamoDB Model: createItem');
-  console.log('TableName:', TableName);
-  console.log('Item:', Item);
-  console.log('Options:', JSON.stringify(options, null, 2));
+const getAllItems = (TableName) => (
+  dynamoDBClient.scan({ TableName }).promise()
+).then((result) => result.Items);
 
-  return dynamoDBClient.put({ TableName, Item, ...options }).promise();
-};
+const createItem = async (TableName, Item, options = {}) => (
+  dynamoDBClient.put({ TableName, Item, ...options }).promise()
+);
 
-const deleteItem = async (TableName, Key) => {
-  console.log('DynamoDB Model: deleteItem');
-  console.log('TableName:', TableName);
-  console.log('Key:', Key);
-
-  return dynamoDBClient.delete({ TableName, Key }).promise();
-};
+const deleteItem = async (TableName, Key) => (
+  dynamoDBClient.delete({ TableName, Key }).promise()
+);
 
 const updateItem = async (TableName, Key, data = {}, options = {}) => {
-  console.log('DynamoDB Model: updateItem');
-  console.log('TableName:', TableName);
-  console.log('Key:', Key);
-  console.log('data:', data);
-  console.log('Options:', JSON.stringify(options, null, 2));
-
   const keys = Object.keys(data);
-  console.log('Keys:', JSON.stringify(keys, null, 2));
 
   const expressionList = [];
 
@@ -61,40 +46,23 @@ const updateItem = async (TableName, Key, data = {}, options = {}) => {
     ...options,
   };
 
-  console.log('Update parameters:', JSON.stringify(updateParameters, null, 2));
-
-  console.log('Updating the record...');
   const newData = await dynamoDBClient.update(updateParameters).promise();
-  console.log('New data:', JSON.stringify(newData, null, 2));
 
   return newData.Attributes;
 };
 
-const createItemWithVersion = async (TableName, Item, options = {}) => {
-  console.log('DynamoDB Model: createItemWithVersion');
-  console.log('TableName:', TableName);
-  console.log('Item:', JSON.stringify(Item, null, 2));
-
-  return createItem(
-    TableName,
-    {
-      ...Item,
-      version: 1,
-      versionDate: new Date().getTime(),
-    },
-    options,
-  );
-};
+const createItemWithVersion = async (TableName, Item, options = {}) => createItem(
+  TableName,
+  {
+    ...Item,
+    version: 1,
+    versionDate: new Date().getTime(),
+  },
+  options,
+);
 
 const updateItemWithVersion = async (TableName, Key, data, options = {}) => {
-  console.log('DynamoDB Model: updateItemWithVersion');
-  console.log('TableName:', TableName);
-  console.log('Key:', Key);
-  console.log('data:', data);
-  console.log('Options:', JSON.stringify(options, null, 2));
-
   const keys = Object.keys(data);
-  console.log('Keys:', JSON.stringify(keys, null, 2));
 
   if (keys.length) {
     const expressionList = [];
@@ -135,14 +103,8 @@ const updateItemWithVersion = async (TableName, Key, data, options = {}) => {
   return null;
 };
 
-const createItemWithUniqueAttribute = async (TableName, Item, attribute, options = {}) => {
-  console.log('DynamoDB Model: createItemWithUniqueAttribute');
-  console.log('TableName:', TableName);
-  console.log('Item:', Item);
-  console.log('Attribute:', attribute);
-  console.log('Options:', JSON.stringify(options, null, 2));
-
-  return createItem(
+const createItemWithUniqueAttribute = async (TableName, Item, attribute, options = {}) => (
+  createItem(
     TableName,
     Item,
     {
@@ -150,11 +112,13 @@ const createItemWithUniqueAttribute = async (TableName, Item, attribute, options
       ExpressionAttributeNames: { '#attribute': attribute },
       ...options,
     },
-  );
-};
+  )
+);
 
 module.exports = {
   getItem,
+  getItems,
+  getAllItems,
   createItem,
   deleteItem,
   updateItem,

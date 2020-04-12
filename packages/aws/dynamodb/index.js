@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const client = require('./client');
 const events = require('./events');
 const actions = require('./actions');
