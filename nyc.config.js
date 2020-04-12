@@ -31,6 +31,7 @@ module.exports = {
   lines: 0,
   reporter: [
     'lcov',
+    'text',
     'text-summary',
     'html',
   ],
