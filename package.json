@@ -21,6 +21,7 @@
     "build": "lerna run build",
     "test": "npm-run-all test:**",
     "test:db:start": "sh bin/db_start.sh",
+    "test:sleep": "sleep 10",
     "test:lint": "eslint . --ext .js,.jsx",
     "test:aws": "cross-env NODE_ENV=test IS_OFFLINE=1 PORT=9000 mocha --timeout 30000 packages/aws/**/*.test.js",
     "test:server": "cross-env NODE_ENV=test IS_OFFLINE=1 PORT=9000 mocha packages/server/**/*.test.js",
