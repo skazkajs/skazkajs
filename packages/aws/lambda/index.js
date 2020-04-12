@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const error = require('./error');
 const ec2 = require('./ec2');
 const event = require('./event');

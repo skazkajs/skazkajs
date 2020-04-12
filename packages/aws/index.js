@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const s3 = require('./s3');
 const ssm = require('./ssm');
 const dynamoDB = require('./dynamodb');
