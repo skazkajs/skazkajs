@@ -8,8 +8,8 @@ const isProduction = env === PRODUCTION;
 const isDevelopment = ![PRODUCTION, TEST].includes(env);
 const isTest = env === TEST;
 
-export {
-  env as default,
+module.exports = {
+  default: env,
   env,
   PRODUCTION,
   DEVELOPMENT,

@@ -1,14 +1,13 @@
 {
   "name": "@skazka/env",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Node.js Environment",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
     "prebuild": "rimraf dist"
   },
-  "main": "dist/index.js",
   "files": [
-    "dist"
+    "index.js"
   ],
   "engines": {
     "node": ">=10.0.0"

@@ -10,6 +10,7 @@ const response = require('@skazka/server-response'); //  eslint-disable-line
 
 const {
   expect,
+  sinon,
   axios,
   host,
   hostSSL,
@@ -56,7 +57,7 @@ describe('Server HTTP(s) test', () => {
 
     app.then((ctx) => ctx.response());
 
-    srv = server.createHttpServer(app, port);
+    srv = server.createHttpServer(app, { port });
 
     const data = await axios.get(host);
 
@@ -110,7 +111,7 @@ describe('Server HTTP(s) test', () => {
 
     const { serviceKey: key, certificate: cert } = await createCertificate({ days, selfSigned });
 
-    srv = server.createHttpsServer({ key, cert }, app, port);
+    srv = server.createHttpsServer({ key, cert }, app, { port });
 
     await axios.get(hostSSL, {
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -118,5 +119,29 @@ describe('Server HTTP(s) test', () => {
       expect(data.status).equal(200);
       expect(data.statusText).equal('OK');
     });
+  });
+
+  it('It should test onClose', async () => {
+    const mock = sinon.spy();
+    const onClose = sinon.spy();
+
+    app.then((ctx) => ctx.response());
+
+    srv = server.createHttpServer(app, { onClose });
+
+    const data = await axios.get(host);
+
+    expect(data.status).equal(200);
+    expect(data.statusText).equal('OK');
+
+    await new Promise((res) => {
+      mock();
+      srv.close(res);
+    });
+
+    expect(mock.called).is.true();
+    expect(onClose.called).is.true();
+
+    srv = server.createHttpServer(app);
   });
 });

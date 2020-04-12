@@ -1,0 +1,49 @@
+{
+  "name": "@skazka/aws",
+  "version": "0.0.2",
+  "description": "Skazka AWS helpers",
+  "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "skazkajs",
+  "authors": [
+    "SkazkaJS <skazkajs@gmail.com> (https://github.com/skazkajs)",
+    "Evheniy Bystrov <evheniy.bystrov@gmail.com> (https://github.com/evheniy)"
+  ],
+  "repository": "https://github.com/skazkajs/skazka/tree/master/packages/aws",
+  "bugs": {
+    "url": "https://github.com/skazkajs/skazka/issues"
+  },
+  "homepage": "https://skazkajs.org/",
+  "keywords": [
+    "skazka",
+    "node.js",
+    "promise",
+    "http",
+    "server",
+    "rest",
+    "fast",
+    "async",
+    "await",
+    "https",
+    "ssl",
+    "easy",
+    "aws",
+    "dynamodb",
+    "lambda"
+  ],
+  "dependencies": {
+    "@skazka/env": "^0.1.0",
+    "@skazka/server-http": "^0.1.0",
+    "aws-sdk": "2.652.0",
+    "aws-serverless-express": "^3.3.8",
+    "axios": "^0.19.2",
+    "mysql2": "^2.1.0",
+    "pg": "8.0.2"
+  }
+}

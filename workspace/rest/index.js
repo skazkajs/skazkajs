@@ -1,16 +1,18 @@
-const Server = require('@skazka/server');
+const App = require('@skazka/server');
 const Router = require('@skazka/server-router');
+
+const http = require('@skazka/aws/lambda/http');
 
 const init = require('@skazka/server-init');
 const bodyParser = require('@skazka/server-body-parser');
 const cors = require('@skazka/server-cors');
 
-const server = new Server();
+const app = new App();
 const router = new Router();
 
 const users = [];
 
-server
+app
   .then(init({ error: { isJSON: true } }))
   .then(cors());
 
@@ -26,6 +28,6 @@ router.post('/users').then(async (ctx) => {
   return ctx.response({ message: 'User saved' });
 });
 
-server.then(router.resolve());
+app.then(router.resolve());
 
-module.exports = server;
+module.exports = http(app);

@@ -3,7 +3,8 @@
     "packages/server/*",
     "packages/react/*",
     "packages/redux/*",
-    "packages/core/*"
+    "packages/core/*",
+    "packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

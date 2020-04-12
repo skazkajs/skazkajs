@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-mongoose",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Server Mongoose",
   "main": "index.js",
   "files": [
@@ -43,6 +43,6 @@
   "peerDependencies": {
     "@skazka/server-module": "^0.0.4",
     "config": "^3.3.1",
-    "mongoose": "^5.9.6"
+    "mongoose": "^5.9.7"
   }
 }

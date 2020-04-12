@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-http",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "HTTP(S) Server",
   "main": "index.js",
   "files": [
@@ -40,5 +40,8 @@
     "ssl",
     "easy",
     "server"
-  ]
+  ],
+  "dependencies": {
+    "@skazka/env": "^0.1.0"
+  }
 }

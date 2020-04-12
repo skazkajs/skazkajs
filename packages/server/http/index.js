@@ -1,11 +1,21 @@
 const http = require('http');
 const https = require('https');
 
+const { isDevelopment } = require('@skazka/env');
+
+/* istanbul ignore next */
+const globalPort = parseInt(process.env.PORT || '3000', 10);
+
 /**
  * Adding listeners to server
  */
 /* istanbul ignore next */
-const addListeners = (server, port) => {
+const addListeners = (server, options = {}) => {
+  const {
+    port = globalPort,
+    onClose,
+  } = options;
+
   /**
    * Event listener for HTTP server "error" event.
    */
@@ -32,16 +42,23 @@ const addListeners = (server, port) => {
    * Event listener for HTTP server "listening" event
    */
   /* istanbul ignore next */
-  /* const onListening = (srv) => {
-    const address = srv.address();
-    const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
-    console.log(`Listening on ${bind}`); // eslint-disable-line
-  }; */
+  const onListening = (srv) => {
+    if (isDevelopment) {
+      const address = srv.address();
+      const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
+      console.log(`Listening on ${bind}`); // eslint-disable-line
+    }
+  };
   /**
    * Stop server
    */
   const stop = () => {
-    server.close(() => {
+    server.close((err) => {
+      if (err) {
+        console.error(err); // eslint-disable-line
+        process.exit(1);
+      }
+
       process.exit();
     });
   };
@@ -49,33 +66,34 @@ const addListeners = (server, port) => {
   /**
    * Listen on provided port, on all network interfaces
    */
-  // server.on('listening', () => onListening(server));
+  server.on('listening', () => onListening(server));
   server.on('error', onError);
   server.listen(port);
 
   server.on('close', () => {
     process.removeAllListeners();
     server.removeAllListeners();
-  });
 
+    if (onClose) {
+      onClose();
+    }
+  });
 
   /**
    * Stop process
    */
   process.on('SIGINT', stop);
   process.on('SIGTERM', stop);
+  process.on('SIGQUIT', stop);
 
   return server;
 };
 
-/* istanbul ignore next */
-const globalPort = parseInt(process.env.PORT || '3000', 10);
-
 module.exports = {
-  createHttpServer(app, port = globalPort) {
-    return addListeners(http.createServer(app.resolve()), port);
+  createHttpServer(app, options) {
+    return addListeners(http.createServer(app.resolve()), options);
   },
-  createHttpsServer(options, app, port = globalPort) {
-    return addListeners(https.createServer(options, app.resolve()), port);
+  createHttpsServer(cert, app, options) {
+    return addListeners(https.createServer(cert, app.resolve()), options);
   },
 };

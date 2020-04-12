@@ -1,14 +1,12 @@
-const srv = require('@skazka/server-http');
-
 const { expect, axios, host } = require('../../test.config');
 
-const app = require('.');
+const createServer = require('.');
 
 describe('REST example test', async () => {
   let server;
 
   beforeEach(() => {
-    server = srv.createHttpServer(app);
+    server = createServer();
   });
 
   afterEach((done) => {

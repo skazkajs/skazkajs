@@ -1,6 +1,6 @@
 {
   "name": "@skazka/server-init",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Pack of useful packages: cookies, error, helmet, logger, request and response",
   "main": "index.js",
   "files": [
@@ -50,8 +50,8 @@
   },
   "dependencies": {
     "@skazka/server-cookies": "^0.0.7",
-    "@skazka/server-error": "0.0.9",
-    "@skazka/server-helmet": "0.0.9",
+    "@skazka/server-error": "^0.0.9",
+    "@skazka/server-helmet": "^0.0.9",
     "@skazka/server-logger": "^0.0.7",
     "@skazka/server-request": "^0.0.8",
     "@skazka/server-response": "^0.0.8"
