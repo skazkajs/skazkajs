@@ -1,16 +1,16 @@
 const axios = require('axios');
 
-const { getParameter } = require('../../ssm');
+const { getParameter } = require('../../ssm/actions');
 const { getRegion, getStage, isDev } = require('../../helpers');
 
 const errorHandler = (channel, options = {}) => (name) => async (error, payload = null) => {
-  const {
-    useSSM = false,
-    ssmOptions = {},
-  } = options;
-
   try {
-    const channelUrl = useSSM ? await getParameter(channel, ssmOptions) : channel;
+    const {
+      useSSM = false,
+      encrypted = true,
+    } = options;
+
+    const channelUrl = useSSM ? await getParameter(channel, encrypted) : channel;
 
     const data = {
       name,

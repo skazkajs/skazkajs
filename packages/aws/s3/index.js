@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 
 const s3 = require('./client');
-const uploadFile = require('./uploadFile');
+const actions = require('./actions');
 
 module.exports = {
   s3,
-  uploadFile,
+  actions,
 };
