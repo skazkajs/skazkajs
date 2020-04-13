@@ -4,13 +4,49 @@ const getItem = async (TableName, Key, options = {}) => (
   dynamoDBClient.get({ TableName, Key, ...options }).promise().then((result) => result.Item)
 );
 
-const getItems = (TableName) => (
-  dynamoDBClient.scan({ TableName }).promise()
+const getItems = (TableName, options = {}) => (
+  dynamoDBClient.scan({ TableName, ...options }).promise()
 ).then((result) => result.Items);
 
-const getAllItems = (TableName) => (
-  dynamoDBClient.scan({ TableName }).promise()
-).then((result) => result.Items);
+const getAllItems = async (TableName, options = {}) => {
+  const scanParams = { TableName, ...options };
+
+  const items = [];
+
+  const scanUntilDone = async (ExclusiveStartKey) => {
+    const data = await dynamoDBClient.scan({ ...scanParams, ExclusiveStartKey }).promise();
+
+    items.push(...data.Items);
+
+    if (data.LastEvaluatedKey) {
+      await scanUntilDone(data.LastEvaluatedKey);
+    }
+  };
+
+  await scanUntilDone();
+
+  return items;
+};
+
+const getAllItemsWithHandler = async (handler, TableName, options = {}) => {
+  const scanParams = { TableName, ...options };
+
+  const items = [];
+
+  const scanUntilDone = async (ExclusiveStartKey) => {
+    const data = await dynamoDBClient.scan({ ...scanParams, ExclusiveStartKey }).promise();
+
+    await handler(data.Items);
+
+    if (data.LastEvaluatedKey) {
+      await scanUntilDone(data.LastEvaluatedKey);
+    }
+  };
+
+  await scanUntilDone();
+
+  return items;
+};
 
 const createItem = async (TableName, Item, options = {}) => (
   dynamoDBClient.put({ TableName, Item, ...options }).promise()
@@ -119,6 +155,7 @@ module.exports = {
   getItem,
   getItems,
   getAllItems,
+  getAllItemsWithHandler,
   createItem,
   deleteItem,
   updateItem,

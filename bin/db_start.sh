@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# docker system prune -a
+
 docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 hostnet
 
 docker run -d --net=hostnet --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=skazka mysql:5.6
