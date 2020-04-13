@@ -22,10 +22,10 @@ const errorHandler = (channel, options = {}) => (name) => async (error, payload 
 
     const text = JSON.stringify(data, null, 2);
 
+    console.error(text); // eslint-disable-line
+
     if (!isDev()) {
       await axios.post(channelUrl, { text });
-    } else {
-      console.error(text); // eslint-disable-line
     }
   } catch (e) {
     console.error(e); // eslint-disable-line

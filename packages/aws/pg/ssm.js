@@ -1,15 +1,15 @@
-const { getParameters } = require('../ssm');
+const { getParameters } = require('../ssm/actions');
 
 const createPool = require('./pool');
 
-const createPoolSSM = async (dbOptions = {}, names = [], encrypted = true, ssmOptions = {}) => {
-  const ssmParameters = await getParameters(names, encrypted, ssmOptions);
+const createPoolSSM = async (dbOptions, names, encrypted) => {
+  const ssmParameters = await getParameters(names, encrypted);
 
   const options = { ...dbOptions };
 
   Object.keys(options).forEach((key) => {
-    if (ssmParameters[key]) {
-      options[key] = ssmParameters[key];
+    if (ssmParameters[options[key]]) {
+      options[key] = ssmParameters[options[key]];
     }
   });
 
