@@ -3,16 +3,6 @@ const { expect, sinon } = require('../../../test.config');
 const wrapper = require('./wrapper');
 
 describe('Lambda wrapper test', () => {
-  const { log } = console; // eslint-disable-line
-
-  before(() => {
-    console.log = () => null; // eslint-disable-line
-  });
-
-  after(() => {
-    console.log = log; // eslint-disable-line
-  });
-
   it('It should test default flow', async () => {
     const event = { event: true };
     const context = { context: true };

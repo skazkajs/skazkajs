@@ -27,13 +27,17 @@ const LAMBDA_RESPONSE = { status: 'success' };
 const LAMBDA_SMOKE_TEST_EVENT = { isSmokeTest: true };
 
 const defaultSmokeTestHandler = async (event, context) => {
-  console.log(event, context); // eslint-disable-line
+  if (!isDev()) {
+    console.log(event, context); // eslint-disable-line
+  }
 
   return LAMBDA_RESPONSE;
 };
 
 const defaultErrorHandler = async (error, payload = null) => {
-  console.error(error, payload); // eslint-disable-line
+  if (!isDev()) {
+    console.log(error, payload); // eslint-disable-line
+  }
 
   return LAMBDA_RESPONSE;
 };
@@ -119,6 +123,10 @@ const getDynamoDbPort = () => DYNAMODB_PORT;
 const S3_PORT = '4572';
 const getS3Port = () => S3_PORT;
 
+const SSM_PORT = '4583';
+const getSSMPort = () => SSM_PORT;
+
+
 const getAccessKeyId = () => process.env.AWS_ACCESS_KEY_ID || 'AWS_ACCESS_KEY_ID';
 const getSecretAccessKey = () => process.env.AWS_SECRET_ACCESS_KEY || 'AWS_SECRET_ACCESS_KEY';
 
@@ -151,6 +159,8 @@ module.exports = {
   getDynamoDbPort,
   S3_PORT,
   getS3Port,
+  SSM_PORT,
+  getSSMPort,
   getAccessKeyId,
   getSecretAccessKey,
 };
