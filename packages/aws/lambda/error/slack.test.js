@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 const moxios = require('moxios');
 
 const { expect, sinon } = require('../../../../test.config');
