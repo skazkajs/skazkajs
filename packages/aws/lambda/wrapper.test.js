@@ -24,6 +24,23 @@ describe('Lambda wrapper test', () => {
     expect(handlerSpy.called).is.true();
   });
 
+  it('It should test default flow without event', async () => {
+    const handlerSpy = sinon.spy();
+
+    const handler = async (eventData, contextData, registry) => {
+      expect(eventData).to.be.eql({});
+      expect(contextData).to.be.eql({ callbackWaitsForEmptyEventLoop: false });
+      expect(registry).to.be.eql({});
+
+      handlerSpy();
+    };
+
+    const response = await wrapper(handler)();
+
+    expect(response).to.be.eql({ status: 'success' });
+    expect(handlerSpy.called).is.true();
+  });
+
   it('It should test smoke test flow', async () => {
     const event = { isSmokeTest: true };
     const context = { context: true };

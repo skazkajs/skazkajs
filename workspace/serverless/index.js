@@ -1,9 +1,5 @@
-const awsServerlessExpress = require('aws-serverless-express');
+const http = require('@skazka/aws/lambda/http');
 
 const app = require('./app');
 
-module.exports.handler = (event, context) => awsServerlessExpress.proxy(
-  awsServerlessExpress.createServer(app.resolve()),
-  event,
-  context,
-);
+module.exports.handler = http(app);

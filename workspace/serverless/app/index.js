@@ -1,15 +1,15 @@
-const Server = require('@skazka/server');
+const App = require('@skazka/server');
 
 const init = require('@skazka/server-init');
 const cors = require('@skazka/server-cors');
 
 const router = require('../router');
 
-const server = new Server();
+const app = new App();
 
-server
+app
   .then(init({ error: { isJSON: true } }))
   .then(cors())
   .then(router.resolve());
 
-module.exports = server;
+module.exports = app;

@@ -1,14 +1,12 @@
-const srv = require('@skazka/server-http');
-
 const { expect, axios, host } = require('../../test.config');
 
-const app = require('./app');
+const app = require('.');
 
 describe('GraphQL example test', async () => {
   let server;
 
   beforeEach(() => {
-    server = srv.createHttpServer(app);
+    server = app.handler();
   });
 
   afterEach((done) => {

@@ -20,7 +20,7 @@ const {
  *   await registry.pool.query(...);
  * }
  */
-const wrapper = (handler, options = {}) => async (event, context) => {
+const wrapper = (handler, options = {}) => async (event = {}, context = {}) => {
   const {
     throwError = false,
     errorHandler = defaultErrorHandler,

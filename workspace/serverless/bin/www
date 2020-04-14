@@ -1,6 +1,0 @@
-#!/usr/bin/env node
-
-const server = require('@skazka/server-http');
-const app = require('../app');
-
-server.createHttpServer(app);

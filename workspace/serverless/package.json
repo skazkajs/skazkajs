@@ -1,13 +1,11 @@
 {
-  "name": "example-serverless",
+  "name": "skazka-serverless-example",
   "version": "0.0.13",
-  "description": "",
+  "description": "Skazka serverless example",
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node bin/www",
-    "test": "PORT=7000 mocha **/*.test.js",
-    "serverless": "sls offline start",
+    "start": "node index.js",
     "deploy": "sls deploy",
     "remove": "sls remove"
   },
@@ -21,16 +19,13 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
+    "@skazka/aws": "^0.0.3",
     "@skazka/server": "^0.0.9",
     "@skazka/server-body-parser": "^0.0.9",
     "@skazka/server-cors": "^0.0.9",
     "@skazka/server-graphql": "^0.0.10",
-    "@skazka/server-http": "^0.1.0",
     "@skazka/server-init": "^0.0.11",
     "@skazka/server-router": "^0.0.3",
-    "aws-serverless-express": "^3.3.8",
-    "axios": "^0.19.2",
-    "graphql": "^15.0.0",
-    "serverless-offline": "^6.1.4"
+    "graphql": "^15.0.0"
   }
 }
