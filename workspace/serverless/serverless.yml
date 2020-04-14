@@ -7,6 +7,8 @@ provider:
   region: us-east-1
   environment:
     NODE_ENV: production
+    REGION: ${self:provider.region}
+    STAGE: ${self:provider.stage}
 
 functions:
   app:
