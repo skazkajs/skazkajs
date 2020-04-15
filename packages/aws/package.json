@@ -1,6 +1,6 @@
 {
   "name": "@skazka/aws",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Skazka AWS helpers",
   "main": "index.js",
   "engines": {
@@ -39,14 +39,12 @@
   ],
   "dependencies": {
     "@skazka/env": "^0.1.0",
-    "@skazka/server-http": "^0.1.0",
-    "aws-sdk": "2.652.0",
+    "@skazka/server-http": "^0.2.0",
+    "aws-sdk": "2.652.1",
     "aws-serverless-express": "^3.3.8",
     "axios": "^0.19.2",
     "mysql2": "^2.1.0",
-    "pg": "8.0.2"
+    "pg": "^8.0.2"
   },
-  "devDependencies": {
-    "moxios": "^0.4.0"
-  }
+  "devDependencies": {}
 }

@@ -251,7 +251,7 @@ describe('Server virtual host test', async () => {
 
     app.then(vhost.resolve());
 
-    server = srv.createHttpServer(app, { port });
+    server = srv.createHttpServer(app, port);
 
     const vhostSSL = new VirtualHost();
 
@@ -272,7 +272,7 @@ describe('Server virtual host test', async () => {
 
     const { serviceKey: key, certificate: cert } = await createCertificate({ days, selfSigned });
 
-    const serverSSL = srv.createHttpsServer({ key, cert }, appSSL, { port: portSSL });
+    const serverSSL = srv.createHttpsServer({ key, cert }, appSSL, portSSL);
 
     await axios.get(host, {
       headers: { Host: 'skazkajs.org' },

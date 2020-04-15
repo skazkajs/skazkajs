@@ -1,6 +1,6 @@
 {
   "name": "skazka-serverless-example",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Skazka serverless example",
   "private": true,
   "main": "index.js",
@@ -19,7 +19,7 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/aws": "^0.0.3",
+    "@skazka/aws": "0.0.4",
     "@skazka/server": "^0.0.9",
     "@skazka/server-body-parser": "^0.0.9",
     "@skazka/server-cors": "^0.0.9",

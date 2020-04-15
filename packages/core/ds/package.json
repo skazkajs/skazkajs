@@ -1,6 +1,6 @@
 {
   "name": "@skazka/ds",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Lerna Monorepo dependencies synchronization",
   "main": "cli.js",
   "bin": {
@@ -32,6 +32,6 @@
   ],
   "dependencies": {
     "glob": "^7.1.6",
-    "semver": "^7.1.4"
+    "semver": "^7.2.2"
   }
 }
