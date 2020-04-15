@@ -40,7 +40,7 @@
   "dependencies": {
     "@skazka/env": "^0.1.0",
     "@skazka/server-http": "^0.2.0",
-    "aws-sdk": "2.652.1",
+    "aws-sdk": "^2.656.0",
     "aws-serverless-express": "^3.3.8",
     "axios": "^0.19.2",
     "mysql2": "^2.1.0",
