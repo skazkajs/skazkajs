@@ -28,8 +28,6 @@
     "test:coverage": "cross-env NODE_ENV=test PORT=12000 nyc mocha --recursive '@(workspace|packages)/**/*.test.@(js|jsx)'",
     "test:build": "yarn build",
     "test:db:stop": "sh bin/db_stop.sh",
-    "precommit": "npm t",
-    "prepush": "npm t",
     "release": "lerna exec --no-private --bail=false -- npm publish",
     "prerelease": "yarn build"
   },
@@ -95,6 +93,7 @@
     "mime-types": "^2.1.26",
     "mocha": "^7.1.1",
     "mongoose": "^5.9.7",
+    "moxios": "^0.4.0",
     "mysql2": "^2.1.0",
     "mz": "^2.7.0",
     "npm-run-all": "^4.1.5",

@@ -9,3 +9,5 @@ docker rm -f adminer
 docker rm -f dynamodbadmin
 
 docker network rm hostnet
+
+exit 0;
