@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-const moxios = require('moxios');
+const moxios = require('moxios'); // eslint-disable-line
 
 const { expect, sinon } = require('../../../../test.config');
 
