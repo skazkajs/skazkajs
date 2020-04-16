@@ -1,23 +1,19 @@
 const Router = require('@skazka/server-router');
-
-const graphql = require('@skazka/server-graphql');
 const bodyParser = require('@skazka/server-body-parser');
 
-const { schema, graphiql } = require('../graphql');
-const users = require('../db');
+const graphql = require('../graphql');
+const { getUsers, createUser } = require('../resolvers');
 
 const router = new Router();
 
-router.all('/').then(graphql({ schema, graphiql }));
+router.all('/').then(graphql);
 
-router.get('/users').then((ctx) => ctx.response(users));
+router.get('/users').then((ctx) => ctx.response(getUsers()));
 
 router.post('/users').then(async (ctx) => {
   await bodyParser.json(ctx);
 
-  users.push(ctx.request.body);
-
-  return ctx.response({ message: 'User saved' });
+  return ctx.response(createUser(ctx.request.body));
 });
 
 module.exports = router;

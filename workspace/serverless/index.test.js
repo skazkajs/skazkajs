@@ -1,4 +1,11 @@
-const { expect, axios, host } = require('../../test.config');
+/* eslint no-console: 0 */
+
+const {
+  expect,
+  sinon,
+  axios,
+  host,
+} = require('../../test.config');
 
 const app = require('.');
 
@@ -74,7 +81,7 @@ describe('GraphQL example test', async () => {
     await axios.post(`${host}/users`, { name: 'test' }).then((response) => {
       expect(response.status).equal(200);
       expect(response.statusText).equal('OK');
-      expect(response.data.message).equal('User saved');
+      expect(response.data).eql([{ name: 'test' }]);
       // helmet headers
       expect(response.headers['x-dns-prefetch-control']).equal('off');
       expect(response.headers['x-frame-options']).equal('SAMEORIGIN');
@@ -182,5 +189,25 @@ describe('GraphQL example test', async () => {
       // init({ error: { isJSON: true } }) it sets json header
       expect(response.headers['content-type']).equal('application/json');
     });
+  });
+
+  it('It should test POST /users with error', async () => {
+    const spy = sinon.spy();
+
+    sinon.stub(console, 'error');
+
+    try {
+      await axios.post(`${host}/users`);
+    } catch (error) {
+      expect(error.message).to.be.eql('Request failed with status code 500');
+
+      spy();
+    }
+
+    expect(spy.called).is.true();
+
+    expect(console.error.args[0][0].message).to.be.eql('Empty user!');
+
+    console.error.restore();
   });
 });
