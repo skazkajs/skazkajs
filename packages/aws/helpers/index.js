@@ -2,9 +2,7 @@ const getRegion = () => process.env.REGION || 'us-east-1';
 
 const isOffline = () => !!process.env.IS_OFFLINE;
 
-const getLocalhost = (defaultHost = '192.168.0.1') => (
-  process.env.LOCALSTACK_HOSTNAME ? defaultHost : 'localhost'
-);
+const getLocalhost = () => process.env.LOCALSTACK_HOSTNAME || 'localhost';
 
 const STAGE_DEV = 'dev';
 const STAGE_STAGING = 'staging';
@@ -36,7 +34,7 @@ const defaultSmokeTestHandler = async (event, context) => {
 
 const defaultErrorHandler = async (error, payload = null) => {
   if (!isDev()) {
-    console.log(error, payload); // eslint-disable-line
+    console.error(error, payload); // eslint-disable-line
   }
 
   return LAMBDA_RESPONSE;
@@ -62,18 +60,18 @@ const processRecursiveRows = async (processRow, list, index = 0) => {
 
 const pause = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const retry = async (callback, options = {}) => {
+const retry = (handler, options = {}) => async (...args) => {
   const defaultOptions = {
     count: 0,
     timeout: 0,
     errorHandler: defaultErrorHandler,
   };
 
-  const { count, timeout, errorHandler } = { ...defaultOptions, options };
+  const { count, timeout, errorHandler } = { ...defaultOptions, ...options };
 
   const run = async (attempt = count) => {
     try {
-      return await callback();
+      return await handler(...args);
     } catch (error) {
       await errorHandler(error, attempt);
 
@@ -90,20 +88,21 @@ const retry = async (callback, options = {}) => {
   return run();
 };
 
-const retries = async (handlers, options) => Promise.all(handlers.map((handler) => retry(handler, options))); // eslint-disable-line
+const retries = (handlers, options) => async (...args) => Promise.all(handlers.map((handler) => retry(handler, options)(...args))); // eslint-disable-line
+
+const timeout = (handler, seconds) => async (...args) => Promise.race([
+  pause(seconds * 1000).then(() => Promise.reject(new Error(`Timeout: ${seconds} seconds!`))),
+  handler(...args),
+]);
 
 const processRowWrapper = (handler, options = {}) => async (...args) => {
   const {
     throwError = false,
     errorHandler = defaultErrorHandler,
-    retry: retryOptions = {},
   } = options;
 
   try {
-    await retry(
-      async () => handler(...args),
-      retryOptions,
-    );
+    await handler(...args);
   } catch (error) {
     await errorHandler(error, error.payload || args);
 
@@ -153,6 +152,7 @@ module.exports = {
   pause,
   retry,
   retries,
+  timeout,
   compareSimpleObjects,
   clearDataForDynamoDB,
   DYNAMODB_PORT,

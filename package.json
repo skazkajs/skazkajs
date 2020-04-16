@@ -20,7 +20,7 @@
     "sync": "ds",
     "build": "lerna run build",
     "test": "npm-run-all test:**",
-    "test:db:start": "sh bin/db_start.sh",
+    "test:db:start": "sh bin/db_stop.sh && sh bin/db_start.sh",
     "test:lint": "eslint . --ext .js,.jsx",
     "test:aws": "cross-env NODE_ENV=test PORT=9000 mocha --timeout 30000 packages/aws/**/*.test.js",
     "test:server": "cross-env NODE_ENV=test PORT=9000 mocha packages/server/**/*.test.js",

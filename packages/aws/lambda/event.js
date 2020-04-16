@@ -24,21 +24,17 @@ const { processRecursiveRows, processRowWrapper } = require('../helpers');
   },
 };
 
- const retry = { count: 3 };
-
  module.exports.handler = eventHandler(handler, { wrapper, retry });
  */
 const eventHandler = (handler, options = {}) => async (event, context) => {
   const {
     wrapper = {},
-    retry,
     parallel = false,
   } = options;
 
   const processRow = processRowWrapper(
     handler,
     {
-      retry,
       throwError: wrapper.throwError,
       errorHandler: wrapper.errorHandler,
     },

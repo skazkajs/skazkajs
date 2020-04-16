@@ -12,7 +12,6 @@ const { processRecursiveRows, processRowWrapper, getRegion } = require('../helpe
 const proxyHandler = (functionNames = [], options = {}) => async (event, context) => {
   const {
     wrapper = {},
-    retry,
     parallel = false,
     async = false,
   } = options;
@@ -34,7 +33,6 @@ const proxyHandler = (functionNames = [], options = {}) => async (event, context
       }
     },
     {
-      retry,
       throwError: wrapper.throwError,
       errorHandler: wrapper.errorHandler,
     },

@@ -1,9 +1,10 @@
 const resolver = require('@skazka/aws/lambda/resolver');
+const { timeout, retry } = require('@skazka/aws/helpers');
 
 const users = require('../db');
 
 const getUsers = resolver(
-  async (registry) => registry.users,
+  timeout(retry(async (registry) => registry.users, { count: 3 }), 10),
   {
     useRegistry: async (registry) => {
       registry.users = users; // eslint-disable-line
@@ -16,7 +17,7 @@ const getUsers = resolver(
 );
 
 const createUser = resolver(
-  async (registry, user) => {
+  timeout(retry(async (registry, user) => {
     if (!user || !user.name) {
       throw new Error('Empty user!');
     }
@@ -24,7 +25,7 @@ const createUser = resolver(
     registry.users.push(user);
 
     return registry.users;
-  },
+  }, { count: 3 }), 10),
   {
     useRegistry: async (registry) => {
       registry.users = users; // eslint-disable-line
