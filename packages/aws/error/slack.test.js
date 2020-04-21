@@ -2,9 +2,9 @@
 
 const moxios = require('moxios'); // eslint-disable-line
 
-const { expect, sinon } = require('../../../../test.config');
+const { expect, sinon } = require('../../../test.config');
 
-const actions = require('../../ssm/actions');
+const actions = require('../ssm/actions');
 
 const errorHandler = require('./slack');
 

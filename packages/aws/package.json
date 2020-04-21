@@ -1,7 +1,7 @@
 {
   "name": "@skazka/aws",
-  "version": "0.0.5",
-  "description": "Skazka AWS helpers",
+  "version": "0.1.0",
+  "description": "Skazka AWS",
   "main": "index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -44,7 +44,8 @@
     "aws-serverless-express": "^3.3.8",
     "axios": "^0.19.2",
     "mysql2": "^2.1.0",
-    "pg": "^8.0.2"
+    "pg": "^8.0.2",
+    "promise-pause-timeout": "^1.0.0"
   },
   "devDependencies": {}
 }

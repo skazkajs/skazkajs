@@ -1,6 +1,7 @@
 const lambdaWrapper = require('./wrapper');
 
-const { processRecursiveRows, processRowWrapper } = require('../helpers');
+const recursiveRows = require('../handler/recursiveRows');
+const rowWrapper = require('../handler/rowWrapper');
 
 /**
  const eventHandler = require('@skazka/aws/lambda/event');
@@ -32,7 +33,7 @@ const eventHandler = (handler, options = {}) => async (event, context) => {
     parallel = false,
   } = options;
 
-  const processRow = processRowWrapper(
+  const processRow = rowWrapper(
     handler,
     {
       throwError: wrapper.throwError,
@@ -43,7 +44,7 @@ const eventHandler = (handler, options = {}) => async (event, context) => {
   const wrapperHandler = lambdaWrapper(async (eventData) => (
     parallel
       ? Promise.all(eventData.Records.map(processRow))
-      : processRecursiveRows(processRow, eventData.Records)
+      : recursiveRows(processRow, eventData.Records)
   ), wrapper);
 
   return wrapperHandler(event, context);

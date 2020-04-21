@@ -1,6 +1,8 @@
-const { defaultErrorHandler } = require('../helpers');
+const factory = require('./factory');
 
-const resolver = (handler, options = {}) => async (...args) => {
+const defaultErrorHandler = require('../error/defaultErrorHandler');
+
+const resolver = factory(async (handler, options = {}, args) => {
   const {
     errorHandler = defaultErrorHandler,
     useRegistry,
@@ -35,6 +37,6 @@ const resolver = (handler, options = {}) => async (...args) => {
 
     throw error;
   }
-};
+});
 
 module.exports = resolver;

@@ -3,15 +3,16 @@ const { SSM } = require('aws-sdk');
 const {
   isDev,
   getLocalhost,
-  getSSMPort,
   getRegion,
   getAccessKeyId,
   getSecretAccessKey,
-} = require('../helpers');
+} = require('../env');
+
+const port = require('./port');
 
 const options = (isDev() && {
   region: getRegion(),
-  endpoint: `http://${getLocalhost()}:${getSSMPort()}`,
+  endpoint: `http://${getLocalhost()}:${port}`,
   accessKeyId: getAccessKeyId(),
   secretAccessKey: getSecretAccessKey(),
 });

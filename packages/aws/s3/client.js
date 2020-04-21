@@ -3,13 +3,14 @@ const { S3 } = require('aws-sdk');
 const {
   isDev,
   getLocalhost,
-  getS3Port,
   getAccessKeyId,
   getSecretAccessKey,
-} = require('../helpers');
+} = require('../env');
+
+const port = require('./port');
 
 const options = (isDev() && {
-  endpoint: `http://${getLocalhost()}:${getS3Port()}`,
+  endpoint: `http://${getLocalhost()}:${port}`,
   accessKeyId: getAccessKeyId(),
   secretAccessKey: getSecretAccessKey(),
   s3ForcePathStyle: true,

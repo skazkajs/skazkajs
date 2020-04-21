@@ -1,6 +1,8 @@
-const { defaultErrorHandler } = require('../helpers');
+const factory = require('../handler/factory');
 
-const container = (handler, options = {}) => async () => {
+const defaultErrorHandler = require('../error/defaultErrorHandler');
+
+const container = factory(async (handler, options = {}) => {
   const {
     errorHandler = defaultErrorHandler,
     useRegistry,
@@ -26,6 +28,6 @@ const container = (handler, options = {}) => async () => {
 
     await errorHandler(error, error.payload);
   }
-};
+});
 
 module.exports = container;

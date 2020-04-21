@@ -1,6 +1,6 @@
 const { expect } = require('../../../test.config');
 
-const { init, clear } = require('./test');
+const { init, clear } = require('./fake');
 
 const actions = require('./actions');
 

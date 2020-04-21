@@ -1,11 +1,14 @@
-const resolver = require('@skazka/aws/lambda/resolver');
-const { timeout, retry } = require('@skazka/aws/helpers');
+const {
+  compose,
+  resolver,
+  retry,
+  timeout,
+} = require('@skazka/aws/handler');
 
 const users = require('../db');
 
-const getUsers = resolver(
-  timeout(retry(async (registry) => registry.users, { count: 3 }), 10),
-  {
+const handler = compose(
+  resolver(null, {
     useRegistry: async (registry) => {
       registry.users = users; // eslint-disable-line
 
@@ -13,30 +16,22 @@ const getUsers = resolver(
         delete registry.users; // eslint-disable-line
       };
     },
-  },
+  }),
+  timeout(null, { seconds: 10 }),
+  retry(null, { count: 3 }),
 );
 
-const createUser = resolver(
-  timeout(retry(async (registry, user) => {
-    if (!user || !user.name) {
-      throw new Error('Empty user!');
-    }
+const getUsers = handler(async (registry) => registry.users);
 
-    registry.users.push(user);
+const createUser = handler(async (registry, user) => {
+  if (!user || !user.name) {
+    throw new Error('Empty user!');
+  }
 
-    return registry.users;
-  }, { count: 3 }), 10),
-  {
-    useRegistry: async (registry) => {
-      registry.users = users; // eslint-disable-line
+  registry.users.push(user);
 
-      return async () => {
-        delete registry.users; // eslint-disable-line
-      };
-    },
-    errorHandlerExceptions: ['Empty user!'],
-  },
-);
+  return registry.users;
+});
 
 
 module.exports = {

@@ -2,25 +2,24 @@ const { Lambda } = require('aws-sdk');
 
 const lambdaWrapper = require('./wrapper');
 
-const {
-  processRecursiveRows,
-  processRowWrapper,
-  getRegion,
-  LAMBDA_SMOKE_TEST_EVENT,
-} = require('../helpers');
+const recursiveRows = require('../handler/recursiveRows');
+const rowWrapper = require('../handler/rowWrapper');
+const { SMOKE_EVENT } = require('../handler/smoke');
+const { getRegion } = require('../env');
+
 
 const lambda = new Lambda({ region: getRegion() });
 
 const getNames = async () => {
   const names = [];
 
-  const getNextNames = async (iteration = 0, Marker) => {
+  const getNextNames = async (Marker) => {
     const list = await lambda.listFunctions({ Marker }).promise();
 
     names.push(...list.Functions.map(({ FunctionName }) => FunctionName));
 
     if (list.NextMarker) {
-      await getNextNames(iteration + 1, list.NextMarker);
+      await getNextNames(list.NextMarker);
     }
   };
 
@@ -32,16 +31,9 @@ const getNames = async () => {
 /**
  const smokeHandler = require('@skazka/aws/lambda/smoke');
 
- const wrapper = {
-  smokeEvent: { test: true },
-  defaultSmokeTestHandler: async (event, context) => {
-    return { status: 'success' };
-  };
- };
-
  const nameFilter = (names = []) => names.filter((name) => name.includes('production'));
 
- module.exports.handler = proxyHandler({ nameFilter, wrapper });
+ module.exports.handler = proxyHandler({ nameFilter });
  */
 const smokeHandler = (options = {}) => async (event, context) => {
   const {
@@ -49,10 +41,10 @@ const smokeHandler = (options = {}) => async (event, context) => {
     nameFilter = (names = []) => names,
   } = options;
 
-  const processRow = processRowWrapper(
+  const processRow = rowWrapper(
     async (FunctionName) => lambda.invoke({
       FunctionName,
-      Payload: (wrapper.smokeEvent || LAMBDA_SMOKE_TEST_EVENT),
+      Payload: SMOKE_EVENT,
     }).promise(),
     {
       throwError: wrapper.throwError,
@@ -61,7 +53,7 @@ const smokeHandler = (options = {}) => async (event, context) => {
   );
 
   const wrapperHandler = lambdaWrapper(
-    async () => processRecursiveRows(processRow, nameFilter(await getNames())),
+    async () => recursiveRows(processRow, nameFilter(await getNames())),
     wrapper,
   );
 

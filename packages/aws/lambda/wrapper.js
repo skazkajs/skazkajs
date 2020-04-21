@@ -1,10 +1,8 @@
-const {
-  LAMBDA_RESPONSE,
-  LAMBDA_SMOKE_TEST_EVENT,
-  compareSimpleObjects,
-  defaultErrorHandler,
-  defaultSmokeTestHandler,
-} = require('../helpers');
+const factory = require('../handler/factory');
+
+const { defaultSmokeHandler, isSmokeEvent, RESPONSE } = require('../handler/smoke');
+
+const defaultErrorHandler = require('../error/defaultErrorHandler');
 
 /**
  * useRegistry = async (registry) => {
@@ -20,15 +18,16 @@ const {
  *   await registry.pool.query(...);
  * }
  */
-const wrapper = (handler, options = {}) => async (event = {}, context = {}) => {
+const wrapper = factory(async (handler, options = {}, args) => {
   const {
     throwError = false,
     errorHandler = defaultErrorHandler,
-    smokeTestHandler = defaultSmokeTestHandler,
+    smokeHandler = defaultSmokeHandler,
     callbackWaitsForEmptyEventLoop = false,
     useRegistry,
-    smokeEvent = LAMBDA_SMOKE_TEST_EVENT,
   } = options;
+
+  const [event = {}, context = {}] = args;
 
   context.callbackWaitsForEmptyEventLoop = callbackWaitsForEmptyEventLoop; // eslint-disable-line
 
@@ -38,8 +37,8 @@ const wrapper = (handler, options = {}) => async (event = {}, context = {}) => {
   let clearRegistry;
 
   try {
-    if (event && compareSimpleObjects(event, smokeEvent) && smokeTestHandler) {
-      response = await smokeTestHandler(event, context);
+    if (isSmokeEvent(event) && smokeHandler) {
+      response = await smokeHandler(event, context);
     } else {
       if (useRegistry) {
         clearRegistry = await useRegistry(registry);
@@ -63,7 +62,7 @@ const wrapper = (handler, options = {}) => async (event = {}, context = {}) => {
     }
   }
 
-  return response || LAMBDA_RESPONSE;
-};
+  return response || RESPONSE;
+});
 
 module.exports = wrapper;

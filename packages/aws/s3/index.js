@@ -1,9 +1,11 @@
 /* istanbul ignore file */
 
-const s3 = require('./client');
+const port = require('./port');
+const client = require('./client');
 const actions = require('./actions');
 
 module.exports = {
-  s3,
+  port,
+  client,
   actions,
 };

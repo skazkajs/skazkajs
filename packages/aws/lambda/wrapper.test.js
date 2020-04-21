@@ -2,7 +2,27 @@ const { expect, sinon } = require('../../../test.config');
 
 const wrapper = require('./wrapper');
 
+const compose = require('../handler/compose');
+
 describe('Lambda wrapper test', () => {
+  it('It should test wrapper with compose', async () => {
+    const spy = sinon.spy();
+
+    const wrap = compose(
+      wrapper(),
+    );
+
+    const handler = wrap((param) => {
+      expect(param).to.be.equal(1);
+
+      spy();
+    });
+
+    await handler(1);
+
+    expect(spy.called).is.true();
+  });
+
   it('It should test default flow', async () => {
     const event = { event: true };
     const context = { context: true };
@@ -49,7 +69,7 @@ describe('Lambda wrapper test', () => {
 
     const handler = async (eventData, contextData, registry) => {
       expect(eventData).to.be.equal(event);
-      expect(contextData).to.be.equal(context);
+      expect(contextData).to.be.equal({ ...context, callbackWaitsForEmptyEventLoop: false });
       expect(registry).to.be.eql({});
 
       handlerSpy();
@@ -63,14 +83,13 @@ describe('Lambda wrapper test', () => {
   });
 
   it('It should test custom smoke test flow', async () => {
-    const event = { isSmokeTest: true };
+    const event = { isSmoke: true };
     const context = { context: true };
 
-    const smokeEvent = { testSmokeEvent: true };
     const smokeResponse = { smoke: 'Ok' };
     const smokeSpy = sinon.spy();
-    const smokeTestHandler = async (eventData, contextData) => {
-      expect(eventData).to.be.equal(smokeEvent);
+    const smokeHandler = async (eventData, contextData) => {
+      expect(eventData).to.be.equal(event);
       expect(contextData).to.be.equal(context);
 
       smokeSpy();
@@ -88,9 +107,9 @@ describe('Lambda wrapper test', () => {
       handlerSpy();
     };
 
-    const options = { smokeEvent, smokeTestHandler };
+    const options = { smokeHandler };
 
-    const response = await wrapper(handler, options)(smokeEvent, context);
+    const response = await wrapper(handler, options)(event, context);
 
     expect(response).to.be.equal(smokeResponse);
     expect(context.callbackWaitsForEmptyEventLoop).is.false();

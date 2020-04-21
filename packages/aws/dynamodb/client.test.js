@@ -1,13 +1,10 @@
+const { DynamoDB } = require('aws-sdk');
+
 const { expect } = require('../../../test.config');
 
-const {
-  isDev,
-  getLocalhost,
-  getRegion,
-  getDynamoDbPort,
-} = require('../helpers');
+const { isDev, getLocalhost, getRegion } = require('../env');
 
-const { init, clear } = require('./test');
+const { init, clear } = require('./fake');
 
 const { dynamoDB, dynamoDBClient } = require('./client');
 
@@ -22,11 +19,15 @@ describe('DynamoDB client test', () => {
     await clear();
   });
 
+  it('It should test client', async () => {
+    expect(dynamoDB).to.be.an.instanceof(DynamoDB);
+    expect(dynamoDBClient).to.be.an.instanceof(DynamoDB.DocumentClient);
+  });
+
   it('It should test connection parameters', async () => {
     expect(isDev()).to.be.true();
     expect(getRegion()).to.be.equal('us-east-1');
     expect(getLocalhost()).to.be.equal('localhost');
-    expect(getDynamoDbPort()).to.be.equal('4569');
   });
 
   it('It should test dynamoDB', async () => {

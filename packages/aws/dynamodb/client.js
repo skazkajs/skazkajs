@@ -3,15 +3,16 @@ const { DynamoDB } = require('aws-sdk');
 const {
   isDev,
   getLocalhost,
-  getDynamoDbPort,
   getRegion,
   getAccessKeyId,
   getSecretAccessKey,
-} = require('../helpers');
+} = require('../env');
+
+const port = require('./port');
 
 const options = (isDev() && {
   region: getRegion(),
-  endpoint: `http://${getLocalhost()}:${getDynamoDbPort()}`,
+  endpoint: `http://${getLocalhost()}:${port}`,
   accessKeyId: getAccessKeyId(),
   secretAccessKey: getSecretAccessKey(),
 });

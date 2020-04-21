@@ -1,14 +1,14 @@
-const s3 = require('./client');
+const client = require('./client');
 
 const createBucket = async (name, options = {}) => (
-  s3.createBucket({ Bucket: name, ...options }).promise()
+  client.createBucket({ Bucket: name, ...options }).promise()
 );
 
 const deleteBucket = async (name) => (
-  s3.deleteBucket({ Bucket: name }).promise()
+  client.deleteBucket({ Bucket: name }).promise()
 );
 
-const uploadFile = async (name, path, body, contentType, options = {}) => s3.putObject({
+const uploadFile = async (name, path, body, contentType, options = {}) => client.putObject({
   Bucket: name,
   Key: path,
   Body: body,
@@ -17,10 +17,10 @@ const uploadFile = async (name, path, body, contentType, options = {}) => s3.put
 }).promise();
 
 const downloadFile = async (name, path, options = {}) => (
-  s3.getObject({ Bucket: name, Key: path, ...options }).promise()
+  client.getObject({ Bucket: name, Key: path, ...options }).promise()
 );
 
-const deleteFile = async (name, path, options = {}) => s3.deleteObject({
+const deleteFile = async (name, path, options = {}) => client.deleteObject({
   Bucket: name,
   Key: path,
   ...options,

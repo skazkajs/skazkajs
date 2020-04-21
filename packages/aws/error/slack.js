@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const { getParameter } = require('../../ssm/actions');
-const { getRegion, getStage, isDev } = require('../../helpers');
+const { getParameter } = require('../ssm/actions');
+const { getRegion, getStage, isDev } = require('../env');
 
 const errorHandler = (channel, options = {}) => (name) => async (error, payload = null) => {
   try {
