@@ -28,7 +28,7 @@ const getAllItems = async (TableName, options = {}) => {
   return items;
 };
 
-const getAllItemsWithHandler = async (handler, TableName, options = {}) => {
+const getAllItemsWithHandler = async (TableName, handler, options = {}) => {
   const scanParams = { TableName, ...options };
 
   const items = [];

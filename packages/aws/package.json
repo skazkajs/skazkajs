@@ -1,6 +1,6 @@
 {
   "name": "@skazka/aws",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Skazka AWS",
   "main": "index.js",
   "engines": {
