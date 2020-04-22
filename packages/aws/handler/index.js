@@ -6,8 +6,8 @@ const resolver = require('./resolver');
 const retry = require('./retry');
 const timeout = require('./timeout');
 const retries = require('./retries');
-const recursiveRows = require('./recursiveRows');
-const rowWrapper = require('./rowWrapper');
+const recursive = require('./recursive');
+const wrapper = require('./wrapper');
 const smoke = require('./smoke');
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
   retry,
   timeout,
   retries,
-  recursiveRows,
-  rowWrapper,
+  recursive,
+  wrapper,
   smoke,
 };

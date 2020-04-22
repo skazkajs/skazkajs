@@ -2,7 +2,7 @@ const defaultErrorHandler = require('../error/defaultErrorHandler');
 
 const factory = require('./factory');
 
-const rowWrapper = factory(async (handler, options = {}, args) => {
+const wrapper = factory(async (handler, options = {}, args) => {
   const {
     throwError = false,
     errorHandler = defaultErrorHandler,
@@ -19,4 +19,4 @@ const rowWrapper = factory(async (handler, options = {}, args) => {
   }
 });
 
-module.exports = rowWrapper;
+module.exports = wrapper;

@@ -2,8 +2,8 @@ const { Lambda } = require('aws-sdk');
 
 const lambdaWrapper = require('./wrapper');
 
-const recursiveRows = require('../handler/recursiveRows');
-const rowWrapper = require('../handler/rowWrapper');
+const recursive = require('../handler/recursive');
+const rowWrapper = require('../handler/wrapper');
 const { SMOKE_EVENT } = require('../handler/smoke');
 const { getRegion } = require('../env');
 
@@ -53,7 +53,7 @@ const smokeHandler = (options = {}) => async (event, context) => {
   );
 
   const wrapperHandler = lambdaWrapper(
-    async () => recursiveRows(processRow, nameFilter(await getNames())),
+    async () => recursive(processRow, nameFilter(await getNames())),
     wrapper,
   );
 

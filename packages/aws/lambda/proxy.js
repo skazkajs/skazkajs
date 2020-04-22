@@ -2,8 +2,8 @@ const { Lambda } = require('aws-sdk');
 
 const lambdaWrapper = require('./wrapper');
 
-const recursiveRows = require('../handler/recursiveRows');
-const rowWrapper = require('../handler/rowWrapper');
+const recursive = require('../handler/recursive');
+const rowWrapper = require('../handler/wrapper');
 const { getRegion } = require('../env');
 
 /**
@@ -43,7 +43,7 @@ const proxyHandler = (functionNames = [], options = {}) => async (event, context
   const wrapperHandler = lambdaWrapper(async (eventData) => (
     parallel
       ? Promise.all(functionNames.map(processRow(eventData)))
-      : recursiveRows(processRow(eventData), functionNames)
+      : recursive(processRow(eventData), functionNames)
   ), wrapper);
 
   return wrapperHandler(event, context);

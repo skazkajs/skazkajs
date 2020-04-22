@@ -1,14 +1,14 @@
 const { expect, sinon } = require('../../../test.config');
 
-const rowWrapper = require('./rowWrapper');
+const wrapper = require('./wrapper');
 
 const compose = require('./compose');
 
-describe('Handler rowWrapper test', () => {
-  it('It should test rowWrapper', async () => {
+describe('Handler wrapper test', () => {
+  it('It should test wrapper', async () => {
     const spy = sinon.spy();
 
-    const handler = rowWrapper(
+    const handler = wrapper(
       async (param) => {
         expect(param).to.be.equal(1);
         spy();
@@ -20,14 +20,14 @@ describe('Handler rowWrapper test', () => {
     expect(spy.called).is.true();
   });
 
-  it('It should test rowWrapper with error', async () => {
+  it('It should test wrapper with error', async () => {
     const spy1 = sinon.spy();
     const spy2 = sinon.spy();
     const spy3 = sinon.spy();
 
     const error = new Error('test');
 
-    const handler = rowWrapper(
+    const handler = wrapper(
       async (param) => {
         expect(param).to.be.equal(1);
         spy1();
@@ -58,14 +58,14 @@ describe('Handler rowWrapper test', () => {
     expect(spy3.called).is.true();
   });
 
-  it('It should test rowWrapper without throwError', async () => {
+  it('It should test wrapper without throwError', async () => {
     const spy1 = sinon.spy();
     const spy2 = sinon.spy();
     const spy3 = sinon.spy();
 
     const error = new Error('test');
 
-    const handler = rowWrapper(
+    const handler = wrapper(
       async (param) => {
         expect(param).to.be.equal(1);
         spy1();
@@ -96,14 +96,10 @@ describe('Handler rowWrapper test', () => {
     expect(spy3.called).is.false();
   });
 
-  it('It should test rowWrapper with compose', async () => {
+  it('It should test wrapper with compose', async () => {
     const spy = sinon.spy();
 
-    const wrapper = compose(
-      rowWrapper(),
-    );
-
-    const handler = wrapper((param) => {
+    const handler = compose(wrapper())((param) => {
       expect(param).to.be.equal(1);
 
       spy();

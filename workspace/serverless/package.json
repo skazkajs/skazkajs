@@ -19,7 +19,7 @@
   "author": "skazkajs",
   "license": "MIT",
   "dependencies": {
-    "@skazka/aws": "0.1.2",
+    "@skazka/aws": "0.1.3",
     "@skazka/server": "^0.0.9",
     "@skazka/server-body-parser": "^0.0.9",
     "@skazka/server-cors": "^0.0.9",
