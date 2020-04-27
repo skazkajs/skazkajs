@@ -2,21 +2,29 @@ const defaultErrorHandler = require('../error/defaultErrorHandler');
 
 const factory = require('./factory');
 
-const wrapper = factory(async (handler, options = {}, args) => {
+const wrapper = factory(async (handler, options, args) => {
   const {
     throwError = false,
     errorHandler = defaultErrorHandler,
-  } = options;
+  } = (options || {});
+
+  let result;
 
   try {
-    await handler(...args);
+    result = await handler(...args);
   } catch (error) {
-    await errorHandler(error, error.payload || args);
+    try {
+      await errorHandler(error, error.payload || args);
+    } catch (err) {
+      await defaultErrorHandler(error, err);
+    }
 
     if (throwError) {
       throw error;
     }
   }
+
+  return result;
 });
 
 module.exports = wrapper;

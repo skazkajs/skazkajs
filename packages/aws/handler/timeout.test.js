@@ -23,6 +23,22 @@ describe('Handler timeout test', () => {
     expect(spy.called).is.true();
   });
 
+  it('It should test timeout without options', async () => {
+    const spy = sinon.spy();
+
+    const handler = timeout(
+      async (param) => {
+        expect(param).to.be.equal(1);
+        spy();
+      },
+      null,
+    );
+
+    await handler(1);
+
+    expect(spy.called).is.true();
+  });
+
   it('It should test timeout with options', async () => {
     const spy1 = sinon.spy();
     const spy2 = sinon.spy();

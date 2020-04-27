@@ -51,4 +51,29 @@ describe('SES sms test', () => {
     expect(params.Message.Subject.Data).to.be.equal(subject);
     expect(params.Source).to.be.equal(source);
   });
+
+  it('It should test to array', async () => {
+    const to1 = 'to1';
+    const to2 = 'to2';
+    const source = 'source';
+    const subject = 'subject';
+    const text = 'text';
+
+    const params = new Email()
+      .addTo([to1, to2])
+      .setSource(source)
+      .setSubject(subject)
+      .setText(text)
+      .getParams();
+
+    expect(params.Destination.ToAddresses.length).to.be.equal(2);
+    expect(params.Destination.ToAddresses[0]).to.be.equal(to1);
+    expect(params.Destination.ToAddresses[1]).to.be.equal(to2);
+    expect(params.Destination.CcAddresses.length).to.be.equal(0);
+    expect(params.Message.Body.Text.Charset).to.be.equal('UTF-8');
+    expect(params.Message.Body.Text.Data).to.be.equal(text);
+    expect(params.Message.Subject.Charset).to.be.equal('UTF-8');
+    expect(params.Message.Subject.Data).to.be.equal(subject);
+    expect(params.Source).to.be.equal(source);
+  });
 });

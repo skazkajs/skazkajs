@@ -2,11 +2,11 @@ const factory = require('../handler/factory');
 
 const defaultErrorHandler = require('../error/defaultErrorHandler');
 
-const container = factory(async (handler, options = {}) => {
+const container = factory(async (handler, options) => {
   const {
     errorHandler = defaultErrorHandler,
     useRegistry,
-  } = options;
+  } = (options || {});
 
   const registry = {};
   let clearRegistry;
@@ -21,12 +21,24 @@ const container = factory(async (handler, options = {}) => {
     if (clearRegistry) {
       await clearRegistry();
     }
+
+    process.exit(0);
   } catch (error) {
-    if (clearRegistry) {
-      await clearRegistry();
+    try {
+      if (clearRegistry) {
+        await clearRegistry();
+      }
+    } catch (err) {
+      await defaultErrorHandler(error, err);
     }
 
-    await errorHandler(error, error.payload);
+    try {
+      await errorHandler(error, error.payload);
+    } catch (err) {
+      await defaultErrorHandler(error, err);
+    }
+
+    process.exit(1);
   }
 });
 

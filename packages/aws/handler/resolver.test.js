@@ -49,6 +49,14 @@ describe('Handler resolver test', () => {
     expect(await getUsers()).to.be.eql([{ name: 'test1' }, { name: 'test2' }]);
   });
 
+  it('It should test resolver without options', async () => {
+    const handler = resolver(
+      async () => 123,
+    );
+
+    expect(await handler()).to.be.eql(123);
+  });
+
   it('It should test resolver with compose', async () => {
     const spy = sinon.spy();
 

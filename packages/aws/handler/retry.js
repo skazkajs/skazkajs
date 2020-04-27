@@ -4,20 +4,24 @@ const factory = require('./factory');
 
 const defaultErrorHandler = require('../error/defaultErrorHandler');
 
-const retry = factory(async (handler, options = {}, args) => {
+const retry = factory(async (handler, options, args) => {
   const defaultOptions = {
     count: 0,
     timeout: 0,
     errorHandler: defaultErrorHandler,
   };
 
-  const { count, timeout, errorHandler } = { ...defaultOptions, ...options };
+  const { count, timeout, errorHandler } = { ...defaultOptions, ...(options || {}) };
 
   const run = async (attempt = count) => {
     try {
       return await handler(...args);
     } catch (error) {
-      await errorHandler(error, attempt);
+      try {
+        await errorHandler(error, attempt);
+      } catch (err) {
+        await defaultErrorHandler(error, err);
+      }
 
       if (attempt) {
         await pause(timeout);

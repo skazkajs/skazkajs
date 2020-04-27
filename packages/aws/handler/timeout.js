@@ -2,11 +2,11 @@ const factory = require('./factory');
 
 const defaultErrorHandler = require('../error/defaultErrorHandler');
 
-const timeout = factory(async (handler, options = {}, args) => {
+const timeout = factory(async (handler, options, args) => {
   const {
     seconds,
     errorHandler = defaultErrorHandler,
-  } = options;
+  } = (options || {});
 
   try {
     let id;
@@ -30,7 +30,11 @@ const timeout = factory(async (handler, options = {}, args) => {
       return Promise.reject(error);
     });
   } catch (error) {
-    await errorHandler(error, args);
+    try {
+      await errorHandler(error, args);
+    } catch (err) {
+      await defaultErrorHandler(error, err);
+    }
 
     throw error;
   }
