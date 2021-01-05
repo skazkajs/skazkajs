@@ -42,7 +42,7 @@
     "@skazka/server-http": "^0.2.0",
     "aws-sdk": "^2.656.0",
     "aws-serverless-express": "^3.3.8",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "mysql2": "^2.1.0",
     "pg": "^8.0.2",
     "promise-pause-timeout": "^1.0.0"
