@@ -53,7 +53,7 @@
     "@babel/register": "^7.9.0",
     "aws-sdk": "^2.656.0",
     "aws-serverless-express": "^3.3.8",
-    "axios": "^0.19.2",
+    "axios": "^1.6.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-react-hot-loader": "^3.1.3",
